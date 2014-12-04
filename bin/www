@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+
+(function () {
+
+    var debug = require('debug')('SiriusNode'),
+        mongoClient = require('mongodb').MongoClient,
+        app = require('../app');
+
+
+    //setup the port, default 3000
+    app.set('port', process.env.PORT || 3000);
+
+    //connect to the dossier repository, then start up the express server
+    mongoClient.connect("mongodb://localhost:27017/mstr", function (err, database) {
+
+        if (err) {
+            debug(err);
+        }
+
+        var server,
+            cleanup = function () {
+
+                server.close( function () {
+
+                    // Close db connection if exists
+                    if (database) {
+                        database.close();
+                    }
+
+                    process.exit();
+                });
+
+                setTimeout( function () {
+                    process.exit(1);
+                }, 30 * 1000);
+            };
+
+        app.set('mstrdb', database);
+
+        //startup the express server
+        server = app.listen(app.get('port'), function() {
+
+            debug('Express server listening on port ' + server.address().port);
+
+            //clean up upon shutdown
+            process.on('SIGINT', cleanup);
+            process.on('SIGTERM', cleanup);
+        });
+    });
+
+
+
+})();
