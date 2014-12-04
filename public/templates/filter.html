@@ -1,0 +1,37 @@
+<div class="mstr-filter">
+    <div class="mstr-filter-editor" ng-class="{open:filterCtrl.editorOpen}">
+        <div class="mstr-filter-editor-title">Select from {{filterCtrl.model.header[filterCtrl.selectedIndex]}}</div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="filter" ng-disabled="filterCtrl.isSelectorAvailable(0) || filterCtrl.isSelectorAvailable(1)">
+        </div>
+        <div class="mstr-filter-editor-contents" ng-class="{map:filterCtrl.isSelectorAvailable(2), bar:filterCtrl.isSelectorAvailable(0)}">
+            <div ng-include="'/templates/calendar.html'" class="mstr-calendar" ng-if="filterCtrl.isSelectorAvailable(1)"></div>
+            <div class="mstr-bar-selector" ng-if="filterCtrl.isSelectorAvailable(0)" bar-selector></div>
+            <div ng-show="filterCtrl.isSelectorAvailable(2)" map-selector></div>
+            <ul ng-hide="filterCtrl.selectedIndex === 0">
+                <li ng-repeat="row in filterCtrl.model.rows | unique: filterCtrl.selectedIndex | orderBy: filterCtrl.getOrderBy() | filter: filterCtrl.getFilterPredicate()">
+                    <input type="checkbox" id="{{'option' + $index}}" class="checkbox" ng-model="filterCtrl.selections[filterCtrl.selectedIndex][row[filterCtrl.selectedIndex]]">
+                    <label for="{{'option' + $index}}">{{row[filterCtrl.selectedIndex]}}</label>
+                    <span ng-click="filterCtrl.selectOnly($index)">only</span>
+                </li>
+            </ul>
+        </div>
+        <footer class="mstr-filter-editor-footer"><div class="mstr-filter-editor-footer-left" ng-click="filterCtrl.selectAll()">Select All</div><div class="mstr-filter-editor-footer-right" ng-click="filterCtrl.clearUnitSelections()">Clear All</div></footer>
+    </div>
+    <div class="mstr-filter-definition">
+        <h1>Filter Options</h1>
+        <ul class="mstr-filter-conditions" ng-style="{'max-height': maxHeight - 200 + 'px'}">
+            <li ng-repeat="unit in filterCtrl.model.header" ng-click="filterCtrl.toggleEditor($index)" class="mstr-filter-condition" ng-class="{selected:filterCtrl.selectedIndex === $index}">{{unit}}
+                <div class="mstr-filter-selections-container">
+                    <ul class="mstr-filter-selections">
+                        <li class="mstr-filter-selection" ng-repeat="(key, value) in filterCtrl.selections[$index]" ng-show="value">{{filterCtrl.format(key)}}</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="mstr-filter-buttons">
+            <li class="mstr-filter-button-apply mstr-button"><button type="button" class="btn btn-success" ng-click="filterCtrl.applyFilter()">Apply</button></li>
+            <li class="mstr-filter-button-clear mstr-link-button" ng-click="filterCtrl.clearFilter()">Clear Filter</li>
+        </ul>
+    </div>
+</div>

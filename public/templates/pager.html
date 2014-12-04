@@ -1,0 +1,8 @@
+<nav ng-controller="PagerCtrl as pagerCtrl" class="mstr-pager">
+    <div class="container-fluid">
+    <div class="container-fluid">
+        <ul class="" ng-if="pagerCtrl.pages.length > 1">
+            <li ng-repeat="page in pagerCtrl.pages" ng-class="{selected:pagerCtrl.selectedIndex == $index}"><a href="#/{{$index}}"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></a></li>
+        </ul>
+    </div><!-- /.container-fluid -->
+</nav>

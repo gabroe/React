@@ -1,0 +1,28 @@
+/* mstr view css stylesheet */
+
+/* dossier page - begin*/
+.mstr-dossier-page {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+
+    &.ng-enter,
+    &.ng-leave {
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+    }
+
+    &.ng-leave {
+        opacity: 0;
+    }
+
+    &.ng-enter {
+        opacity: 0;
+    }
+
+    &.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+}
+
+/* dossier page - end*/

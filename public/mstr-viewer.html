@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html lang="en" ng-app="mstr" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html lang="en" ng-app="mstr" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html lang="en" ng-app="mstr" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" ng-app="mstr" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>MicroStrategy Dossier Viewer</title>
+
+        <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/normalize.css">
+        <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/main.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/stylesheets/mstr-dossier.css">
+
+        <script src="/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <nav ng-include="'/templates/navigation-bar.html'"></nav>
+
+        <div ng-view class="mstr-dossier-page"></div>
+
+        <nav ng-include="'/templates/pager.html'"></nav>
+
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+        <script src="/javascripts/mstr-dossier.js"></script>
+        <script src="/javascripts/mstr-view.js"></script>
+        <script src="/javascripts/mstr-xtab.js"></script>
+        <script src="/javascripts/mstr-filter.js"></script>
+        <script src="/javascripts/mstr-map-selector.js"></script>
+        <script src="/javascripts/mstr-bar-selector.js"></script>
+        <script src="/javascripts/mstr-calendar.js"></script>
+
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script src="https://www.google.com/jsapi"></script>
+    </body>
+</html>

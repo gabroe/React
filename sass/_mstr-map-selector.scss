@@ -1,0 +1,27 @@
+/* mstr map selector stylesheet */
+
+/* map - begin*/
+.land {
+    fill: #fff;
+    stroke: #ccc;
+
+}
+
+.state {
+    fill: #ccc;
+    stroke: #666;
+    -webkit-transition: fill 0.1s;
+    transition: fill 0.1s;
+
+    &.selected {
+        fill: #46ace1;
+        stroke: #9bf;
+    }
+
+    &.active {
+        fill: #99a;
+    }
+
+}
+
+/* map - end*/

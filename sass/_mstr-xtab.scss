@@ -1,0 +1,46 @@
+/* mstr xtab stylesheet */
+
+/* xtab - begin*/
+.mstr-xtab {
+
+    margin-bottom: 50px;
+
+    &.header {
+        position: fixed;
+        top:50px;
+    }
+
+    &.locked.header thead,
+    thead {
+        background-color: #46ace1;
+        color: #fff;
+    }
+
+    &.locked thead {
+        background-color: #fff;
+        color: #fff;
+    }
+
+    & > thead > tr > th {
+        vertical-align: middle;
+        cursor: pointer;
+
+        &.sorted,
+        &:hover {
+            text-decoration: underline;
+        }
+
+    }
+
+    th:first-child,
+    td:first-child {
+        padding-left: 20px;
+    }
+
+    th:last-child,
+    td:last-child {
+        padding-right: 20px;
+    }
+}
+
+/* xtab - end*/

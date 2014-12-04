@@ -1,0 +1,30 @@
+{
+  "name": "Lead Analysis Last 7 Days",
+  "selectedIndex": 0,
+  "pages": [
+    {
+      "name": "Qualified Leads",
+      "data": "/redshift/QualifiedLeadslast7days"
+    },
+    {
+      "name": "Accepted Leads",
+      "data": "/redshift/AcceptedLeadslast7days"
+    },
+    {
+      "name": "Converted Leads",
+      "data": "/redshift/ConvertedLeadslast7days"
+    },
+    {
+      "name": "MQL Leads",
+      "data": "/redshift/LeadsMQLLast7Days"
+    },
+    {
+      "name": "MQL Leads 1,000",
+      "data": "/redshift/LeadsMQLLast7Days1000"
+    },
+    {
+      "name": "MQL Leads 10,000",
+      "data": "/redshift/LeadsMQLLast7Days10000"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<table ng-controller="CalendarCtrl as calendarCtrl" width="100%">
+    <thead>
+        <tr>
+            <th ng-click="calendarCtrl.navigate(-1)" class="prev">‹</th>
+            <th colspan="5" ng-click="calendarCtrl.switchMode()">{{calendarCtrl.getTitle()}}</th>
+            <th ng-click="calendarCtrl.navigate(1)" class="next">›</th>
+        </tr>
+        <tr ng-show="!currentMode">
+            <th ng-repeat="namedDay in namedDays">{{namedDay}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-show="!currentMode" ng-repeat="week in calendar">
+            <td ng-repeat="day in calendar[$index]" class="day" ng-class="{inactive:!day.active, today:day.today, selected:day.selected}" ng-click="calendarCtrl.toggle(day)">{{day.day}}</td>
+        </tr>
+        <tr ng-show="currentMode === 1">
+            <td colspan="7">
+                <span ng-repeat="month in months" ng-class="{selected: calendarCtrl.isSelected($index)}" ng-click="calendarCtrl.select($index)">{{month}}</span>
+            </td>
+        </tr>
+        <tr ng-show="currentMode === 2">
+            <td colspan="7">
+                <span ng-repeat="year in calendarCtrl.getYearList()" ng-class="{inactive: !calendarCtrl.isActive($index), selected: calendarCtrl.isSelected($index)}" ng-click="calendarCtrl.select($index)">{{year}}</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,12 @@
+<div class="mstr-index">
+    <nav class="mstr-index-options">
+        <!--ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-align-left"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-th-large"></span></a></li>
+        </ul-->
+    </nav>
+    <h1>{{tableOfContentsCtrl.model.name}}</h1>
+    <ul class="mstr-index-list">
+        <li ng-repeat="item in tableOfContentsCtrl.model.pages" ng-click="tableOfContentsCtrl.close()"><span class="glyphicon glyphicon-ok" ng-show="tableOfContentsCtrl.model.selectedIndex == $index"></span><a href="#/{{$index}}">{{item.name}}</a></li>
+    </ul>
+</div>

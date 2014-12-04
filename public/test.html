@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="mstr.api">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>MicroStrategy API Test Page</title>
+
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+        body {
+            padding: 0 50px;
+        }
+        textarea {
+            width: 100%;
+            display: block;
+            margin: 20px 0;
+
+        }
+    </style>
+
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+
+    <script>
+        (function () {
+            var API_URL = "/api",
+                    DOSSIERS_API_URL = API_URL + "/dossiers"
+
+            var app = angular.module('mstr.api', ['ui.bootstrap']);
+
+            app.controller('DossiersTestCtrl', ['$scope', '$http', function ($scope, $http) {
+
+                this.dossier = "";
+                this.dossierName = "";
+
+                this.url = DOSSIERS_API_URL;
+
+                this.post = function () {
+                    if (this.dossier) {
+
+                        $http.post(this.url, this.dossier)
+                                .success(function () {
+                                    $scope.result = "Dossier Definition POSTed successfully.";
+                                    $('.modal').modal('show');
+                                    this.dossier = "";
+                                    this.dossierName = "";
+
+                                })
+
+                                .error(function () {
+                                    $scope.result  = "Dossier Definition POST failed.";
+                                    $('.modal').modal('show');
+                                });
+                    }
+                };
+
+                this.put = function () {
+                    if (this.dossier && this.dossierName) {
+
+                        $http.put(this.url + "/" + this.dossierName, this.dossier)
+                                .success(function () {
+                                    $scope.result = "Dossier Definition PUT successfully.";
+                                    $('.modal').modal('show');
+                                    this.dossier = "";
+                                    this.dossierName = "";
+                                })
+
+                                .error(function () {
+                                    $scope.result  = "Dossier Definition PUT failed.";
+                                    $('.modal').modal('show');
+                                });
+                    }
+                };
+
+                this.delete = function () {
+                    if (this.dossierName) {
+
+                        $http.delete(this.url + "/" + this.dossierName)
+                                .success(function () {
+                                    $scope.result = "Dossier Definition DELETEd successfully.";
+                                    $('.modal').modal('show');
+                                    this.dossier = "";
+                                    this.dossierName = "";
+
+                                })
+
+                                .error(function () {
+                                    $scope.result  = "Dossier Definition DELETE failed.";
+                                    $('.modal').modal('show');
+                                });
+                    }
+                };
+            }]);
+
+        })();
+    </script>
+</head>
+<body>
+
+<h3>MicroStrategy API Test Page</h3>
+
+<hr>
+<div ng-controller="DossiersTestCtrl as dossiersTestCtrl">
+    <h4>{{dossiersTestCtrl.url}}</h4>
+
+        <input type="text" ng-model="dossiersTestCtrl.dossierName" placeholder="Dossier Name">
+        <textarea ng-model="dossiersTestCtrl.dossier" placeholder="Dossier JSON Definition"></textarea>
+        <input type="button" value="POST" ng-click="dossiersTestCtrl.post()"/>
+        <input type="button" value="DELETE" ng-click="dossiersTestCtrl.delete()"/>
+        <input type="button" value="PUT (update)" ng-click="dossiersTestCtrl.put()"/>
+
+    <hr>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">Result for {{dossiersTestCtrl.url}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{result}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
