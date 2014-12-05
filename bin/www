@@ -4,14 +4,15 @@
 
     var debug = require('debug')('WebDossierViewer'),
         mongoClient = require('mongodb').MongoClient,
-        app = require('../app');
+        app = require('../app'),
+        config = require('../config');
 
 
     //setup the port, default 3000
     app.set('port', process.env.PORT || 3000);
 
     //connect to the dossier repository, then start up the express server
-    mongoClient.connect("mongodb://10.21.16.236:27017/mstr", function (err, database) {
+    mongoClient.connect("mongodb://" + config.mongodb.url + ":" + config.mongodb.port + "/" + config.mongodb.dbname, function (err, database) {
 
         if (err) {
             debug(err);

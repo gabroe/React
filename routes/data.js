@@ -103,10 +103,10 @@
             table = requestParams.table,
             page = parseInt(requestParams.page || 0, 10);
 
-        if (tables.indexOf(table) < 0) {
-            //the requested table is missing or invalid
-            return HTTP_STATUS.NOT_FOUND;
-        }
+        //if (tables.indexOf(table) < 0) {
+        //    //the requested table is missing or invalid
+        //    return HTTP_STATUS.NOT_FOUND;
+        //}
 
         //check whether the requested page is valid
         if (cache[table]) {
