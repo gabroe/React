@@ -11,7 +11,7 @@
     app.set('port', process.env.PORT || 3000);
 
     //connect to the dossier repository, then start up the express server
-    mongoClient.connect("mongodb://localhost:27017/mstr", function (err, database) {
+    mongoClient.connect("mongodb://10.21.16.236:27017/mstr", function (err, database) {
 
         if (err) {
             debug(err);
