@@ -2,7 +2,7 @@
 
 (function () {
 
-    var debug = require('debug')('SiriusNode'),
+    var debug = require('debug')('WebDossierViewer'),
         mongoClient = require('mongodb').MongoClient,
         app = require('../app');
 
