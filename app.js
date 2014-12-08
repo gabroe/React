@@ -12,7 +12,8 @@
     var routes = require('./routes/index'),
         dossier = require('./routes/viewer'),
         dossiers = require('./routes/api/dossiers'),
-        data = require('./routes/data');
+        data = require('./routes/data'),
+        test = require('./routes/api/test');
 
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
