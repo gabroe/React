@@ -6,5 +6,4 @@ config.mongodb = {
     dbname: "mstr"
 
 };
-config.test = "t";
 module.exports = config;
