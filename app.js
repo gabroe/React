@@ -31,6 +31,7 @@
     app.use('/redshift', data);
     app.use('/dossier', dossier);
     app.use('/api/dossiers', dossiers);
+    app.use('/api/test', dossiers);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
