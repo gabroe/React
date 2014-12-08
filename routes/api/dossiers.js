@@ -51,17 +51,25 @@
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).end();
         }
 
-        if (dossier) {
+        if (dossier && dossier.name !== undefined) {
 
-            mstrdb.collection(MONGODB_COLLECTION_NAME).insert(dossier, {w:1}, function (err, result) {
-                if (err) {
-                    //something went wrong, return 400
-                    res.status(HTTP_STATUS.BAD_REQUEST).end();
+            mstrdb.collection(MONGODB_COLLECTION_NAME).findOne({name: dossier.name}, function (err, result) {
+                if (!result) {
+                    mstrdb.collection(MONGODB_COLLECTION_NAME).insert(dossier, {w:1}, function (err, result) {
+                        if (err) {
+                            //something went wrong, return 400
+                            res.status(HTTP_STATUS.BAD_REQUEST).end();
+                        } else {
+                            //all good
+                            res.status(HTTP_STATUS.OK).end();
+                        }
+                    });
                 } else {
-                    //all good
-                    res.status(HTTP_STATUS.OK).end();
+                    //dossier with given name already exists, prevent overwrite.
+                    res.status(HTTP_STATUS.BAD_REQUEST).end();
                 }
             });
+
         } else {
             //something went wrong, return 400
             res.status(HTTP_STATUS.BAD_REQUEST).end();

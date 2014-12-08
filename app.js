@@ -12,7 +12,8 @@
     var routes = require('./routes/index'),
         dossier = require('./routes/viewer'),
         dossiers = require('./routes/api/dossiers'),
-        data = require('./routes/data');
+        data = require('./routes/data'),
+        test = require('./routes/api/test');
 
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +32,7 @@
     app.use('/redshift', data);
     app.use('/dossier', dossier);
     app.use('/api/dossiers', dossiers);
-    app.use('/api/test', dossiers);
+    app.use('/api/test', test);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
