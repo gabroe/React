@@ -13,7 +13,7 @@
 
             chunkLoaderWorker.addEventListener('message', function (e) {
 
-                defer.notify(e.data);
+                defer.resolve(e.data);
             });
 
             return {
@@ -142,7 +142,7 @@
                             $chunkLoader.fetch({
                                 source: $rootScope.model.pages[selectedIndex].data,
                                 page: 1
-                            }).then(null, null, function (data) {
+                            }).then(function (data) {
 
                                 if (data && data.rows) {
 
@@ -260,7 +260,7 @@
                         $element = $(element),
                         timeout;
 
-                    angular.element($window).bind("scroll", function() {
+                    var onScroll = function() {
 
                         var model = scope.xTabCtrl.model,
                             position = ($body.scrollTop() * model.window.trc ) / (($element.height() - windowHeight) * WINDOW_SIZE),
@@ -361,6 +361,12 @@
                         }
 
 
+                    };
+
+                    angular.element($window).bind("scroll", onScroll);
+
+                    scope.$on("$destroy", function () {
+                        angular.element($window).unbind("scroll", onScroll);
                     });
 
                     scope.$watchCollection('xTabCtrl.model', function (model) {
