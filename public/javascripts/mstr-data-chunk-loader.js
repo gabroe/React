@@ -51,6 +51,7 @@
         if (timeout) {
             clearTimeout(timeout);
         }
+        chunks = {rows: []};
         getChunk();
     });
 })();
