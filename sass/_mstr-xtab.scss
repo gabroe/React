@@ -4,10 +4,12 @@
 .mstr-xtab {
 
     margin-bottom: 50px;
+    white-space: nowrap;
 
     &.header {
         position: fixed;
         top:50px;
+        table-layout: fixed;
     }
 
     &.locked.header thead,
