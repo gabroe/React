@@ -206,7 +206,7 @@
 
         }])
 
-        .directive('dynamicCrossTab', ["$filter", "$window", function ($filter, $window) {
+        .directive('dynamicCrossTab', ["$filter", "$window", "$mstrFormat", function ($filter, $window, $mstrFormat) {
 
             function format($filter, value, index, definition, header) {
                 if (definition[header[index]] === 1) {
@@ -219,7 +219,10 @@
 
                 var headerArray = [],
                     i,
-                    sort = scope.xTabCtrl.sort;
+                    sort = scope.xTabCtrl.sort,
+                    style = $mstrFormat.getStyle("columnheader"),
+                    prop,
+                    resolvedStyle = "";
 
                 headerArray.push("<colgroup>");
                 for (i = 0; i < headers.length; i++) {
@@ -227,7 +230,15 @@
                 }
                 headerArray.push("</colgroup>");
 
-                headerArray.push("<thead><tr>");
+                headerArray.push("<thead style=\"");
+
+                for (prop in style) {
+                    resolvedStyle += prop + ":" + style[prop] + ";"
+                }
+
+                headerArray.push(resolvedStyle);
+
+                headerArray.push("\"><tr>");
 
                 angular.forEach(headers, function (header, i) {
                     headerArray.push("<th");

@@ -16,7 +16,7 @@
                 <ul class="nav navbar-nav">
                     <li><a ng-click="NavCtrl.openIndex()"><span class="mstr-nav-icon mstr-nav-icon-toc" aria-hidden="true"></span></a></li>
                     <li><a ng-click="NavCtrl.openShare()"><span class="mstr-nav-icon mstr-nav-icon-share" aria-hidden="true"></span></a></li>
-                    <li><p class="navbar-text">{{NavCtrl.title}}</p></li>
+                    <li><p class="navbar-text" ng-style="NavCtrl.getStyle('title')">{{NavCtrl.title}}</p></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a ng-click="NavCtrl.openFilter()"><span class="mstr-nav-icon mstr-nav-icon-filter" aria-hidden="true"></span></a></li>
