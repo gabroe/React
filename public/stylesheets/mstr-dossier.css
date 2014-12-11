@@ -8,11 +8,10 @@
     position: fixed;
     top: 50px;
     table-layout: fixed; }
-  .mstr-xtab.locked.header thead,
-  .mstr-xtab thead {
+  .mstr-xtab.header {
     background-color: #46ace1;
     color: #fff; }
-  .mstr-xtab.locked thead {
+  .mstr-xtab.body thead {
     background-color: #fff;
     color: #fff; }
   .mstr-xtab > thead > tr > th {

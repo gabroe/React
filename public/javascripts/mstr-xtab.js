@@ -219,10 +219,7 @@
 
                 var headerArray = [],
                     i,
-                    sort = scope.xTabCtrl.sort,
-                    style = $mstrFormat.getStyle("columnheader"),
-                    prop,
-                    resolvedStyle = "";
+                    sort = scope.xTabCtrl.sort;
 
                 headerArray.push("<colgroup>");
                 for (i = 0; i < headers.length; i++) {
@@ -230,15 +227,7 @@
                 }
                 headerArray.push("</colgroup>");
 
-                headerArray.push("<thead style=\"");
-
-                for (prop in style) {
-                    resolvedStyle += prop + ":" + style[prop] + ";"
-                }
-
-                headerArray.push(resolvedStyle);
-
-                headerArray.push("\"><tr>");
+                headerArray.push("<thead><tr>");
 
                 angular.forEach(headers, function (header, i) {
                     headerArray.push("<th");
@@ -420,8 +409,6 @@
 
                     scope.$watchCollection('xTabCtrl.model', function (model) {
 
-                        var container = element[0];
-
                         if (model && model.header) {
 
                             if (model.partialUpdate) {
@@ -429,11 +416,15 @@
                                 return;
                             }
 
-                            var table = [],
-                                headerArray = buildHeaderHTMLArray(scope, model.header);
+                            var container = element[0],
+                                table = [],
+                                headerArray = buildHeaderHTMLArray(scope, model.header),
+                                style = $mstrFormat.getStyle("columnheader"),
+                                resolvedStyle = "",
+                                prop;
 
                             //build the main table with the first set of rows and the locked headers table
-                            table.push("<table class=\"table mstr-xtab locked\">");
+                            table.push("<table class=\"table mstr-xtab body\">");
                             table = table.concat(headerArray, buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
 
                             //add an additional chunk
@@ -441,7 +432,15 @@
                                 table = table.concat(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(1), model.defn, model.header));
                             }
 
-                            table.push("</table><table class=\"table mstr-xtab locked header\">");
+                            table.push("</table><table class=\"table mstr-xtab header\" style=\"");
+
+                            for (prop in style) {
+                                resolvedStyle += prop + ":" + style[prop] + ";"
+                            }
+
+                            table.push(resolvedStyle);
+
+                            table.push("\">");
                             table = table.concat(headerArray);
                             table.push("</table>");
 

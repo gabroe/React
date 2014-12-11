@@ -12,13 +12,12 @@
         table-layout: fixed;
     }
 
-    &.locked.header thead,
-    thead {
+    &.header {
         background-color: #46ace1;
         color: #fff;
     }
 
-    &.locked thead {
+    &.body thead {
         background-color: #fff;
         color: #fff;
     }
