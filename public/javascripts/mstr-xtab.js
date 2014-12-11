@@ -274,8 +274,6 @@
                     lockedColGroup = lockedHeadersTable.firstChild,
                     width;
 
-                lockedHeadersTable.style.tableLayout = displayTable.style.tableLayout = "auto";
-
                 angular.forEach(tableHeaders, function (header, i) {
                     width = header.clientWidth + "px";
 
@@ -284,7 +282,7 @@
 
                 if (setAsFixed) {
 
-                    lockedHeadersTable.style.tableLayout = displayTable.style.tableLayout = "fixed";
+                    displayTable.style.tableLayout = setAsFixed ? "fixed" : "auto";
                 }
             }
 
@@ -399,6 +397,7 @@
                             }
                         }
 
+                        element[0].lastChild.style.left = Math.min(Math.max(- $body.scrollLeft(), -($table.width() - $body.width())), 0) + "px";
 
                     };
 
@@ -436,9 +435,9 @@
                             table.push("</table>");
 
                             //more that 50 letters, use small font size
-                            if ((model.header.join("").length > 50)) {
+                            //if ((model.header.join("").length > 50)) {
                                 element.addClass("small");
-                            }
+                            //}
 
                             //clear any previous content
                             element.empty();
