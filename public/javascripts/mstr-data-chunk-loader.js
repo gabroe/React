@@ -2,12 +2,13 @@
 
 (function () {
 
-    var timeout;
+    var timeout,
+        cache = {},
+        xhr;
 
      function getPages(dataURL, startPage) {
 
-         var xhr = new XMLHttpRequest(),
-             pages = {rows: []},
+         var pages = {rows: []},
              page = startPage,
              getPage = function () {
 
@@ -35,6 +36,7 @@
                                      timeout = setTimeout(getPage, 0);
 
                                  } else {
+                                     cache[dataURL] = pages;
                                      postMessage(pages);
 
                                  }
@@ -51,6 +53,12 @@
              clearTimeout(timeout);
          }
 
+         if (cache[dataURL]) {
+             postMessage(cache[dataURL]);
+             return;
+         }
+
+         xhr = xhr|| new XMLHttpRequest();
          getPage();
     };
 
