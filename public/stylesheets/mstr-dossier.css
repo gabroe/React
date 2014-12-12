@@ -25,6 +25,9 @@
   .mstr-xtab th:last-child,
   .mstr-xtab td:last-child {
     padding-right: 20px; }
+  .mstr-xtab td {
+    text-overflow: ellipsis;
+    overflow: hidden; }
 
 /* xtab - end*/
 /* mstr filter stylesheet */
