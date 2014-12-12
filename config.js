@@ -5,5 +5,10 @@ config.mongodb = {
     port: 27017,
     dbname: "mstr"
 };
+config.kafka = {
+    url: 'ts-rh64-4',
+    port: '2181',
+    topic: 'dossier'
+};
 
 module.exports = config;

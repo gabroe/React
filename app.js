@@ -13,7 +13,12 @@
         dossier = require('./routes/viewer'),
         dossiers = require('./routes/api/dossiers'),
         data = require('./routes/data'),
-        test = require('./routes/api/test');
+        test = require('./routes/api/test'),
+        logEvent = require('./routes/api/logEvent'),
+        getEvents = require('./routes/api/getEvents');
+//        logViewerJSON = require('./routes/logViewer-JSON'),
+//        logViewerBubble = require('./routes/logViewer-Bubble');
+//        logViewer = require('./routes/logViewer');
 
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +38,11 @@
     app.use('/dossier', dossier);
     app.use('/api/dossiers', dossiers);
     app.use('/api/test', test);
+    app.use('/api/logEvent', logEvent);
+    app.use('/api/getEvents', getEvents);
+//    app.use('/logViewer', logViewer);
+//    app.use('/logViewerJSON', logViewerJSON);
+//    app.use('/logViewerBubble', logViewerBubble);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {

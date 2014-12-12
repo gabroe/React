@@ -6,6 +6,7 @@
     /* GET home page. */
     router.get('/', function (req, res) {
 
+
       //redirect to the dossier viewer by default
       res.redirect('/dossier');
     });

@@ -5,7 +5,9 @@
     var debug = require('debug')('WebDossierViewer'),
         mongoClient = require('mongodb').MongoClient,
         app = require('../app'),
-        config = require('../config');
+        EventMonitor = require('../routes/module/EventMonitor'),
+        config = require('../config'),
+        kafka = require('kafka-node');
 
 
     //setup the port, default 3000
@@ -37,6 +39,9 @@
             };
 
         app.set('mstrdb', database);
+
+        // start event monitor
+        EventMonitor.start();
 
         //startup the express server
         server = app.listen(app.get('port'), function() {
