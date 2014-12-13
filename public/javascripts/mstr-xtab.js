@@ -90,7 +90,7 @@
 
                         dataSource = this.model.rows;
                     }
-                    var re = new RegExp("^" + search, "i");
+                    var re = new RegExp("^" + search + "|[ ]+" + search, "i");
 
                     cc.rows = $filter('filter')(dataSource, function (value, index) {
 
@@ -206,94 +206,132 @@
 
         }])
 
-        .directive('dynamicCrossTab', ["$filter", "$window", "$mstrFormat", function ($filter, $window, $mstrFormat) {
-
-            function format($filter, value, index, definition, header) {
-                if (definition[header[index]] === 1) {
-                    return $filter('date')(value, 'shortDate');
-                }
-                return value;
-            }
-
-            function buildHeaderHTMLArray(scope, headers) {
-
-                var headerArray = [],
-                    i,
-                    sort = scope.xTabCtrl.sort;
-
-                headerArray.push("<colgroup>");
-                for (i = 0; i < headers.length; i++) {
-                    headerArray.push("<col>");
-                }
-                headerArray.push("</colgroup>");
-
-                headerArray.push("<thead><tr>");
-
-                angular.forEach(headers, function (header, i) {
-                    headerArray.push("<th");
-                    if (sort === i) {
-                        headerArray.push(" class=\"sorted\"");
-                    }
-                    headerArray.push(">");
-                    headerArray.push(header);
-                    headerArray.push("</th>");
-                });
-
-                headerArray.push("</tr></thead>");
-
-                return headerArray;
-            }
-
-            function buildRowsHTMLArray($filter, rows, defn, header) {
-                var rowsArray = [];
-
-                rowsArray.push("<tbody>");
-
-                angular.forEach(rows, function (row) {
-                    rowsArray.push("<tr>");
-
-                    angular.forEach(row, function (cell, index) {
-                        rowsArray.push("<td>");
-                        rowsArray.push(format($filter, cell, index, defn, header));
-                        rowsArray.push("</td>");
-                    });
-                    rowsArray.push("</tr>");
-                });
-
-                rowsArray.push("</tbody>");
-
-                return rowsArray;
-            }
-
-            function alignHeaders(xTabContainer, setAsFixed) {
-
-                var displayTable = xTabContainer.firstChild,
-                    lockedHeadersTable = xTabContainer.lastChild,
-                    tableHeaders = displayTable.tHead.firstChild.childNodes,
-                    tableColgroup = displayTable.firstChild,
-                    lockedColGroup = lockedHeadersTable.firstChild,
-                    width;
-
-                angular.forEach(tableHeaders, function (header, i) {
-                    width = header.clientWidth + "px";
-
-                    tableColgroup.childNodes[i].style.width = lockedColGroup.childNodes[i].style.width = width;
-                });
-
-                if (setAsFixed) {
-
-                    displayTable.style.tableLayout = setAsFixed ? "fixed" : "auto";
-                }
-            }
+        .directive('dynamicCrossTab', ["$filter", "$window", "$mstrFormat", "$mstrDataTypes", function ($filter, $window, $mstrFormat, $mstrDataTypes) {
 
             return {
                 restrict: 'A',
                 link: function (scope, element, attributes) {
 
+                    var formatManager = $mstrFormat.getNewFormatManager();
+
                     var loadedChunks = [0, 1],
                         $body = $(document.body),
                         $element = $(element),
                         newPages = false;
+
+                    var hasResizableUnits = function (definition) {
+                        var unit;
+
+                        if (scope.hasResizableElements === undefined) {
+
+                            for (unit in definition) {
+
+                                if ([$mstrDataTypes.date, $mstrDataTypes.name].indexOf(definition[unit]) >= 0) {
+                                    return scope.hasResizableElements = true;
+                                }
+                            }
+                            scope.hasResizableElements = false;
+                        }
+                        return scope.hasResizableElements;
+                    };
+
+
+                    var format = function ($filter, value, index, definition, header) {
+                        var dataType = definition[header[index]],
+                            formatMask;
+
+
+                        switch (dataType) {
+
+                            case $mstrDataTypes.date:
+
+                                formatMask = formatManager.getDisplayFormat(dataType);
+
+                                return $filter('date')(value, formatMask);
+
+                            case $mstrDataTypes.name:
+
+                                formatMask = formatManager.getDisplayFormat(dataType);
+
+                                if (formatMask) {
+                                    return $filter(formatMask)(value);
+                                }
+                                break;
+                        }
+                        return value;
+                    }
+
+                    var buildHeaderHTMLArray = function (headers) {
+
+                        var headerArray = [],
+                            i,
+                            sort = scope.xTabCtrl.sort;
+
+                        headerArray.push("<colgroup>");
+                        for (i = 0; i < headers.length; i++) {
+                            headerArray.push("<col>");
+                        }
+                        headerArray.push("</colgroup>");
+
+                        headerArray.push("<thead><tr>");
+
+                        angular.forEach(headers, function (header, i) {
+                            headerArray.push("<th");
+                            if (sort === i) {
+                                headerArray.push(" class=\"sorted\"");
+                            }
+                            headerArray.push(">");
+                            headerArray.push(header);
+                            headerArray.push("</th>");
+                        });
+
+                        headerArray.push("</tr></thead>");
+
+                        return headerArray;
+                    }
+
+                    var buildRowsHTMLArray = function ($filter, rows, defn, header) {
+                        var rowsArray = [];
+
+                        rowsArray.push("<tbody>");
+
+                        angular.forEach(rows, function (row) {
+                            rowsArray.push("<tr>");
+
+                            angular.forEach(row, function (cell, index) {
+                                rowsArray.push("<td>");
+                                rowsArray.push(format($filter, cell, index, defn, header));
+                                rowsArray.push("</td>");
+                            });
+                            rowsArray.push("</tr>");
+                        });
+
+                        rowsArray.push("</tbody>");
+
+                        return rowsArray;
+                    }
+
+                    var  alignHeaders = function (xTabContainer, setAsFixed) {
+
+                        var displayTable = xTabContainer.firstChild,
+                            lockedHeadersTable = xTabContainer.lastChild,
+                            tableHeaders = displayTable.tHead.firstChild.childNodes,
+                            tableColgroup = displayTable.firstChild,
+                            lockedColGroup = lockedHeadersTable.firstChild,
+                            width;
+
+                        angular.forEach(tableHeaders, function (header, i) {
+                            width = header.clientWidth + "px";
+
+                            tableColgroup.childNodes[i].style.width = lockedColGroup.childNodes[i].style.width = width;
+                        });
+
+                        if (setAsFixed) {
+
+                            displayTable.style.tableLayout = setAsFixed ? "fixed" : "auto";
+                        }
+                    }
+
 
                     var onScroll = function() {
 
@@ -401,10 +439,97 @@
 
                     };
 
+                    var displayXTab = function (model, adjustColumn) {
+
+                        var container = element[0],
+                            table = [],
+                            headerArray = buildHeaderHTMLArray(model.header),
+                            style = $mstrFormat.getStyle("columnheader"),
+                            resolvedStyle = "",
+                            prop;
+
+                        //build the main table with the first set of rows and the locked headers table
+                        table.push("<table class=\"table mstr-xtab body\">");
+                        table = table.concat(headerArray, buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
+
+                        //add an additional chunk
+                        if (model.rows.length > PAGE_SIZE) {
+                            table = table.concat(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(1), model.defn, model.header));
+                        }
+
+                        table.push("</table><table class=\"table mstr-xtab header\" style=\"");
+
+                        for (prop in style) {
+                            resolvedStyle += prop + ":" + style[prop] + ";"
+                        }
+
+                        table.push(resolvedStyle);
+
+                        table.push("\">");
+                        table = table.concat(headerArray);
+                        table.push("</table>");
+
+                        //more that 50 letters, use small font size
+                        //if ((model.header.join("").length > 50)) {
+                        element.addClass("small");
+                        //}
+
+                        //clear any previous content
+                        element.empty();
+
+                        //push the tables to the DOM
+                        element.prepend(table.join(""));
+
+                        if (model.window.trc > PAGE_SIZE * 2) {
+
+                            //resize the container to the possible max height based on the total pages x the initial height
+                            container.style.height = container.firstChild.tBodies[0].clientHeight * model.window.trc / PAGE_SIZE + "px";
+
+                            //get rendered headers and synch the locked headers width
+                            alignHeaders(container, true);
+
+                        } else {
+
+                            container.style.height = "auto";                                //get rendered headers and synch the locked headers width
+                            alignHeaders(container, false);
+                        }
+
+                        if (hasResizableUnits(model.defn)) {
+
+                            //adjust dynamic formatting (long date vs short date, etc)
+                            if ($(element[0].firstChild).width() > $body.width()) {
+
+                                if (formatManager.isShorterFormatAvailable($mstrDataTypes.date) || formatManager.isShorterFormatAvailable($mstrDataTypes.name)) {
+                                    formatManager.setShorterFormat($mstrDataTypes.date);
+                                    formatManager.setShorterFormat($mstrDataTypes.name);
+
+                                    displayXTab(model, -1);
+                                }
+                            }
+                            else if (adjustColumn != -1) {
+
+                                if (formatManager.isLongerFormatAvailable($mstrDataTypes.date) > 0 || formatManager.isLongerFormatAvailable($mstrDataTypes.name) > 0) {
+                                    formatManager.setLongerFormat($mstrDataTypes.date);
+                                    formatManager.setLongerFormat($mstrDataTypes.name);
+
+                                    displayXTab(model, +1);
+                                }
+                            }
+                        }
+
+                    };
+
+                    var onResize = function () {
+                        displayXTab(scope.xTabCtrl.model);
+                    };
+
                     angular.element($window).bind("scroll", onScroll);
+
+                    angular.element($window).bind("resize", onResize);
 
                     scope.$on("$destroy", function () {
                         angular.element($window).unbind("scroll", onScroll);
+                        angular.element($window).unbind("resize", onResize);
                     });
 
                     scope.$watchCollection('xTabCtrl.model', function (model) {
@@ -416,58 +541,8 @@
                                 return;
                             }
 
-                            var container = element[0],
-                                table = [],
-                                headerArray = buildHeaderHTMLArray(scope, model.header),
-                                style = $mstrFormat.getStyle("columnheader"),
-                                resolvedStyle = "",
-                                prop;
+                            displayXTab(model);
 
-                            //build the main table with the first set of rows and the locked headers table
-                            table.push("<table class=\"table mstr-xtab body\">");
-                            table = table.concat(headerArray, buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
-
-                            //add an additional chunk
-                            if (model.rows.length > PAGE_SIZE) {
-                                table = table.concat(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(1), model.defn, model.header));
-                            }
-
-                            table.push("</table><table class=\"table mstr-xtab header\" style=\"");
-
-                            for (prop in style) {
-                                resolvedStyle += prop + ":" + style[prop] + ";"
-                            }
-
-                            table.push(resolvedStyle);
-
-                            table.push("\">");
-                            table = table.concat(headerArray);
-                            table.push("</table>");
-
-                            //more that 50 letters, use small font size
-                            //if ((model.header.join("").length > 50)) {
-                                element.addClass("small");
-                            //}
-
-                            //clear any previous content
-                            element.empty();
-
-                            //push the tables to the DOM
-                            element.prepend(table.join(""));
-
-                            if (model.window.trc > PAGE_SIZE * 2) {
-
-                                //resize the container to the possible max height based on the total pages x the initial height
-                                container.style.height = container.firstChild.tBodies[0].clientHeight * model.window.trc / PAGE_SIZE + "px";
-
-                                //get rendered headers and synch the locked headers width
-                                alignHeaders(container, true);
-
-                            } else {
-
-                                container.style.height = "auto";                                //get rendered headers and synch the locked headers width
-                                alignHeaders(container, false);
-                            }
                         }
                     });
 

@@ -42,6 +42,11 @@
     td:last-child {
         padding-right: 20px;
     }
+
+    td {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }
 
 /* xtab - end*/

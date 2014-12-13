@@ -15,12 +15,13 @@
     }
 
     function trackEvent($http, msg) {
+
         $http.get('/api/logEvent', {params: {msg: msg}}).success(function(data) {
             console.log(JSON.stringify(data));
         });
     }
 
-    var app = angular.module('mstr', [
+	angular.module('mstr',
         'ui.bootstrap',
         'ngRoute',
         'ngAnimate',
@@ -30,17 +31,17 @@
         'mstr.mapSelector',
         'mstr.barSelector',
         'mstr.calendar'
-    ]);
+    ])
 
-    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
-        $routeProvider.otherwise({redirectTo: '/0'});
-    }]);
+            $routeProvider.otherwise({redirectTo: '/0'});
+        }])
 
-    app.controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat) {
-        this.title = "";
+        .controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat) {
+            this.title = "";
 
-        var openPopup = function (templateUrl, controller) {
+            var openPopup = function (templateUrl, controller) {
                 $modal.open({
                     templateUrl: templateUrl,
                     controller: controller,
@@ -52,24 +53,44 @@
                 });
             };
 
-        $http.get(getDataURL($location)).success(function (data) {
+            $http.get(getDataURL($location)).success(function (data) {
 
 
-            if (Array.isArray(data)) {
-                $rootScope.model = data[0];
-            } else {
-                $rootScope.model = data;
+                if (Array.isArray(data)) {
+                    $rootScope.model = data[0];
+                } else {
+                    $rootScope.model = data;
+                }
+
+            }).error(function (data) {
+                $rootScope.model = {};
+            });
+
+            $rootScope.$watch('model.selectedIndex', (function (selectedIndex) {
+                if (selectedIndex !== undefined) {
+                    this.title = $rootScope.model.pages[selectedIndex].name;
+                }
+            }).bind(this));
+
+            this.applySearch = function (search) {
+                $rootScope.search = search;
             }
 
-        }).error(function (data) {
-            $rootScope.model = {};
-        });
+            this.openIndex = function () {
+                openPopup('/templates/table-of-contents.html', 'TableOfContentsCtrl as tableOfContentsCtrl');
+            };
 
-        $rootScope.$watch('model.selectedIndex', (function (selectedIndex) {
-            if (selectedIndex !== undefined) {
-                this.title = $rootScope.model.pages[selectedIndex].name;
+            this.openShare = function () {
+                openPopup('/templates/share.html', 'ShareCtrl as shareCtrl');
+            };
+
+            this.openFilter = function () {
+                openPopup('/templates/filter.html', 'FilterCtrl as filterCtrl');
+            };
+
+            this.getStyle = function (path) {
+                return $mstrFormat.getStyle(path);
             }
-        }).bind(this));
 
         this.applySearch = function (search) {
             $rootScope.search = search;
@@ -77,102 +98,158 @@
             trackEvent($http, {action: 'search', pattern: search});
         }
 
-        this.openIndex = function () {
-            openPopup('/templates/table-of-contents.html', 'TableOfContentsCtrl as tableOfContentsCtrl');
-        };
+        .controller('PagerCtrl', ['$rootScope', function ($rootScope) {
+            this.pages = [];
+            this.selectedIndex = 0;
 
-        this.openShare = function () {
-            openPopup('/templates/share.html', 'ShareCtrl as shareCtrl');
-        };
-
-        this.openFilter = function () {
-            openPopup('/templates/filter.html', 'FilterCtrl as filterCtrl');
-        };
-
-        this.getStyle = function(path) {
-            return $mstrFormat.getStyle(path);
-        }
-
-    }]);
-
-    app.controller('PagerCtrl', ['$rootScope', function ($rootScope) {
-        this.pages = [];
-        this.selectedIndex = 0;
-
-        $rootScope.$watch('model.selectedIndex', (function (selectedIndex) {
-            if (selectedIndex !== undefined) {
-                this.selectedIndex = selectedIndex;
-            }
-        }).bind(this));
-
-        $rootScope.$watch('model', (function (model) {
-            if (model) {
-                this.pages = model.pages;
-            }
-        }).bind(this));
-    }]);
-
-    app.controller('TableOfContentsCtrl', function ($rootScope, $modalInstance) {
-        this.model = $rootScope.model;
-
-        this.close = function () {
-            $modalInstance.close();
-        };
-    });
-
-    app.controller('ShareCtrl', function ($rootScope, $modalInstance) {
-        this.model = $rootScope.model;
-
-        this.share = function (media) {
-            switch (media) {
-                case 'facebook':
-                    window.open("https://www.facebook.com/sharer/sharer.php?u=" + window.location, "_blank");
-                    break;
-                case 'email':
-                    window.location = "mailto:?subject=" + encodeURIComponent("MicroStrategy Dossier - " + this.model.name) + "&body=" + encodeURIComponent("\nA MicroStrategy Dossier \"" + this.model.name + "\” was shared with you: ") + window.location;
-            }
-            this.close();
-        }
-
-        this.close = function () {
-            $modalInstance.close();
-        };
-    });
-
-    app.filter('unique', function() {
-        return function(array, index) {
-            var output = [],
-                keys = [];
-
-            angular.forEach(array, function(item) {
-                var key = item[index];
-                if(keys.indexOf(key) === -1) {
-                    keys.push(key);
-                    output.push(item);
+            $rootScope.$watch('model.selectedIndex', (function (selectedIndex) {
+                if (selectedIndex !== undefined) {
+                    this.selectedIndex = selectedIndex;
                 }
-            });
+            }).bind(this));
 
-            return output;
-        };
-    });
-
-    app.factory('$mstrFormat', ['$rootScope', function ($rootScope) {
-        return {
-            getStyle: function (path) {
-                var model = $rootScope.model,
-                    styleDefinition = model && model.style,
-                    pathArray = path.split(".");
-
-
-                if (styleDefinition) {
-                    pathArray.forEach(function (token) {
-                        styleDefinition = styleDefinition[token];
-                    });
-
-                    return styleDefinition;
+            $rootScope.$watch('model', (function (model) {
+                if (model) {
+                    this.pages = model.pages;
                 }
-                return {};
+            }).bind(this));
+        }])
+
+        .controller('TableOfContentsCtrl', function ($rootScope, $modalInstance) {
+            this.model = $rootScope.model;
+
+            this.close = function () {
+                $modalInstance.close();
+            };
+        })
+
+        .controller('ShareCtrl', function ($rootScope, $modalInstance) {
+            this.model = $rootScope.model;
+
+            this.share = function (media) {
+                switch (media) {
+                    case 'facebook':
+                        window.open("https://www.facebook.com/sharer/sharer.php?u=" + window.location, "_blank");
+                        break;
+                    case 'email':
+                        window.location = "mailto:?subject=" + encodeURIComponent("MicroStrategy Dossier - " + this.model.name) + "&body=" + encodeURIComponent("\nA MicroStrategy Dossier \"" + this.model.name + "\” was shared with you: ") + window.location;
+                }
+                this.close();
             }
-        }
-    }]);
+
+            this.close = function () {
+                $modalInstance.close();
+            };
+        })
+
+        .filter('unique', function () {
+            return function (array, index) {
+                var output = [],
+                    keys = [];
+
+                angular.forEach(array, function (item) {
+                    var key = item[index];
+                    if (keys.indexOf(key) === -1) {
+                        keys.push(key);
+                        output.push(item);
+                    }
+                });
+
+                return output;
+            };
+        })
+
+        .filter('shortName', function () {
+            return function (fullName) {
+                return fullName.replace(/^[^ ]+ /, function (firstName) {
+                    return firstName.substring(0, 1) + ". ";
+                })
+            };
+        })
+
+        .factory('$mstrFormat', ['$rootScope', '$mstrDataTypes', function ($rootScope, $mstrDataTypes) {
+
+            var formats = {};
+
+            formats[$mstrDataTypes.date] = ["fullDate", "longDate", "mediumDate", "shortDate"];
+            formats[$mstrDataTypes.name] = [null, "shortName"];
+
+            return {
+                getStyle: function (path) {
+                    var model = $rootScope.model,
+                        styleDefinition = model && model.style,
+                        pathArray = path.split(".");
+
+
+                    if (styleDefinition) {
+                        pathArray.forEach(function (token) {
+                            styleDefinition = styleDefinition[token];
+                        });
+
+                        return styleDefinition;
+                    }
+                    return {};
+                },
+
+                getNewFormatManager: function () {
+
+                    return (function () {
+                        var currentFormats = {};
+
+                        currentFormats[$mstrDataTypes.date] = 0;
+                        currentFormats[$mstrDataTypes.name] = 0;
+
+                        return {
+                            isLongerFormatAvailable: function (dataType) {
+                                var currentFormat = currentFormats[dataType];
+
+                                return currentFormats[dataType] > 0;
+                            },
+
+                            isShorterFormatAvailable: function (dataType) {
+
+                                return currentFormats[dataType] < formats[dataType].length - 1;
+                            },
+
+                            getShorterFormat: function (dataType) {
+                                var currentFormat = currentFormats[dataType] = Math.min(formats[dataType].length - 1, currentFormats[dataType] + 1);
+
+                                return formats[currentFormat];
+                            },
+
+                            getLongerFormat: function (dataType) {
+                                var currentFormat = currentFormats[dataType] = Math.max (0, currentFormats[dataType] - 1);
+
+                                return formats[dataType][currentFormat];
+                            },
+
+                            getDisplayFormat: function (dataType) {
+
+                                return formats[dataType][currentFormats[dataType]];
+                            },
+
+                            setShorterFormat: function (dataType) {
+                                currentFormats[dataType] = Math.min(formats[dataType].length - 1, currentFormats[dataType] + 1);
+                            },
+
+                            setLongerFormat: function (dataType) {
+                                currentFormats[dataType] = Math.max (0, currentFormats[dataType] - 1);
+                            }
+                        };
+                    })();
+                }
+            }
+        }])
+
+        .constant('$mstrDataTypes', {
+            date: 1,
+            geo: {
+                state:2
+            },
+            name: 3,
+            text: 4
+
+        });
+
+
 })();
