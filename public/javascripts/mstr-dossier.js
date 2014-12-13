@@ -37,7 +37,7 @@
         $routeProvider.otherwise({redirectTo: '/0'});
     }]);
 
-    app.controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', function ($rootScope, $modal, $http, $filter, $location) {
+    app.controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat) {
         this.title = "";
 
         var openPopup = function (templateUrl, controller) {
@@ -60,6 +60,7 @@
             } else {
                 $rootScope.model = data;
             }
+
         }).error(function (data) {
             $rootScope.model = {};
         });
@@ -87,6 +88,10 @@
         this.openFilter = function () {
             openPopup('/templates/filter.html', 'FilterCtrl as filterCtrl');
         };
+
+        this.getStyle = function(path) {
+            return $mstrFormat.getStyle(path);
+        }
 
     }]);
 
@@ -151,4 +156,23 @@
         };
     });
 
+    app.factory('$mstrFormat', ['$rootScope', function ($rootScope) {
+        return {
+            getStyle: function (path) {
+                var model = $rootScope.model,
+                    styleDefinition = model && model.style,
+                    pathArray = path.split(".");
+
+
+                if (styleDefinition) {
+                    pathArray.forEach(function (token) {
+                        styleDefinition = styleDefinition[token];
+                    });
+
+                    return styleDefinition;
+                }
+                return {};
+            }
+        }
+    }]);
 })();
