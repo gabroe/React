@@ -4,19 +4,20 @@
 .mstr-xtab {
 
     margin-bottom: 50px;
+    white-space: nowrap;
 
     &.header {
         position: fixed;
         top:50px;
+        table-layout: fixed;
     }
 
-    &.locked.header thead,
-    thead {
+    &.header {
         background-color: #46ace1;
         color: #fff;
     }
 
-    &.locked thead {
+    &.body thead {
         background-color: #fff;
         color: #fff;
     }

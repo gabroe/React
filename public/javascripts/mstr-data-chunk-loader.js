@@ -1,56 +1,71 @@
 'use strict';
 
 (function () {
-    var request = new XMLHttpRequest(),
-        page = 1,
-        data,
-        windowInfo,
-        source,
-        timeout,
-        chunks = {rows: []},
 
-        timer,
+    var timeout,
+        cache = {},
+        xhr;
 
-        getChunk = function () {
+     function getPages(dataURL, startPage) {
 
-            request.open("GET", source + "/" + (page++));
-            request.send();
+         var pages = {rows: []},
+             page = startPage,
+             getPage = function () {
 
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.response) {
-                        data = JSON.parse(request.response);
+                 var data,
+                     windowInfo;
 
-                        if (data) {
+                 xhr.open("GET", dataURL + "/" + (page++));
+                 xhr.send();
 
-                            //postMessage(data);
+                 xhr.onreadystatechange = function () {
 
-                            chunks.rows = chunks.rows.concat(data.rows);
-                            console.log("worker: chunk " + page + " received.");
+                     if (xhr.readyState == 4 && xhr.status == 200) {
 
-                            windowInfo = data.window;
+                         if (xhr.response) {
+                             data = JSON.parse(xhr.response);
 
-                            if (windowInfo.cp < windowInfo.tpc - 1) {
-                                timeout = setTimeout(getChunk, 0);
-                            } else {
-                                //console.log("Done in - " + (new Date() - timer));
-                                postMessage(chunks);
-                                //console.log("Done copying in - " + (new Date() - timer));
-                            }
-                        }
-                    }
-                }
-            }
-        };
+                             if (data) {
+
+                                 pages.rows = pages.rows.concat(data.rows);
+
+                                 windowInfo = data.window;
+
+                                 if (windowInfo.cp < windowInfo.tpc - 1) {
+
+                                     timeout = setTimeout(getPage, 0);
+
+                                 } else {
+                                     cache[dataURL] = pages;
+                                     postMessage(pages);
+
+                                 }
+                             }
+                         }
+                     }
+                 }
+
+             };
+
+
+         if (timeout) {
+
+             clearTimeout(timeout);
+         }
+
+         if (cache[dataURL]) {
+             postMessage(cache[dataURL]);
+             return;
+         }
+
+         xhr = xhr|| new XMLHttpRequest();
+         getPage();
+    };
 
     addEventListener('message', function (e) {
 
-        timer = new Date();
-        source = e.data.source;
-        page = e.data.page;
-        if (timeout) {
-            clearTimeout(timeout);
-        }
-        getChunk();
+        var data = e.data;
+
+        getPages(data.dataURL, data.startPage);
     });
 })();

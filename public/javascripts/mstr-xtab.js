@@ -2,7 +2,8 @@
 
 (function () {
 
-    var WINDOW_SIZE = 100;
+    var PAGE_SIZE = 100,
+        timeout;
 
     angular.module('mstr.xtab', [])
 
@@ -13,7 +14,7 @@
 
             chunkLoaderWorker.addEventListener('message', function (e) {
 
-                defer.notify(e.data);
+                defer.resolve(e.data);
             });
 
             return {
@@ -63,26 +64,51 @@
                 }).bind(this), !sortOrder);
             };
 
-            this.applyFilters = function (partialUpdate) {
+            this.applyFilters = function (config) {
                 var search = $rootScope.search,
                     selections = $rootScope.selections,
-                    cc = {window: {}, defn: {}},
+                    cc = {window: {}},
                     filterGroup,
                     filterElement,
                     key;
 
+                config = config || {};
+
                 angular.copy(this.fullmodel.window, cc.window);
-                angular.copy(this.fullmodel.defn, cc.defn);
-                cc.header = this.fullmodel.header;
-                cc.partialUpdate = partialUpdate || false;
+                ["defn", "header"].forEach((function (prop) {
+                    cc[prop] = this.fullmodel[prop];
+                }).bind(this));
+
+                cc.partialUpdate = config.partialUpdate || false;
 
                 if (search !== undefined && search.length) {
 
-                    cc.rows = $filter('filter')(this.fullmodel.rows, {$: search}, false);
+                    var dataSource = this.fullmodel.rows;
+
+                    if (config.previousSearch !== undefined &&
+                        search.indexOf(config.previousSearch) >= 0) {
+
+                        dataSource = this.model.rows;
+                    }
+                    var re = new RegExp("^" + search, "i");
+
+                    cc.rows = $filter('filter')(dataSource, function (value, index) {
+
+                        for (var j = 0; j < value.length; j++) {
+
+                            if (re.test(value[j])) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }, false);
+
                     cc.window.trc = cc.rows.length;
+
                 } else {
 
                     cc.rows = this.fullmodel.rows;
+                    cc.window.trc = this.fullmodel.window.trc;
                 }
 
                 if (selections) {
@@ -107,17 +133,29 @@
                     this.applySort(-1, cc);
                 } else {
                     this.model = cc;
+                    try {
+                        $scope.$digest();
+                    } catch(e) {}
                 }
             };
 
             this.getChunkRows = function (chunkIndex) {
 
-                return this.model.rows.slice(chunkIndex * WINDOW_SIZE, chunkIndex * WINDOW_SIZE + WINDOW_SIZE);
+                return this.model.rows.slice(chunkIndex * PAGE_SIZE, chunkIndex * PAGE_SIZE + PAGE_SIZE);
             };
 
-            watchers.push($rootScope.$watch('search', (function (search) {
+            watchers.push($rootScope.$watch('search', (function (search, previousSearch) {
+
+                if (timeout) {
+                    window.clearTimeout(timeout);
+                }
+
                 if (search !== undefined) {
-                    this.applyFilters();
+                    timeout = window.setTimeout((function () {
+
+                        this.applyFilters({previousSearch: previousSearch});
+                    }).bind(this), Math.max(0, (4 - search.length) * 100));
+
                 }
             }).bind(this)));
 
@@ -140,15 +178,15 @@
                         if (data.window.tpc - 1 > data.window.cp) {
 
                             $chunkLoader.fetch({
-                                source: $rootScope.model.pages[selectedIndex].data,
-                                page: 1
-                            }).then(null, null, function (data) {
+                                dataURL: $rootScope.model.pages[selectedIndex].data,
+                                startPage: 1
+                            }).then(function (data) {
 
                                 if (data && data.rows) {
 
                                     this.fullmodel.rows = this.fullmodel.rows.concat(data.rows);
 
-                                    this.applyFilters(true);
+                                    this.applyFilters({partialUpdate: true});
                                 }
                             }.bind(this));
                         }
@@ -168,7 +206,7 @@
 
         }])
 
-        .directive('dynamicCrossTab', ["$filter", "$window", function ($filter, $window) {
+        .directive('dynamicCrossTab', ["$filter", "$window", "$mstrFormat", function ($filter, $window, $mstrFormat) {
 
             function format($filter, value, index, definition, header) {
                 if (definition[header[index]] === 1) {
@@ -236,8 +274,6 @@
                     lockedColGroup = lockedHeadersTable.firstChild,
                     width;
 
-                lockedHeadersTable.style.tableLayout = displayTable.style.tableLayout = "auto";
-
                 angular.forEach(tableHeaders, function (header, i) {
                     width = header.clientWidth + "px";
 
@@ -246,7 +282,7 @@
 
                 if (setAsFixed) {
 
-                    lockedHeadersTable.style.tableLayout = displayTable.style.tableLayout = "fixed";
+                    displayTable.style.tableLayout = setAsFixed ? "fixed" : "auto";
                 }
             }
 
@@ -255,26 +291,24 @@
                 link: function (scope, element, attributes) {
 
                     var loadedChunks = [0, 1],
-                        windowHeight = $(window).height(),
                         $body = $(document.body),
                         $element = $(element),
-                        timeout;
+                        newPages = false;
 
-                    angular.element($window).bind("scroll", function() {
+                    var onScroll = function() {
 
                         var model = scope.xTabCtrl.model,
-                            position = ($body.scrollTop() * model.window.trc ) / (($element.height() - windowHeight) * WINDOW_SIZE),
+                            position = ($body.scrollTop() * model.window.trc ) / (($element.height()) * PAGE_SIZE),
                             currentChunk = parseInt(position, 10),
                             units = model.header.length,
                             $table = $(element[0].firstChild),
                             tBodiesCollection = element[0].firstChild.tBodies,
-                            pages = Math.ceil(model.window.trc / WINDOW_SIZE),
+                            pages = Math.ceil(model.window.trc / PAGE_SIZE),
                             tBodiesLength = 0,
-                            i,
-                            timer = new Date();
+                            i;
 
                         //no more chunks to render
-                        if (currentChunk > model.window.trc / WINDOW_SIZE) {
+                        if (currentChunk > Math.ceil(model.window.trc / PAGE_SIZE) - 1) {
                             return;
                         }
 
@@ -289,17 +323,19 @@
                                 var gapSize = currentChunk - tBodiesLength - 1,
                                     gapHTMLArray = [];
 
-                                //insert dummy tbodys, each with the height height of the last known rendered chunk.
+                                //insert dummy tbodys, each with the height height of the average chunk height.
                                 if (gapSize > 0) {
 
-                                    var lastKnownHeight = $(tBodiesCollection[currentChunk - gapSize - 2]).height();
+                                    var averagePageHeight = $table.height() / tBodiesLength;
 
                                     for (i = 0; i < gapSize; i++) {
-                                        gapHTMLArray.push("<tbody><tr style=\"height:" + lastKnownHeight + "px\"><td></td></tr></tbody>");
+                                        gapHTMLArray.push("<tbody><tr style=\"height:" + averagePageHeight + "px\"><td></td></tr></tbody>");
 
                                     }
 
-                                    $(element[0].firstChild).append(gapHTMLArray.join(""));
+                                    $table.append(gapHTMLArray.join(""));
+
+                                    newPages = true;
                                 }
                             } else {
 
@@ -326,7 +362,7 @@
                             });
 
                             //append new chunks
-                            for (i = currentChunk - 1; i <= currentChunk + 1; i++) {
+                            for (i = currentChunk - 1; i <= Math.min(currentChunk + 1, pages - 1); i++) {
 
                                 //if chunk is missing
                                 if (loadedChunks.indexOf(i) < 0) {
@@ -335,6 +371,8 @@
 
                                         //append html
                                         $table.append(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(i), model.defn, model.header).join(""));
+
+                                        newPages = true;
 
                                         //add to index array
                                         loadedChunks.push(i);
@@ -353,48 +391,63 @@
                                 }
                             }
 
-                            if (pages - currentChunk <= 3) {
-                                //recalculate container height, but better scroll position accuracy
-                                element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / WINDOW_SIZE) + "px";
+                            if (newPages = true) {
+                                //recalculate container height, for better scroll position accuracy
+                                element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE) + "px";
                             }
-                            console.log((new Date()) - timer);
                         }
 
+                        element[0].lastChild.style.left = Math.min(Math.max(- $body.scrollLeft(), -($table.width() - $body.width())), 0) + "px";
 
+                    };
+
+                    angular.element($window).bind("scroll", onScroll);
+
+                    scope.$on("$destroy", function () {
+                        angular.element($window).unbind("scroll", onScroll);
                     });
 
                     scope.$watchCollection('xTabCtrl.model', function (model) {
-
-                        var container = element[0];
 
                         if (model && model.header) {
 
                             if (model.partialUpdate) {
 
-                                model.partialUpdate = false;
                                 return;
                             }
 
-                            var table = [],
-                                headerArray = buildHeaderHTMLArray(scope, model.header);
+                            var container = element[0],
+                                table = [],
+                                headerArray = buildHeaderHTMLArray(scope, model.header),
+                                style = $mstrFormat.getStyle("columnheader"),
+                                resolvedStyle = "",
+                                prop;
 
                             //build the main table with the first set of rows and the locked headers table
-                            table.push("<table class=\"table mstr-xtab locked\">");
+                            table.push("<table class=\"table mstr-xtab body\">");
                             table = table.concat(headerArray, buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
 
                             //add an additional chunk
-                            if (model.rows.length > WINDOW_SIZE) {
+                            if (model.rows.length > PAGE_SIZE) {
                                 table = table.concat(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(1), model.defn, model.header));
                             }
 
-                            table.push("</table><table class=\"table mstr-xtab locked header\">");
+                            table.push("</table><table class=\"table mstr-xtab header\" style=\"");
+
+                            for (prop in style) {
+                                resolvedStyle += prop + ":" + style[prop] + ";"
+                            }
+
+                            table.push(resolvedStyle);
+
+                            table.push("\">");
                             table = table.concat(headerArray);
                             table.push("</table>");
 
                             //more that 50 letters, use small font size
-                            if ((model.header.join("").length > 50)) {
+                            //if ((model.header.join("").length > 50)) {
                                 element.addClass("small");
-                            }
+                            //}
 
                             //clear any previous content
                             element.empty();
@@ -402,10 +455,10 @@
                             //push the tables to the DOM
                             element.prepend(table.join(""));
 
-                            if (model.window.trc > WINDOW_SIZE * 2) {
+                            if (model.window.trc > PAGE_SIZE * 2) {
 
                                 //resize the container to the possible max height based on the total pages x the initial height
-                                container.style.height = container.firstChild.tBodies[0].clientHeight * model.window.trc / WINDOW_SIZE + "px";
+                                container.style.height = container.firstChild.tBodies[0].clientHeight * model.window.trc / PAGE_SIZE + "px";
 
                                 //get rendered headers and synch the locked headers width
                                 alignHeaders(container, true);
