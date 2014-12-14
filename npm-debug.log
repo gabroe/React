@@ -1,86 +1,25 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node',
-1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'install',
-1 verbose cli   'http-status-code',
+1 verbose cli   'kafka-node',
 1 verbose cli   '--save' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
-4 verbose cache add [ 'http-status-code', null ]
-5 verbose cache add name=undefined spec="http-status-code" args=["http-status-code",null]
-6 verbose parsed url { protocol: null,
-6 verbose parsed url   slashes: null,
-6 verbose parsed url   auth: null,
-6 verbose parsed url   host: null,
-6 verbose parsed url   port: null,
-6 verbose parsed url   hostname: null,
-6 verbose parsed url   hash: null,
-6 verbose parsed url   search: null,
-6 verbose parsed url   query: null,
-6 verbose parsed url   pathname: 'http-status-code',
-6 verbose parsed url   path: 'http-status-code',
-6 verbose parsed url   href: 'http-status-code' }
-7 silly lockFile 9f7fdb85-http-status-code http-status-code
-8 verbose lock http-status-code /Users/ldector/.npm/9f7fdb85-http-status-code.lock
-9 silly lockFile 9f7fdb85-http-status-code http-status-code
-10 silly lockFile 9f7fdb85-http-status-code http-status-code
-11 verbose addNamed [ 'http-status-code', '' ]
-12 verbose addNamed [ null, '*' ]
-13 silly lockFile 0d15322c-http-status-code http-status-code@
-14 verbose lock http-status-code@ /Users/ldector/.npm/0d15322c-http-status-code.lock
-15 silly addNameRange { name: 'http-status-code', range: '*', hasData: false }
-16 verbose request where is /http-status-code
-17 verbose request registry https://registry.npmjs.org/
-18 verbose request id 5a5d63d038369ca9
-19 verbose url raw /http-status-code
-20 verbose url resolving [ 'https://registry.npmjs.org/', './http-status-code' ]
-21 verbose url resolved https://registry.npmjs.org/http-status-code
-22 verbose request where is https://registry.npmjs.org/http-status-code
-23 info trying registry request attempt 1 at 10:47:47
-24 http GET https://registry.npmjs.org/http-status-code
-25 http 404 https://registry.npmjs.org/http-status-code
-26 verbose headers { date: 'Thu, 04 Dec 2014 15:47:47 GMT',
-26 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-26 verbose headers   'content-type': 'application/json',
-26 verbose headers   'cache-control': 'max-age=0',
-26 verbose headers   'content-length': '52',
-26 verbose headers   'accept-ranges': 'bytes',
-26 verbose headers   via: '1.1 varnish',
-26 verbose headers   age: '0',
-26 verbose headers   'x-served-by': 'cache-atl6234-ATL',
-26 verbose headers   'x-cache': 'MISS',
-26 verbose headers   'x-cache-hits': '0',
-26 verbose headers   'x-timer': 'S1417708067.396281,VS0,VE111',
-26 verbose headers   'keep-alive': 'timeout=10, max=50',
-26 verbose headers   connection: 'Keep-Alive' }
-27 silly registry.get cb [ 404,
-27 silly registry.get   { date: 'Thu, 04 Dec 2014 15:47:47 GMT',
-27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-27 silly registry.get     'content-type': 'application/json',
-27 silly registry.get     'cache-control': 'max-age=0',
-27 silly registry.get     'content-length': '52',
-27 silly registry.get     'accept-ranges': 'bytes',
-27 silly registry.get     via: '1.1 varnish',
-27 silly registry.get     age: '0',
-27 silly registry.get     'x-served-by': 'cache-atl6234-ATL',
-27 silly registry.get     'x-cache': 'MISS',
-27 silly registry.get     'x-cache-hits': '0',
-27 silly registry.get     'x-timer': 'S1417708067.396281,VS0,VE111',
-27 silly registry.get     'keep-alive': 'timeout=10, max=50',
-27 silly registry.get     connection: 'Keep-Alive' } ]
-28 silly lockFile 0d15322c-http-status-code http-status-code@
-29 silly lockFile 0d15322c-http-status-code http-status-code@
-30 error 404 404 Not Found: http-status-code
-30 error 404
-30 error 404 'http-status-code' is not in the npm registry.
-30 error 404 You should bug the author to publish it
-30 error 404
-30 error 404 Note that you can also install from a
-30 error 404 tarball, folder, or http url, or git url.
-31 error System Darwin 14.0.0
-32 error command "node" "/usr/local/bin/npm" "install" "http-status-code" "--save"
-33 error cwd /Users/ldector/Sites/dossierViewer
-34 error node -v v0.10.33
-35 error npm -v 1.4.28
-36 error code E404
-37 verbose exit [ 1, true ]
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 error Failed to parse json
+5 error Unexpected token /
+6 error File: e:\Dev\Sirius\WebDossierViewer\package.json
+7 error Failed to parse package.json data.
+7 error package.json must be actual JSON, not just JavaScript.
+7 error
+7 error This is not a bug in npm.
+7 error Tell the package author to fix their package.json file. JSON.parse
+8 error System Windows_NT 6.1.7600
+9 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "kafka-node" "--save"
+10 error cwd e:\Dev\Sirius\WebDossierViewer
+11 error node -v v0.10.33
+12 error npm -v 1.4.28
+13 error file e:\Dev\Sirius\WebDossierViewer\package.json
+14 error code EJSONPARSE
+15 verbose exit [ 1, true ]
