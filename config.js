@@ -6,7 +6,7 @@ config.mongodb = {
     dbname: "mstr"
 };
 config.kafka = {
-    url: 'ts-rh64-4',
+    url: '10.27.31.80',
     port: '2181',
     topic: 'dossier'
 };
