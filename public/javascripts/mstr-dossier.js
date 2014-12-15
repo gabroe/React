@@ -21,7 +21,7 @@
         });
     }
 
-	angular.module('mstr',
+	angular.module('mstr',[
         'ui.bootstrap',
         'ngRoute',
         'ngAnimate',
@@ -32,7 +32,6 @@
         'mstr.barSelector',
         'mstr.calendar'
     ])
-
         .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
             $routeProvider.otherwise({redirectTo: '/0'});
@@ -55,7 +54,6 @@
 
             $http.get(getDataURL($location)).success(function (data) {
 
-
                 if (Array.isArray(data)) {
                     $rootScope.model = data[0];
                 } else {
@@ -74,6 +72,8 @@
 
             this.applySearch = function (search) {
                 $rootScope.search = search;
+                // event tracking
+                trackEvent($http, {action: 'search', pattern: search});
             }
 
             this.openIndex = function () {
@@ -90,13 +90,8 @@
 
             this.getStyle = function (path) {
                 return $mstrFormat.getStyle(path);
-            }
-
-        this.applySearch = function (search) {
-            $rootScope.search = search;
-            // event tracking
-            trackEvent($http, {action: 'search', pattern: search});
-        }
+            };
+        }])
 
         .controller('PagerCtrl', ['$rootScope', function ($rootScope) {
             this.pages = [];
