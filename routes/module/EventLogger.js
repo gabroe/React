@@ -32,6 +32,7 @@
                         message = {
                             msg: msg,
                             timestamp: new Date().toString(),
+                            host: req.headers['host'] || '',
                             client: client
                         };
                         var payloads = [{
