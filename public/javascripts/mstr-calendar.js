@@ -88,7 +88,7 @@
 
             this.toggle = function (day) {
 
-                var ctrl = $scope.$parent.$parent.filterCtrl,
+                var ctrl = $scope.filterCtrl,
                     selectedIndex = ctrl.selectedIndex,
                     selections = ctrl.selections = ctrl.selections || {},
                     unitSelections = selections[selectedIndex] = selections[selectedIndex] || {},
@@ -181,7 +181,7 @@
              */
 
             $scope.$watchCollection(function () {
-                var filterCtrl = $scope.$parent.$parent.filterCtrl;
+                var filterCtrl = $scope.filterCtrl;
                 return filterCtrl.selections[filterCtrl.selectedIndex];
             }, function (selections) {
 
@@ -194,7 +194,7 @@
 
             $scope.$watch(function () {return $scope.activeMonth;}, function (activeMonth) {
 
-                var filterCtrl = $scope.$parent.$parent.filterCtrl,
+                var filterCtrl = $scope.filterCtrl,
                     selections = filterCtrl.selections[filterCtrl.selectedIndex];
 
                 $scope.month = namedMonths[activeMonth.getMonth()];
