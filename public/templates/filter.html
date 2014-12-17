@@ -8,7 +8,7 @@
             <div ng-include="'/templates/calendar.html'" class="mstr-calendar" ng-if="filterCtrl.isSelectorAvailable(1)"></div>
             <div class="mstr-bar-selector" ng-if="filterCtrl.isSelectorAvailable(0)" bar-selector></div>
             <div ng-show="filterCtrl.isSelectorAvailable(2)" map-selector></div>
-            <ul ng-hide="filterCtrl.selectedIndex === 0">
+            <ul ng-hide="filterCtrl.isSelectorAvailable(1)">
                 <li ng-repeat="row in filterCtrl.model.rows | unique: filterCtrl.selectedIndex | orderBy: filterCtrl.getOrderBy() | filter: filterCtrl.getFilterPredicate()">
                     <input type="checkbox" id="{{'option' + $index}}" class="checkbox" ng-model="filterCtrl.selections[filterCtrl.selectedIndex][row[filterCtrl.selectedIndex]]">
                     <label for="{{'option' + $index}}">{{row[filterCtrl.selectedIndex]}}</label>
