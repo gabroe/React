@@ -8,14 +8,17 @@
     var kafka = require('kafka-node'),
         config = require('../../config'),
         UAParser = require('ua-parser-js'),
+        os = require('os'),
         // singleton
         inst = null,
         kafkaCfg = config.kafka,
         client = kafka.Client(kafkaCfg.url + ':' + kafkaCfg.port),
         producer = new kafka.Producer(client),
+        hostname = '',
         ready = false;
     producer.on('ready', function () {
         ready = true;
+        hostname = os.hostname() || '';
     });
     var EventLogger = {
         getInstance: function() {
@@ -32,7 +35,7 @@
                         message = {
                             msg: msg,
                             timestamp: new Date().toString(),
-                            host: req.headers['host'] || '',
+                            host: hostname,
                             client: client
                         };
                         var payloads = [{
