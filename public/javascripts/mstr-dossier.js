@@ -37,7 +37,7 @@
             $routeProvider.otherwise({redirectTo: '/0'});
         }])
 
-        .controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat) {
+        .controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', '$mstrDataTypes', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat, $mstrDataTypes) {
             this.title = "";
 
             var openPopup = function (templateUrl, controller) {
@@ -47,6 +47,9 @@
                     resolve: {
                         $filter: function () {
                             return $filter;
+                        },
+                        $mstrDataTypes: function () {
+                            return $mstrDataTypes;
                         }
                     }
                 });
