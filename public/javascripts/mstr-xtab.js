@@ -215,7 +215,6 @@
                     var formatManager = $mstrFormat.getNewFormatManager();
 
                     var loadedChunks = [0, 1],
-                        $body = $(document.body),
                         $element = $(element),
                         newPages = false;
 
@@ -261,31 +260,36 @@
                         return value;
                     }
 
-                    var buildHeaderHTMLArray = function (headers) {
+                    var buildHeaderHTMLArray = function (headers, childType) {
 
                         var headerArray = [],
                             i,
                             sort = scope.xTabCtrl.sort;
 
-                        headerArray.push("<colgroup>");
-                        for (i = 0; i < headers.length; i++) {
-                            headerArray.push("<col>");
-                        }
-                        headerArray.push("</colgroup>");
-
-                        headerArray.push("<thead><tr>");
-
-                        angular.forEach(headers, function (header, i) {
-                            headerArray.push("<th");
-                            if (sort === i) {
-                                headerArray.push(" class=\"sorted\"");
+                        if (childType & 1) {
+                            headerArray.push("<colgroup>");
+                            for (i = 0; i < headers.length; i++) {
+                                headerArray.push("<col>");
                             }
-                            headerArray.push(">");
-                            headerArray.push(header);
-                            headerArray.push("</th>");
-                        });
+                            headerArray.push("</colgroup>");
 
-                        headerArray.push("</tr></thead>");
+                        }
+
+                        if (childType & 2) {
+                            headerArray.push("<thead><tr>");
+
+                            angular.forEach(headers, function (header, i) {
+                                headerArray.push("<th");
+                                if (sort === i) {
+                                    headerArray.push(" class=\"sorted\"");
+                                }
+                                headerArray.push(">");
+                                headerArray.push(header);
+                                headerArray.push("</th>");
+                            });
+
+                            headerArray.push("</tr></thead>");
+                        }
 
                         return headerArray;
                     }
@@ -311,36 +315,42 @@
                         return rowsArray;
                     }
 
-                    var  alignHeaders = function (xTabContainer, setAsFixed) {
+                    var  alignHeaders = function (element, setAsFixed) {
 
-                        var displayTable = xTabContainer.firstChild,
-                            lockedHeadersTable = xTabContainer.lastChild,
-                            tableHeaders = displayTable.tHead.firstChild.childNodes,
-                            tableColgroup = displayTable.firstChild,
-                            lockedColGroup = lockedHeadersTable.firstChild,
-                            width;
+                        var $displayTable = $("table.mstr-xtab.body", element),
+                            $lockedHeadersTable = $("table.mstr-xtab.header", element),
+                            $tableHeaders = $("tbody:first-of-type tr:first-child td", $displayTable),
+                            $tableCols = $("col", $displayTable),
+                            $lockedCols = $("col", $lockedHeadersTable),
+                            width,
+                            totalwidth = 0;
 
-                        angular.forEach(tableHeaders, function (header, i) {
-                            width = header.clientWidth + "px";
+                        $tableHeaders.each(function (index, element) {
+                            width = element.clientWidth;
 
-                            tableColgroup.childNodes[i].style.width = lockedColGroup.childNodes[i].style.width = width;
+                            $($tableCols.get(index)).width(width);
+                            $($lockedCols.get(index)).width(width);
+
+                            totalwidth += width;
                         });
+
+                        $lockedHeadersTable.width(totalwidth);
+                        $lockedHeadersTable.css("max-width", totalwidth);
 
                         if (setAsFixed) {
 
-                            displayTable.style.tableLayout = setAsFixed ? "fixed" : "auto";
+                            $displayTable.css("table-layout", setAsFixed ? "fixed" : "auto");
                         }
                     }
-
 
                     var onScroll = function() {
 
                         var model = scope.xTabCtrl.model,
-                            position = ($body.scrollTop() * model.window.trc ) / (($element.height()) * PAGE_SIZE),
+                            position = ($(".mstr-xtab-scrollable", element).scrollTop() * model.window.trc ) / (($(".mstr-xtab-container", element).height()) * PAGE_SIZE),
                             currentChunk = parseInt(position, 10),
                             units = model.header.length,
-                            $table = $(element[0].firstChild),
-                            tBodiesCollection = element[0].firstChild.tBodies,
+                            $table = $("table.mstr-xtab.body", element),
+                            tBodiesCollection = $table.get(0).tBodies,
                             pages = Math.ceil(model.window.trc / PAGE_SIZE),
                             tBodiesLength = 0,
                             i;
@@ -387,7 +397,7 @@
                                 }
                             }
 
-                            //loop through al loaded chunks and clear the ones we no longer need
+                            //loop through all loaded chunks and clear the ones we no longer need
                             loadedChunks.forEach(function (chunkId) {
 
                                 if (chunkId < currentChunk - 1) {
@@ -429,50 +439,49 @@
                                 }
                             }
 
-                            if (newPages = true) {
-                                //recalculate container height, for better scroll position accuracy
-                                element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE) + "px";
+                            if (loadedChunks.indexOf(pages - 1) >= 0) {
+                            //    //recalculate container height, for better scroll position accuracy
+                                $(".mstr-xtab-container", element).height("auto");
+                            //    //element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE) + "px";
+                            } else {
+                                $(".mstr-xtab-container", element).height(($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE));
                             }
                         }
 
-                        element[0].lastChild.style.left = Math.min(Math.max(- $body.scrollLeft(), -($table.width() - $body.width())), 0) + "px";
+                        $("table.mstr-xtab.header", element).css("left", - $(".mstr-xtab-scrollable", element).scrollLeft());
 
                     };
 
                     var displayXTab = function (model, adjustColumn) {
 
-                        var container = element[0],
-                            table = [],
-                            headerArray = buildHeaderHTMLArray(model.header),
+                        var table = [],
                             style = $mstrFormat.getStyle("columnheader"),
                             resolvedStyle = "",
-                            prop;
+                            prop,
+                            $table;
 
                         //build the main table with the first set of rows and the locked headers table
-                        table.push("<table class=\"table mstr-xtab body\">");
-                        table = table.concat(headerArray, buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
+                        table.push("<div class=\"mstr-xtab-scrollable\"><div class=\"mstr-xtab-container\"><table class=\"table mstr-xtab body\">");
+                        table = table.concat(buildHeaderHTMLArray(model.header, 1), buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(0), model.defn, model.header));
 
                         //add an additional chunk
                         if (model.rows.length > PAGE_SIZE) {
                             table = table.concat(buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(1), model.defn, model.header));
                         }
 
-                        table.push("</table><table class=\"table mstr-xtab header\" style=\"");
-
                         for (prop in style) {
                             resolvedStyle += prop + ":" + style[prop] + ";"
                         }
 
+                        table.push("</table></div></div><div class=\"mstr-xtab-header-container\" style=\"");
+                        table.push(resolvedStyle);
+                        table.push("\"><table class=\"table mstr-xtab header\" style=\"");
+
                         table.push(resolvedStyle);
 
                         table.push("\">");
-                        table = table.concat(headerArray);
-                        table.push("</table>");
-
-                        //more that 50 letters, use small font size
-                        //if ((model.header.join("").length > 50)) {
-                        element.addClass("small");
-                        //}
+                        table = table.concat(buildHeaderHTMLArray(model.header, 3));
+                        table.push("</table></div>");
 
                         //clear any previous content
                         element.empty();
@@ -480,24 +489,33 @@
                         //push the tables to the DOM
                         element.prepend(table.join(""));
 
+                        $table = $("table.mstr-xtab.body", element);
+
+                        var $scrollable = $(".mstr-xtab-scrollable", element);
+
+                        $scrollable.off("scroll");
+
+                        $scrollable.on("scroll", onScroll);
+
                         if (model.window.trc > PAGE_SIZE * 2) {
 
                             //resize the container to the possible max height based on the total pages x the initial height
-                            container.style.height = container.firstChild.tBodies[0].clientHeight * model.window.trc / PAGE_SIZE + "px";
+                            $(".mstr-xtab-container", element).height($("tbody", $table).get(0).clientHeight * model.window.trc / PAGE_SIZE);
 
                             //get rendered headers and synch the locked headers width
-                            alignHeaders(container, true);
+                            alignHeaders(element, true);
 
                         } else {
 
-                            container.style.height = "auto";                                //get rendered headers and synch the locked headers width
-                            alignHeaders(container, false);
+                            $(".mstr-xtab-container", element).height("auto");
+                            //get rendered headers and synch the locked headers width
+                            alignHeaders(element, false);
                         }
 
                         if (hasResizableUnits(model.defn)) {
 
                             //adjust dynamic formatting (long date vs short date, etc)
-                            if ($(element[0].firstChild).width() > $body.width()) {
+                            if ($("table.mstr-xtab.header", element).width() > $element.width()) {
 
                                 if (formatManager.isShorterFormatAvailable($mstrDataTypes.date) || formatManager.isShorterFormatAvailable($mstrDataTypes.name)) {
                                     formatManager.setShorterFormat($mstrDataTypes.date);
@@ -523,13 +541,11 @@
                         displayXTab(scope.xTabCtrl.model);
                     };
 
-                    angular.element($window).bind("scroll", onScroll);
-
-                    angular.element($window).bind("resize", onResize);
+                    angular.element($window).on("resize", onResize);
 
                     scope.$on("$destroy", function () {
-                        angular.element($window).unbind("scroll", onScroll);
-                        angular.element($window).unbind("resize", onResize);
+                        $(".mstr-xtab-scrollable", element).off("scroll");
+                        angular.element($window).off("resize", onResize);
                     });
 
                     scope.$watchCollection('xTabCtrl.model', function (model) {

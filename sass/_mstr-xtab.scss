@@ -1,6 +1,23 @@
 /* mstr xtab stylesheet */
 
 /* xtab - begin*/
+
+.mstr-xtab-scrollable {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 35px;
+    overflow: auto;
+}
+
+.mstr-xtab-header-container {
+    position: fixed;
+    height: 33px;
+    width: 100%;
+    background-color: #46ace1
+}
+
 .mstr-xtab {
 
     margin-bottom: 50px;
@@ -43,6 +60,7 @@
         padding-right: 20px;
     }
 
+    th,
     td {
         text-overflow: ellipsis;
         overflow: hidden;
