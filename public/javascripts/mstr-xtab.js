@@ -215,8 +215,7 @@
                     var formatManager = $mstrFormat.getNewFormatManager();
 
                     var loadedChunks = [0, 1],
-                        $element = $(element),
-                        newPages = false;
+                        $element = $(element);
 
                     var hasResizableUnits = function (definition) {
                         var unit;
@@ -353,6 +352,7 @@
                             tBodiesCollection = $table.get(0).tBodies,
                             pages = Math.ceil(model.window.trc / PAGE_SIZE),
                             tBodiesLength = 0,
+                            newPages = false,
                             i;
 
                         //no more chunks to render
@@ -382,8 +382,6 @@
                                     }
 
                                     $table.append(gapHTMLArray.join(""));
-
-                                    newPages = true;
                                 }
                             } else {
 
@@ -439,12 +437,14 @@
                                 }
                             }
 
-                            if (loadedChunks.indexOf(pages - 1) >= 0) {
-                            //    //recalculate container height, for better scroll position accuracy
-                                $(".mstr-xtab-container", element).height("auto");
-                            //    //element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE) + "px";
-                            } else {
-                                $(".mstr-xtab-container", element).height(($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE));
+                            if (newPages) {
+                                if (loadedChunks.indexOf(pages - 1) >= 0) {
+                                    //    //recalculate container height, for better scroll position accuracy
+                                    $(".mstr-xtab-container", element).height("auto");
+                                    //    //element[0].style.height = ($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE) + "px";
+                                } else {
+                                    $(".mstr-xtab-container", element).height(($table.height() / tBodiesCollection.length) * (model.window.trc / PAGE_SIZE));
+                                }
                             }
                         }
 
@@ -512,6 +512,11 @@
                             alignHeaders(element, false);
                         }
 
+                        adjustDisplayFormats(model, adjustColumn);
+                    };
+
+                    var adjustDisplayFormats = function (model, adjustColumn) {
+
                         if (hasResizableUnits(model.defn)) {
 
                             //adjust dynamic formatting (long date vs short date, etc)
@@ -530,11 +535,10 @@
                                     formatManager.setLongerFormat($mstrDataTypes.date);
                                     formatManager.setLongerFormat($mstrDataTypes.name);
 
-                                    displayXTab(model, +1);
+                                    displayXTab(model, 1);
                                 }
                             }
                         }
-
                     };
 
                     var onResize = function () {

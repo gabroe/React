@@ -7,7 +7,8 @@
   right: 0;
   bottom: 0;
   top: 35px;
-  overflow: auto; }
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
 
 .mstr-xtab-header-container {
   position: fixed;
