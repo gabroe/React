@@ -5,6 +5,20 @@
     var PAGE_SIZE = 100,
         timeout;
 
+    function trackEvent($http, msg) {
+
+        $http.get('/api/logEvent', {params: {msg: msg}}).success(function(data) {
+            console.log(JSON.stringify(data));
+        });
+    }
+    function currentPage(root) {
+        var m = root.model,
+            pgs = m.pages,
+            idx = m.selectedIndex;
+        return pgs[idx].name || '';
+    }
+
+
     angular.module('mstr.xtab', [])
 
         .factory('$chunkLoader', ['$q', function ($q) {
@@ -152,6 +166,8 @@
 
                 if (search !== undefined) {
                     timeout = window.setTimeout((function () {
+                        // event tracking
+                        trackEvent($http, {action: 'search', page: currentPage($rootScope), pattern: search});
 
                         this.applyFilters({previousSearch: $scope.previousSearch});
 

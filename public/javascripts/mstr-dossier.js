@@ -14,13 +14,6 @@
         return result;
     }
 
-    function trackEvent($http, msg) {
-
-        $http.get('/api/logEvent', {params: {msg: msg}}).success(function(data) {
-            console.log(JSON.stringify(data));
-        });
-    }
-
 	angular.module('mstr',[
         'ui.bootstrap',
         'ngRoute',
@@ -82,9 +75,7 @@
             this.applySearch = function (search, $event) {
 
                 $rootScope.search = search;
-                // event tracking
-                trackEvent($http, {action: 'search', pattern: search});
-            };
+            }
 
             this.navigateSuggestions = function ($event) {
 
