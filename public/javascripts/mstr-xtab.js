@@ -153,9 +153,51 @@
                 if (search !== undefined) {
                     timeout = window.setTimeout((function () {
 
-                        this.applyFilters({previousSearch: previousSearch});
+                        this.applyFilters({previousSearch: $scope.previousSearch});
+
+                        if (search.length) {
+
+                            var re = new RegExp("^" + search + "|[ ]+" + search, "i");
+
+                            $scope.previousSearch = search;
+                            $rootScope.suggestions = [];
+
+                            try {
+                                var breakException = {},
+                                    match;
+
+                                this.model.rows.forEach(function (row) {
+                                    row.some(function (element) {
+                                        if (re.test(element)) {
+                                            match = (element + "").replace(re, function (match) {
+                                                return "<strong>" + match + "</strong>";
+                                            });
+
+                                            if (!$rootScope.suggestions.some(function (el) {
+                                                    return el.value === element;
+                                                })) {
+                                                $rootScope.suggestions.push({value: element, match: match});
+                                            }
+
+                                            return true;
+                                        }
+                                        return false;
+                                    });
+
+                                    if (Object.keys($rootScope.suggestions).length > 5) {
+                                        throw breakException
+                                    }
+                                });
+                            } catch (e) {
+                                if (e !== breakException) throw e;
+                            }
+                            $rootScope.$digest();
+                        }
+
                     }).bind(this), Math.max(0, (4 - search.length) * 100));
 
+                } else {
+                    $rootScope.suggestions = null;
                 }
             }).bind(this)));
 

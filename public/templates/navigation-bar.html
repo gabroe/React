@@ -25,7 +25,16 @@
                 </ul>
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" ng-model="search" ng-keyup="NavCtrl.applySearch(search)">
+                        <input type="text" class="form-control mstr-search" placeholder="Search" ng-model="search" ng-keyup="NavCtrl.applySearch(search)" ng-keydown="NavCtrl.navigateSuggestions($event)" ng-focus="NavCtrl.onSearchFocus()" ng-blur="NavCtrl.onSearchBlur()">
+                            <div class="mstr-search-results" ng-show="NavCtrl.searchOnFocus && NavCtrl.suggestions && search.length > 0">
+                                <ul>
+                                    <!--li class="mstr-search-match" ng-show="NavCtrl.suggestions.length">Showing all matches for "{{search}}"</li-->
+                                    <li class="mstr-search-suggestions" ng-show="NavCtrl.suggestions.length">Match suggestions on this page:</li>
+                                    <li class="mstr-search-suggestion" ng-show="NavCtrl.suggestions.length" ng-repeat="suggestion in NavCtrl.suggestions" ng-click="NavCtrl.setSearch(suggestion.value)" ng-mouseover="NavCtrl.searchSuggestionIndex = $index" ng-bind-html="suggestion.match" ng-class="{selected: NavCtrl.searchSuggestionIndex === $index}"></li>
+                                    <li class="mstr-search-no-results" ng-show="!NavCtrl.suggestions.length">No matches found{{Object.keys(NavCtrl.suggestions).length}}</li>
+                                </ul>
+                            </div>
+                        </input>
                     </div>
                 </form>
             </div><!-- /.navbar-collapse -->
