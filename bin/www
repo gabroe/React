@@ -6,13 +6,13 @@
         mongoClient = require('mongodb').MongoClient,
         app = require('../app'),
         EventMonitor = require('../routes/module/EventMonitor'),
+        EventLogger = require('../routes/module/EventLogger'),
         config = require('../config'),
         kafka = require('kafka-node');
 
 
     //setup the port, default 3000
     app.set('port', process.env.PORT || 3000);
-
     //connect to the dossier repository, then start up the express server
     mongoClient.connect("mongodb://" + config.mongodb.url + ":" + config.mongodb.port + "/" + config.mongodb.dbname, function (err, database) {
 
@@ -30,6 +30,10 @@
                         database.close();
                     }
 
+                    // stop event monitor
+                    console.log("stop event monitor and logger");
+                    EventMonitor.stop();
+                    EventLogger.stop();
                     process.exit();
                 });
 
@@ -51,6 +55,7 @@
             //clean up upon shutdown
             process.on('SIGINT', cleanup);
             process.on('SIGTERM', cleanup);
+
         });
     });
 
