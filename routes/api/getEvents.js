@@ -8,70 +8,84 @@
         config = require('../../config'),
         kafka = require('kafka-node'),
         EventMonitor = require('../module/EventMonitor'),
-        router = express.Router();
+        router = express.Router(),
+        // main function to walk through the events table to count
+        count = function(groupby, target) {
+            var msgs = EventMonitor.getTable(), // should i clone it?
+                meta = EventMonitor.getTableMeta(),
+                counts,
+                walk = function (h, depth) {
+                    // if no group by
+                    if (!groupby) {
+                        for (var j in h) {
+                            counts = counts + sumCount(h[j], depth + 1);
+                        }
+
+                    } else { // with group by
+                        if (meta[depth] == groupby)  { // at correct group by level
+                            // sum counts for this groupby
+                            for (var j in h) {
+                                if (!counts[j]) {
+                                    counts[j] = 0;
+                                }
+                                counts[j] += sumCount(h[j], depth + 1);
+                            }
+                        } else {
+                            for (var k in h) {
+                                walk(h[k], (depth + 1));
+                            }
+                        }
+                    }
+                },
+                sumChildren = function (h, depth) {
+                    var count = 0;
+                    for (var k1 in h) {
+                        count = count + sumCount(h[k1], depth + 1);
+                    }
+                    return count;
+                },
+                sumCount = function (h, depth) {
+                    if (target) { // has target
+                        if (meta[depth + 1] == target) { // next will be target level, we need to get count
+                            return Object.keys(h).length;
+                        } else {
+                            return sumChildren(h, depth);
+                        }
+                    } else { // no target, just retrieve hit count
+                        if (h.hasOwnProperty('count')) {
+                            return h.count;
+                        } else {
+                            return sumChildren(h, depth);
+                        }
+                    }
+                };
+            // walk down the msgs
+            if (groupby) {
+                counts = {};
+            } else {
+                counts = 0;
+            }
+            walk(msgs, 0);
+            return counts;
+        };
+
 
     /* GET home page. */
     router.get('/', function (req, res) {
         res.json(EventMonitor.getEvents());
-        //        var kafkaCfg = config.kafka,
-        //            kafkaClient = new kafka.Client(kafkaCfg.url + ':' + kafkaCfg.port);
-        //            consumer = new kafka.Consumer(
-        //                kafkaClient,
-        //                [
-        //                    { topic: kafkaCfg.topic, partition: 0 }
-        //                ],
-        //                {
-        //                    autoCommit: false
-        //                }
-        //            );
-        //        var messages=[];
-        //        consumer.on('message', function (message) {
-        //            messages.push(message.value);
-        //        });
-        //
-        //        // wait for a minute to collect all messages
-        //        setTimeout(function() {
-        //            res.json({topic: kafkaCfg.topic, count: messages.length, messages: messages});
-        //        }, 1000);
-
     });
     /**
-     * return the count of ips
+     * return the count of hits -- equivalent to messages logged
      */
-    router.get('/count/ip', function(req, res) {
-        var msgs = EventMonitor.getTable(), // should i clone it?
-            meta = EventMonitor.getTableMeta(),
-            groupby = req.param('groupby'),
-            counts = {},
-            walk = function (h, depth) {
-              if (meta[depth] == groupby)  { // at correct group by level
-                  // sum counts for this groupby
-                  for (var j in h) {
-                      if (!counts[j]) {
-                          counts[j] = 0;
-                      }
-                      counts[j] += sumCount(h[j]);
-                  }
-              } else {
-                  for (var k in h) {
-                      walk(h[k], (depth + 1));
-                  }
-              }
-            },
-            sumCount = function (h) {
-                if (h.hasOwnProperty('count')) {
-                    return h.count;
-                } else {
-                    var count = 0;
-                    for (var k1 in h) {
-                        count = count + sumCount(h[k1]);
-                    }
-                    return count;
-                }
-            };
-        // walk down the msgs
-        walk(msgs, 0);
-        res.json(counts);
+    router.get('/count/hit', function(req, res) {
+        res.json({result:count(req.param('groupby'), null)});
+    });
+
+    /**
+     * Return the count of users -- equivalent to how many distinguish ips in system
+     */
+    router.get('/count/user', function(req, res) {
+        res.json({result:count(req.param('groupby'), 'ip')});
     });
 
     router.get('/count', function(req, res) {

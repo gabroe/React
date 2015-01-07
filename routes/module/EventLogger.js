@@ -54,8 +54,16 @@
                 };
                 return inst;
             }
+        },
+        stop: function() {
+            if (producer != null) {
+                producer.close();
+            }
+
         }
     };
+
+
     module.exports = EventLogger;
 
 }
