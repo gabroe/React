@@ -17,6 +17,7 @@
 	angular.module('mstr',[
         'ui.bootstrap',
         'ngRoute',
+        'ngSanitize',
         'ngAnimate',
         'mstr.view',
         'mstr.xtab',
@@ -30,7 +31,7 @@
             $routeProvider.otherwise({redirectTo: '/0'});
         }])
 
-        .controller('NavController', ['$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', '$mstrDataTypes', function ($rootScope, $modal, $http, $filter, $location, $mstrFormat, $mstrDataTypes) {
+        .controller('NavController', ['$scope', '$rootScope', '$modal', '$http', '$filter', '$location', '$mstrFormat', '$mstrDataTypes', function ($scope, $rootScope, $modal, $http, $filter, $location, $mstrFormat, $mstrDataTypes) {
             this.title = "";
 
             var openPopup = function (templateUrl, controller) {
@@ -66,9 +67,35 @@
                 }
             }).bind(this));
 
-            this.applySearch = function (search) {
+            $rootScope.$watch('suggestions', (function (suggestions) {
+                this.suggestions = suggestions;
+                this.searchSuggestionIndex = -1;
+            }).bind(this));
+
+            this.applySearch = function (search, $event) {
+
                 $rootScope.search = search;
             }
+
+            this.navigateSuggestions = function ($event) {
+
+                switch ($event.keyCode) {
+                    case 40:
+                        this.searchSuggestionIndex = Math.min(this.suggestions.length - 1, ++this.searchSuggestionIndex);
+                        break;
+                    case 38:
+                        this.searchSuggestionIndex = Math.max(-1, --this.searchSuggestionIndex);
+                        break;
+                    case 13:
+                        if (this.searchSuggestionIndex > -1) {
+                            this.setSearch(this.suggestions[this.searchSuggestionIndex].value);
+                        }
+                        //fall through
+                    case 27:
+                        $rootScope.suggestions = null;
+                        $(':focus').blur();
+                }
+            };
 
             this.openIndex = function () {
                 openPopup('/templates/table-of-contents.html', 'TableOfContentsCtrl as tableOfContentsCtrl');
@@ -85,6 +112,26 @@
             this.getStyle = function (path) {
                 return $mstrFormat.getStyle(path);
             };
+
+            this.onSearchFocus = function () {
+                this.searchOnFocus = true;
+                this.recentSearches = localStorage.recentSearches;
+                $rootScope.suggestions = null;
+                $('.mstr-search').select();
+            }
+
+            this.onSearchBlur = function () {
+
+                window.setTimeout((function () {
+                    this.searchOnFocus = false;
+                    $scope.$apply();
+                }).bind(this), 100);
+            }
+
+            this.setSearch = function (search) {
+                $scope.search = search;
+                this.applySearch(search);
+            }
         }])
 
         .controller('PagerCtrl', ['$rootScope', function ($rootScope) {
