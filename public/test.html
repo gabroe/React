@@ -40,11 +40,28 @@
 
                 this.url = DOSSIERS_API_URL;
 
+                this.get = function () {
+
+                    $scope.method = "get";
+
+                    $http.get(this.url)
+                            .success(function (data) {
+
+                                $scope.result = data;
+                                $('.modal').modal('show');
+                                this.dossier = "";
+                                this.dossierName = "";
+                            });
+                }
+
                 this.post = function () {
                     if (this.dossier) {
 
+                        $scope.method = "post";
+
                         $http.post(this.url, this.dossier)
                                 .success(function () {
+
                                     $scope.result = "Dossier Definition POSTed successfully.";
                                     $('.modal').modal('show');
                                     this.dossier = "";
@@ -62,8 +79,11 @@
                 this.put = function () {
                     if (this.dossier && this.dossierName) {
 
+                        $scope.method = "put";
+
                         $http.put(this.url + "/" + this.dossierName, this.dossier)
                                 .success(function () {
+
                                     $scope.result = "Dossier Definition PUT successfully.";
                                     $('.modal').modal('show');
                                     this.dossier = "";
@@ -79,6 +99,8 @@
 
                 this.delete = function () {
                     if (this.dossierName) {
+
+                        $scope.method = "delete";
 
                         $http.delete(this.url + "/" + this.dossierName)
                                 .success(function () {
@@ -110,6 +132,7 @@
 
         <input type="text" ng-model="dossiersTestCtrl.dossierName" placeholder="Dossier Name">
         <textarea ng-model="dossiersTestCtrl.dossier" placeholder="Dossier JSON Definition"></textarea>
+        <input type="button" value="GET" ng-click="dossiersTestCtrl.get()"/>
         <input type="button" value="POST" ng-click="dossiersTestCtrl.post()"/>
         <input type="button" value="DELETE" ng-click="dossiersTestCtrl.delete()"/>
         <input type="button" value="PUT (update)" ng-click="dossiersTestCtrl.put()"/>
@@ -123,8 +146,13 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="mySmallModalLabel">Result for {{dossiersTestCtrl.url}}</h4>
                 </div>
-                <div class="modal-body">
+                <div ng-hide="method === 'get'" class="modal-body">
                     {{result}}
+                </div>
+                <div ng-show="method === 'get'" class="modal-body">
+                    <ul>
+                        <li ng-repeat="dossier in result"><a href="/dossier/{{dossier.name}}">{{dossier.name}}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
