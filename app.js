@@ -15,11 +15,11 @@
         data = require('./routes/data'),
         redshift = require('./routes/redshift'),
         test = require('./routes/api/test'),
+//        logViewerJSON = require('./routes/logViewer-JSON'),
+//        logViewerBubble = require('./routes/logViewer-Bubble'),
+//        logViewer = require('./routes/logViewer'),
         logEvent = require('./routes/api/logEvent'),
         getEvents = require('./routes/api/getEvents');
-//        logViewerJSON = require('./routes/logViewer-JSON'),
-//        logViewerBubble = require('./routes/logViewer-Bubble');
-//        logViewer = require('./routes/logViewer');
 
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +42,7 @@
     app.use('/api/test', test);
     app.use('/api/logEvent', logEvent);
     app.use('/api/getEvents', getEvents);
+    app.use('/api/event', getEvents);
 //    app.use('/logViewer', logViewer);
 //    app.use('/logViewerJSON', logViewerJSON);
 //    app.use('/logViewerBubble', logViewerBubble);
