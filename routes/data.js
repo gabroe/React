@@ -4,63 +4,11 @@
 
     var pg = require('pg'),
         express = require('express'),
+        guid = require('guid'),
+        columnMapper = require('./columnMapper'),
         router = express.Router(),
-        cache = {},
-        windowSize = 1000,
-        dataTypes = {
-            undefined: -1,
-            date: 1,
-            geo: {
-                state: 2
-            },
-            name: 3,
-            text: 4
-        };
-
-    var conString = "postgres://jlebrun:jLebrun1@labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com:5439/jlebrun",
-        headerMap = {
-            "salesforcelead": {"name": "Salesforce Lead", type: dataTypes.name},
-            "leadrole": {"name": "Lead Role", type: dataTypes.text},
-            "company": {"name": "Company", type: dataTypes.text},
-            "score": {"name": "Score", type: dataTypes.text},
-            "mqldate": {"name": "MQL Date", type: dataTypes.date},
-            "qualificationlevel": {"name": "Qualification Level", type: dataTypes.text},
-            "interestlevel": {"name": "Interest Level", type: dataTypes.text},
-            "leadsource": {"name": "Lead Source", type: dataTypes.text},
-            "bdr": {"name": "BDR", type: dataTypes.name},
-            "assignedae": {"name": "Assigned AE", type: dataTypes.name},
-            "leadstatus": {"name": "Lead Status", type: dataTypes.text},
-            "country": {"name": "Country", type: dataTypes.text},
-            "state": {"name": "State", type: dataTypes.geo.state},
-            "city": {"name": "City", type: dataTypes.text},
-            "qualificationdate": {"name": "Qualification Date", type: dataTypes.date},
-            "conversiondate": {"name": "Conversion Date", type: dataTypes.date},
-            "acceptancedate": {"name": "Acceptance Date", type: dataTypes.date},
-            "rating": {"name": "Rating", type: dataTypes.text},
-            "level": {"name": "Level", type: dataTypes.text},
-            "interest": {"name": "Interest", type: dataTypes.text},
-            "lead": {"name": "Lead", type: dataTypes.name},
-            "leadtitle": {"name": "Lead Title", type: dataTypes.text},
-            "profilecompleteness": {"name": "Profile Completeness", type: dataTypes.text},
-            "username": {"name": "User Name", type: dataTypes.name},
-            "userid": {"name": "User ID", type: dataTypes.text},
-            "dayofweek": {"name": "Day of Week", type: dataTypes.text},
-            "hourofday": {"name": "Hour of Day", type: dataTypes.text},
-            "numaction": {"name": "Action", type: dataTypes.text},
-            "avgtime": {"name": "Average Time", type: dataTypes.text},
-            "successrate": {"name": "Success Rate", type: dataTypes.text}
-        },
-        tables = [
-            "lead",
-            "QualifiedLeadslast7days",
-            "AcceptedLeadslast7days",
-            "ConvertedLeadslast7days",
-            "leadsmqllast7days1000",
-            "leadsmqllast7days10000",
-            "leadsmqllast7days100000",
-            "leadsbymqldate",
-            "useractiontime"
-        ];
+        cache = {connections: {}, tokens: {}},
+        windowSize = 1000;
 
     function convertToJSON(queryResult) {
 
@@ -78,7 +26,7 @@
             i;
 
         queryResult.fields.forEach(function (element) {
-            var headerDefinition = headerMap[element.name],
+            var headerDefinition = columnMapper[element.name],
                 headerName = (headerDefinition && headerDefinition.name) || element.name;
 
             data.header.push(headerName);
@@ -106,20 +54,21 @@
         return data;
     };
 
-    function validateRequest(request) {
-        var requestParams = request.params,
-            table = requestParams.table,
-            page = parseInt(requestParams.page || 0, 10);
+    function validateTableRequest(token, table, page) {
+        var connectionString = cache.tokens[token],
+            tableCache;
 
-        //if (tables.indexOf(table) < 0) {
-        //    //the requested table is missing or invalid
-        //    return HTTP_STATUS.NOT_FOUND;
-        //}
+        //check whether the token is valid
+        if (!connectionString) {
+            return HTTP_STATUS.BAD_REQUEST;
+        }
+
+        tableCache = cache.connections[connectionString].tables[table];
 
         //check whether the requested page is valid
-        if (cache[table]) {
+        if (tableCache) {
 
-            if (page >= Math.ceil(cache[table].window.trc / windowSize)) {
+            if (page >= Math.ceil(tableCache.window.trc / windowSize)) {
                 return HTTP_STATUS.NOT_FOUND;
             }
         }
@@ -127,9 +76,10 @@
 
     };
 
-    function buildResponseFromCache(table, page) {
+    function buildResponseFromCache(token, table, page) {
         var response = {},
-            cachedResults = cache[table];
+            connectionString = cache.tokens[token],
+            cachedResults = cache.connections[connectionString].tables[table];
 
         response.header = cachedResults.header;
         response.rows = cachedResults.pages[page];
@@ -141,24 +91,74 @@
         return response;
     }
 
-    /* GET data result. */
-    router.get('/:table/:page?', function (req, res) {
+    function createNewSessionToken() {
+        return guid.raw();
+    }
 
-        var table = req.params.table,
-            page = parseInt(req.params.page || 0, 10),
-            responseStatus = validateRequest(req);
+    function getConnectionString(dbtype, params) {
+
+        var connectionStringArray = [];
+
+        connectionStringArray.push(dbtype);
+        connectionStringArray.push("://");
+        connectionStringArray.push(params.user);
+        connectionStringArray.push(":");
+        connectionStringArray.push(params.password);
+        connectionStringArray.push("@");
+        connectionStringArray.push(params.server);
+        connectionStringArray.push(":");
+        connectionStringArray.push(params.port);
+        connectionStringArray.push("/");
+        connectionStringArray.push(params.database);
+
+        return connectionStringArray.join("");
+    }
+
+    router.get('/:dbtype/:action/:table?/:page?', function (req, res) {
+
+        var action = req.params.action,
+            connections = cache.connections,
+            tokens = cache.tokens;
+
+        switch (action) {
+            case 'getToken':
+                connectionString = getConnectionString(req.params.dbtype, req.query);
+
+                if (!connections[connectionString]) {
+
+                    connections[connectionString] = {token: createNewSessionToken(), tables: {}};
+                }
+
+                tokens[connections[connectionString].token] = connectionString;
+
+                res.json({"data": {"database": req.query.database, "connection-token": connections[connectionString].token}});
+                break;
+
+            case 'tables':
+                returnTableContents(req.query.token, req.params, res);
+        }
+    });
+
+    function returnTableContents(token, params, res) {
+        var table = params.table,
+            page = parseInt(params.page || 0, 10),
+            responseStatus = validateTableRequest(token, table, page),
+            connectionString = cache.tokens[token],
+            cachedTable;
 
         if (responseStatus != HTTP_STATUS.OK) {
             res.status(responseStatus).end();
         }
 
-        if (cache[table]) {
+        cachedTable = cache.connections[connectionString].tables[table];
 
-            res.end(JSON.stringify(buildResponseFromCache(table, page)));
+        if (cachedTable) {
+
+            res.end(JSON.stringify(buildResponseFromCache(token, table, page)));
             return;
         }
 
-        var client = new pg.Client(conString);
+        var client = new pg.Client(connectionString);
 
         client.connect(function (err) {
 
@@ -175,14 +175,14 @@
                 }
 
                 //cache full result
-                cache[table] = convertToJSON(result);
+                cache.connections[connectionString].tables[table] = convertToJSON(result);
 
-                res.end(JSON.stringify(buildResponseFromCache(table, page)));
+                res.end(JSON.stringify(buildResponseFromCache(token, table, page)));
 
                 client.end();
             });
         });
-    });
+    }
 
     module.exports = router;
 

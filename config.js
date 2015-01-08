@@ -1,7 +1,7 @@
 var config = {}
 
 config.mongodb = {
-    url: "10.21.16.236",
+    url: "10.21.16.125",
     port: 27017,
     dbname: "mstr"
 };

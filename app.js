@@ -13,6 +13,7 @@
         dossier = require('./routes/viewer'),
         dossiers = require('./routes/api/dossiers'),
         data = require('./routes/data'),
+        redshift = require('./routes/redshift'),
         test = require('./routes/api/test'),
         logEvent = require('./routes/api/logEvent'),
         getEvents = require('./routes/api/getEvents');
@@ -34,7 +35,8 @@
 
     //setup express routes
     app.use('/', routes);
-    app.use('/redshift', data);
+    app.use('/redshift', redshift);
+    app.use('/data', data);
     app.use('/dossier', dossier);
     app.use('/api/dossiers', dossiers);
     app.use('/api/test', test);

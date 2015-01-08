@@ -40,7 +40,7 @@
             }
         }])
 
-        .controller('xTabController', ['$scope', '$rootScope', '$http', '$filter', '$chunkLoader', function ($scope, $rootScope, $http, $filter, $chunkLoader) {
+        .controller('xTabController', ['$scope', '$rootScope', '$http', '$filter', '$chunkLoader', '$mstrdata', function ($scope, $rootScope, $http, $filter, $chunkLoader, $mstrdata) {
             var sortOrder = false,
                 watchers = [];
 
@@ -225,8 +225,10 @@
 
             watchers.push($rootScope.$watch('model.selectedIndex', (function (selectedIndex) {
                 if (selectedIndex !== undefined) {
-                    $http.get($rootScope.model.pages[selectedIndex].data).success((function (data) {
 
+                    var page = $rootScope.model.pages[selectedIndex];
+
+                    $mstrdata.fetch(page).then((function (data) {
                         var cc = {};
 
                         this.fullmodel = data;
@@ -236,8 +238,9 @@
                         if (data.window.tpc - 1 > data.window.cp) {
 
                             $chunkLoader.fetch({
-                                dataURL: $rootScope.model.pages[selectedIndex].data,
-                                startPage: 1
+                                dataURL: $mstrdata.getDataURL(page),
+                                startPage: 1,
+                                token: page.connection.token
                             }).then(function (data) {
 
                                 if (data && data.rows) {
@@ -248,9 +251,10 @@
                                 }
                             }.bind(this));
                         }
+                    }).bind(this), (function () {//error case
 
-                    }).bind(this)).error((function (data) {
                         this.fullmodel = this.model = {};
+
                     }).bind(this));
                 }
             }).bind(this)));

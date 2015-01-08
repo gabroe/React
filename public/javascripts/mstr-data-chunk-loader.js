@@ -6,7 +6,7 @@
         cache = {},
         xhr;
 
-     function getPages(dataURL, startPage) {
+     function getPages(dataURL, startPage, token) {
 
          var pages = {rows: []},
              page = startPage,
@@ -15,7 +15,7 @@
                  var data,
                      windowInfo;
 
-                 xhr.open("GET", dataURL + "/" + (page++));
+                 xhr.open("GET", dataURL + "/" + (page++) + "?token=" + token);
                  xhr.send();
 
                  xhr.onreadystatechange = function () {
@@ -66,6 +66,6 @@
 
         var data = e.data;
 
-        getPages(data.dataURL, data.startPage);
+        getPages(data.dataURL, data.startPage, data.token);
     });
 })();

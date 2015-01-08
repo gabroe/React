@@ -75,7 +75,7 @@
             this.applySearch = function (search, $event) {
 
                 $rootScope.search = search;
-            }
+            };
 
             this.navigateSuggestions = function ($event) {
 
@@ -285,7 +285,87 @@
             name: 3,
             text: 4
 
-        });
+        })
 
+
+        .factory('$mstrdata', ['$q', '$http', function ($q, $http) {
+
+            var defer = $q.defer();
+
+
+            function getCreateTokenURL(connection) {
+
+                var url = [],
+                    parameters = [];
+
+                url.push("/data/");
+                url.push(connection.dbtype);
+                url.push("/getToken?");
+
+                ["server", "port", "database", "user", "password"].forEach(function (param) {
+                    parameters.push(param + "=" + connection[param]);
+                });
+
+                url.push(parameters.join("&"));
+
+                return url.join("");
+            }
+
+            function getFetchURL(connection, table) {
+
+                var url = [];
+
+                url.push("/data/");
+                url.push(connection.dbtype);
+                url.push("/tables/");
+                url.push(table.replace("/redshift/", ""));
+                url.push("?token=");
+                url.push(connection.token);
+
+                return url.join("");
+            }
+
+
+            function fetchData(connection, table) {
+
+                $http.get(getFetchURL(connection, table)).success(function (data) {
+                    defer.resolve(data);
+                });
+            }
+
+            return {
+                fetch: function (page) {
+
+                    var connection = page.connection,
+                        token = connection.token;
+
+                    defer = $q.defer();
+
+                    if (!token) {
+                        $http.get(getCreateTokenURL(connection)).success(function (data) {
+
+                            connection.token = data.data["connection-token"];
+                            fetchData(connection, page.data);
+                        });
+                    } else {
+                        fetchData(connection, page.data);
+                    }
+
+                    return defer.promise;
+                },
+
+                getDataURL: function (page) {
+                    var url = [];
+
+                    url.push("/data/");
+                    url.push(page.connection.dbtype);
+                    url.push("/tables/");
+                    url.push(page.data.replace("/redshift/", ""));
+
+                    return url.join("");
+                }
+
+            }
+        }]);
 
 })();
