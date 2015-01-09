@@ -11,7 +11,8 @@
         userCount = {},
         osCount = {},
         //hash map to keep dossier - client (web/ios/desktop) - sub client (brower/(iphone/ipad)/(windows/mac)) - version info  - ip
-        table = {},
+        hitCountTbl = {},
+        searchCountTbl = {},
         cache=[];
     var EventMonitor = {
         start: function() {
@@ -29,32 +30,60 @@
                 );
 
 
-                var messages=[];
+                var messages = [],
+                    onBrowseMsg = function (m) {
+                        var dossier = m.msg.page,
+                            c = m.client,
+                            ip = c.ip,
+                            os = c.os && c.os.name || "",
+                            browser = (c.browser && c.browser.name) || '',
+                            client = browser ? 'web' : 'mobile', // @todo for now we assume if not web, then it is mobile
+                            subClient = browser ? browser : (os ? os : 'iphone');
+                        if (!hitCountTbl[dossier]) {
+                            hitCountTbl[dossier] = {};
+                        }
+                        if (!hitCountTbl[dossier][client]) {
+                            hitCountTbl[dossier][client] = {};
+                        }
+                        if (!hitCountTbl[dossier][client][subClient]) {
+                            hitCountTbl[dossier][client][subClient] = {};
+                        }
+                        if (!hitCountTbl[dossier][client][subClient][ip]) {
+                            hitCountTbl[dossier][client][subClient][ip] = {count: 0};
+                        }
+                        hitCountTbl[dossier][client][subClient][ip].count++;
+                    },
+                    onSearchMsg = function (m) {
+                        var dossier = m.msg.page,
+                            c = m.client,
+                            ip = c.ip,
+                            os = c.os && c.os.name || "",
+                            browser = c.browser && c.browser.name || '',
+                            client = browser ? 'web' : 'mobile', // @todo for now we assume if not web, then it is mobile
+                            subClient = browser ? browser : (os ? os : 'iphone'),
+                            pattern = m.msg.pattern;
+                        if (!searchCountTbl[dossier]) {
+                            searchCountTbl[dossier] = {};
+                        }
+                        if (!searchCountTbl[dossier][pattern]) {
+                            searchCountTbl[dossier][pattern] = {count: 0};
+                        }
+                        searchCountTbl[dossier][pattern].count++;
+                    };
                 consumer.on('message', function (message) {
                     console.log("got message: " + message);
-                    var m = JSON.parse(message.value);
-                    cache.push(m);
-                    totalCount ++;
-                    var dossier = m.msg.page,
+                    var m = JSON.parse(message.value),
+                        action = m.msg.action,
                         c = m.client,
                         ip = c.ip,
-                        os = c.os && c.os.name || "",
-                        browser = c.browser && c.browser.name || '',
-                        client = browser ? 'web' : 'mobile', // @todo for now we assume if not web, then it is mobile
-                        subClient = browser ? browser : (os ? os : 'iphone');
-                    if (!table[dossier]) {
-                        table[dossier] = {};
+                        os = c.os && c.os.name || "";
+                    cache.push(m);
+                    totalCount ++;
+                    if (action == "browse") {
+                        onBrowseMsg(m);
+                    } else if (action == "search") {
+                      onSearchMsg(m);
                     }
-                    if (!table[dossier][client]) {
-                        table[dossier][client] = {};
-                    }
-                    if (!table[dossier][client][subClient]) {
-                        table[dossier][client][subClient] = {};
-                    }
-                    if (!table[dossier][client][subClient][ip]) {
-                        table[dossier][client][subClient][ip] = {count: 0};
-                    }
-                    table[dossier][client][subClient][ip].count ++;
                     // user count
                     if (!userCount[ip]) {
                         userCount[ip] = 1;
@@ -89,11 +118,14 @@
                 consumer.close();
             }
         },
-        getTable: function () {
-            return table;
+        getHitCountTable: function () {
+            return hitCountTbl;
         },
-        getTableMeta: function () {
+        getHitCountTableMeta: function () {
            return ['dossier', 'client', 'subClient', 'ip'];
+        },
+        getSearchCountTable: function() {
+            return searchCountTbl;
         },
         getCount: function () {
             return {
@@ -111,7 +143,7 @@
             };
         },
         getAggregationTable: function() {
-            return table;
+            return {hits: hitCountTbl, search: searchCountTbl};
         }
     };
 

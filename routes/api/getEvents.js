@@ -9,22 +9,26 @@
         kafka = require('kafka-node'),
         EventMonitor = require('../module/EventMonitor'),
         router = express.Router(),
-        // main function to walk through the events table to count
-        count = function(req, target) {
-            var groupby = req.param('groupby'),
-                msgs = EventMonitor.getTable(), // should i clone it?
-                meta = EventMonitor.getTableMeta(),
+        calculate = function(req, target, msgs, meta) {
+            var groupbys = req.param('groupby') ? req.param('groupby').split(',') : null,
                 counts,
                 /**
                  * Returns the selector(s) from request object
                  * @param req {Object} request object
                  * @returns {{n: (string|*), v: *}}
                  */
-                selector = function(req) {
-                    for (i in meta) {
+                selector = function (req) {
+                    for (var i in meta) {
                         if (req.param(meta[i])) {
                             return {n: meta[i], v: req.param(meta[i])};
                         }
+                    }
+                },
+                groupPath = function(item, depth, gp) {
+                    if (meta[depth] == groupbys[gp.length]) { // at correct group by level
+                        return gp.concat([item])
+                    } else {
+                        return gp;
                     }
                 },
                 /**
@@ -33,43 +37,58 @@
                  * @param depth {int} the depth in the hash tree, 0 - based
                  * @selector {Object} first version will be single selector, which is a JavaScript object of {n: //selector name, v: /selector value}
                  */
-                walk = function(h, depth, selector) {
+                walk = function(h, depth, selector, gp) {
                     if (!selector) { // no selector specified, calculate the whole tree
-                        track(h, depth);
+                        track(h, depth, gp);
                     } else {
                         // are we looking at the selector level
                         if (meta[depth] === selector.n) {
                             for (var k in h) {
                                 if (k === selector.v) {
-                                    track(h[k], depth + 1);
+                                    track(h[k], depth + 1, groupPath(k, depth, gp));
                                 }
                             }
                         } else {
                             for (var j in h) {
-                                walk(h[j], depth + 1, selector);
+                                walk(h[j], depth + 1, selector, groupPath(j, depth, gp));
                             }
                         }
                     }
                 },
-                track = function (h, depth) {
+                incrArray = function (arr, fields, initV, newV) {
+                    a1 = arr,
+
+                        c = 0;
+                    for (var k in fields) {
+                        if (!a1[fields[k]]) {
+                            if (c != (fields.length - 1)) {
+                                a1[fields[k]] = {};
+                            } else {
+                                a1[fields[k]] = initV;
+                            }
+                        }
+                        if (c == (fields.length - 1)) {
+                            a1[fields[k]] += newV;
+                            return;
+                        }
+                        a1 = a1[fields[k]];
+                        c++;
+                    }
+                    return a1;
+                },
+                track = function (h, depth, gp) {
                     // if no group by
-                    if (!groupby) {
+                    if (!groupbys) {
                         for (var j in h) {
                             counts = counts + sumCount(h[j], depth + 1);
                         }
 
                     } else { // with group by
-                        if (meta[depth] == groupby)  { // at correct group by level
-                            // sum counts for this groupby
-                            for (var j in h) {
-                                if (!counts[j]) {
-                                    counts[j] = 0;
-                                }
-                                counts[j] += sumCount(h[j], depth + 1);
-                            }
+                        if (gp.length == groupbys.length) {
+                            incrArray(counts, gp, 0, sumCount(h, depth));
                         } else {
                             for (var k in h) {
-                                track(h[k], (depth + 1));
+                                track(h[k], (depth + 1), groupPath(k, depth, gp));
                             }
                         }
                     }
@@ -96,14 +115,28 @@
                         }
                     }
                 };
+
             // walk down the msgs
-            if (groupby) {
+            if (groupbys) {
                 counts = {};
             } else {
                 counts = 0;
             }
-            walk(msgs, 0, selector(req));
+
+            walk(msgs, 0, selector(req), []);
+
+            // wort counts
+
             return counts;
+        },
+        search = function (req) {
+            return calculate(req, null, EventMonitor.getSearchCountTable(), ['dossier', 'pattern']);
+        },
+        // main function to walk through the events table to count
+        count = function(req, target) {
+            var msgs = EventMonitor.getHitCountTable(), // should i clone it?
+                meta = EventMonitor.getHitCountTableMeta();
+            return calculate(req, target, msgs, meta);
         };
 
 
@@ -118,6 +151,9 @@
         res.json({result:count(req, null)});
     });
 
+    router.get('/count/search', function(req, res) {
+        res.json({result:search(req)});
+    })
     /**
      * Return the count of users -- equivalent to how many distinguish ips in system
      */
