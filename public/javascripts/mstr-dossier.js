@@ -13,7 +13,19 @@
         }
         return result;
     }
+    function popularSearchs(root, $http, callback) {
 
+        $http.get('/api/event/count/search', {params: {groupby: 'pattern', dossier: currentPage(root)}}).success(function(data) {
+            console.log(JSON.stringify(data));
+            callback(data);
+        });
+    }
+    function currentPage(root) {
+        var m = root.model,
+            pgs = m.pages,
+            idx = m.selectedIndex;
+        return pgs[idx].name || '';
+    }
 	angular.module('mstr',[
         'ui.bootstrap',
         'ngRoute',
@@ -117,6 +129,15 @@
                 this.searchOnFocus = true;
                 this.recentSearches = localStorage.recentSearches;
                 $rootScope.suggestions = null;
+                var me = this;
+                // load aggregated suggestion from server
+                popularSearchs($rootScope, $http, function(res) {
+                    var list =  [];
+                  for (var v in res.result) {
+                      list.push({match: v, value: v});
+                  }
+                    $rootScope.suggestions = list;
+                });
                 $('.mstr-search').select();
             }
 
