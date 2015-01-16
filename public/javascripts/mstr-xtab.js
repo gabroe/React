@@ -18,6 +18,9 @@
         return pgs[idx].name || '';
     }
 
+    function currentDossier(root) {
+        return root.model.name;
+    }
 
     angular.module('mstr.xtab', [])
 
@@ -167,7 +170,7 @@
                 if (search !== undefined) {
                     timeout = window.setTimeout((function () {
                         // event tracking
-                        trackEvent($http, {action: 'search', page: currentPage($rootScope), pattern: search});
+                        trackEvent($http, {action: 'search', page: currentDossier($rootScope), pattern: search});
 
                         this.applyFilters({previousSearch: $scope.previousSearch});
 
