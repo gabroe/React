@@ -34,11 +34,18 @@
                     onBrowseMsg = function (m) {
                         var dossier = m.msg.page,
                             c = m.client,
-                            ip = c.ip,
+                            user = c.ip,
                             os = c.os && c.os.name || "",
                             browser = (c.browser && c.browser.name) || '',
+                            time = new Date(m.timestamp || null),
+                            year = time.getFullYear(),
+                            month = time.getMonth() + 1,
+                            day = time.getDate(),
+                            date = year + '-' + (month > 9 ? month : '0' + month) + '-' + (day > 9 ? day : '0' + day),
+                            hour = time.getHours().toString(10),
                             client = browser ? 'web' : 'mobile', // @todo for now we assume if not web, then it is mobile
                             subClient = browser ? browser : (os ? os : 'iphone');
+                        console.log('browser:' + browser + ' client:' + client);
                         if (!hitCountTbl[dossier]) {
                             hitCountTbl[dossier] = {};
                         }
@@ -48,10 +55,16 @@
                         if (!hitCountTbl[dossier][client][subClient]) {
                             hitCountTbl[dossier][client][subClient] = {};
                         }
-                        if (!hitCountTbl[dossier][client][subClient][ip]) {
-                            hitCountTbl[dossier][client][subClient][ip] = {count: 0};
+                        if (!hitCountTbl[dossier][client][subClient][user]) {
+                            hitCountTbl[dossier][client][subClient][user] = {};
                         }
-                        hitCountTbl[dossier][client][subClient][ip].count++;
+                        if (!hitCountTbl[dossier][client][subClient][user][date]) {
+                            hitCountTbl[dossier][client][subClient][user][date] = {};
+                        }
+                        if (!hitCountTbl[dossier][client][subClient][user][date][hour]) {
+                            hitCountTbl[dossier][client][subClient][user][date][hour] = {count: 0};
+                        }
+                        hitCountTbl[dossier][client][subClient][user][date][hour].count++;
                     },
                     onSearchMsg = function (m) {
                         var dossier = m.msg.page,
@@ -71,24 +84,26 @@
                         searchCountTbl[dossier][pattern].count++;
                     };
                 consumer.on('message', function (message) {
-                    console.log("got message: " + message);
+                    console.log("got message: " + message.value);
                     var m = JSON.parse(message.value),
                         action = m.msg.action,
                         c = m.client,
-                        ip = c.ip,
+                        user = c.ip,
                         os = c.os && c.os.name || "";
                     cache.push(m);
                     totalCount ++;
-                    if (action == "browse") {
+                    if (action == "browse" || action == "loaddata") {
                         onBrowseMsg(m);
                     } else if (action == "search") {
                       onSearchMsg(m);
+                    } else {
+                        console.log("unknown msg.");
                     }
                     // user count
-                    if (!userCount[ip]) {
-                        userCount[ip] = 1;
+                    if (!userCount[user]) {
+                        userCount[user] = 1;
                     } else {
-                        userCount[ip]++;
+                        userCount[user]++;
                     }
                     // os count
                     if (!osCount[os]) {
@@ -122,7 +137,7 @@
             return hitCountTbl;
         },
         getHitCountTableMeta: function () {
-           return ['dossier', 'client', 'subClient', 'ip'];
+           return ['dossier', 'client', 'subClient', 'user', 'date', 'hour'];
         },
         getSearchCountTable: function() {
             return searchCountTbl;

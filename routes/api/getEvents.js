@@ -12,6 +12,48 @@
         calculate = function(req, target, msgs, meta) {
             var groupbys = req.param('groupby') ? req.param('groupby').split(',') : null,
                 counts,
+                sort = function (parent, n, depth, req) {
+                    var h = parent[n],
+                        sort = req.param('sort'),
+                        asc = sort === 'asc' ? true : false,
+                        bb = req.param('begin'),
+                        be = req.param('end'),
+                        sortFunc = function (t1, t2, asc) {
+                            var v1 = t1.v,
+                                v2 = t2.v;
+                            return asc ? (v2 - v1) : (v1 - v2);
+                        },
+                        sortChild = function (parent, n, dp) {
+                            var h = parent[n];
+                            if (dp === (depth - 1)) { // stop at parent level to sort the correct level's content
+                                var items = [];
+                                for (var k in h) {
+                                    items.push({n: k, v: h[k]});
+                                }
+                                items.sort(sortFunc);
+                                // reset h
+                                h = {};
+                                // repopulate h
+                                for (var i in items) {
+                                    // only within the bb and be range if they specified. bb and be are 1-based
+                                    if ((bb <= 0 || i >= (bb- 1)) && (be <= 0 || i <= (be - 1)) ) {
+                                        h[items[i].n] = h[items[i].v];
+                                    }
+                                }
+                                // assign back to parent
+                                parent[n] = h;
+                            } else {
+                                for (var k in h) {
+                                    sortChild(h, k, dp + 1);
+                                }
+                            }
+
+                        };
+                    if (sort) {
+                        sortChild(parent, n, 0);
+                    }
+                    return parent[n];
+                },
                 /**
                  * Returns the selector(s) from request object
                  * @param req {Object} request object
@@ -125,8 +167,10 @@
 
             walk(msgs, 0, selector(req), []);
 
-            // wort counts
-
+            // sort counts
+            if (groupbys) {
+                counts = sort({v: counts}, 'v', groupbys.length, req);
+            }
             return counts;
         },
         search = function (req) {
@@ -136,7 +180,8 @@
         count = function(req, target) {
             var msgs = EventMonitor.getHitCountTable(), // should i clone it?
                 meta = EventMonitor.getHitCountTableMeta();
-            return calculate(req, target, msgs, meta);
+            var ret = calculate(req, target, msgs, meta);
+            return ret;
         };
 
 
@@ -155,10 +200,11 @@
         res.json({result:search(req)});
     })
     /**
-     * Return the count of users -- equivalent to how many distinguish ips in system
+     * Return the count of users -- equivalent to how many distinguish users in system
      */
     router.get('/count/user', function(req, res) {
-        res.json({result:count(req, 'ip')});
+        var ret = count(req, 'user');
+        res.json({result: ret});
     });
 
     router.get('/count', function(req, res) {
