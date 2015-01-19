@@ -127,7 +127,7 @@
 
                     } else { // with group by
                         if (gp.length == groupbys.length) {
-                            incrArray(counts, gp, 0, sumCount(h, depth));
+                            incrArray(counts, gp, 0, sumCount(h, depth, {}));
                         } else {
                             for (var k in h) {
                                 track(h[k], (depth + 1), groupPath(k, depth, gp));
@@ -135,25 +135,42 @@
                         }
                     }
                 },
-                sumChildren = function (h, depth) {
+                sumChildren = function (h, depth, col) {
                     var count = 0;
-                    for (var k1 in h) {
-                        count = count + sumCount(h[k1], depth + 1);
+                    if (!target) {
+                        for (var k1 in h) {
+                            count = count + sumCount(h[k1], depth + 1, col);
+                        }
+                    } else {
+                        for (var k1 in h) {
+                            sumCount(h[k1], depth + 1, col);
+                        }
+                        count = Object.keys(col).length;
                     }
                     return count;
                 },
-                sumCount = function (h, depth) {
+                /**
+                 * returns the count of the sub tree
+                 * @param h subtree
+                 * @param depth the depth in the levels
+                 * @param col a cache collection to record distinguish targets. This is passed through whole tree traverse
+                 * @returns {*}
+                 */
+                sumCount = function (h, depth, col) {
                     if (target) { // has target
                         if (meta[depth] == target) { // next will be target level, we need to get count
-                            return Object.keys(h).length;
+                            for (var k in h) {
+                                col[k] = true;
+                            }
+                            return Object.keys(col).length;
                         } else {
-                            return sumChildren(h, depth);
+                            return sumChildren(h, depth, col);
                         }
                     } else { // no target, just retrieve hit count
                         if (h.hasOwnProperty('count')) {
                             return h.count;
                         } else {
-                            return sumChildren(h, depth);
+                            return sumChildren(h, depth, col);
                         }
                     }
                 };
