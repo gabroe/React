@@ -11,7 +11,7 @@ config.kafka = {
     topic: 'dossier',
     partition: 0,
     mongodb: {
-        url: "10.21.16.225",
+        url: "10.21.16.125",
         port: 27017,
         dbname: "eventing",
         delay: 1000
