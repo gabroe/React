@@ -4,6 +4,8 @@
 (function() {
     var config = require('../../config'),
         kafka = require('kafka-node'),
+        MongoDBConsumer = require('./KafkaMongoDBConsumer'),
+        mongoDBConsumer = null,
         consumer = null,
         kafkaClient = null,
         // local aggregation cache
@@ -13,19 +15,23 @@
         //hash map to keep dossier - client (web/ios/desktop) - sub client (brower/(iphone/ipad)/(windows/mac)) - version info  - ip
         hitCountTbl = {},
         searchCountTbl = {},
-        cache=[];
+        cache = [];
     var EventMonitor = {
         start: function() {
             var kafkaCfg = config.kafka;
             kafkaClient = new kafka.Client(kafkaCfg.url + ':' + kafkaCfg.port);
             kafkaClient.on('ready', function () {
+                // start MongoDB consumer
+                mongoDBConsumer = MongoDBConsumer();
+                // start in memory consumer
                 consumer = new kafka.Consumer(
                     kafkaClient,
                     [
-                        { topic: kafkaCfg.topic, partition: 0 }
+                        { topic: kafkaCfg.topic, partition: 0, offset: 0 }
                     ],
                     {
-                        autoCommit: false
+                        autoCommit: false,
+                        fromOffset: true
                     }
                 );
 
@@ -131,6 +137,9 @@
         stop: function () {
             if (consumer != null) {
                 consumer.close();
+            }
+            if (mongoDBConsumer) {
+                mongoDBConsumer.close();
             }
         },
         getHitCountTable: function () {
