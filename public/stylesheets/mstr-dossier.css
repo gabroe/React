@@ -341,7 +341,7 @@
 .mstr-all-dossiers {
   font: 14px "Helvetica Neue", "Open Sans", sans-serif;
   color: #333333;
-  height: 100%;
+  height: 100;
   font-weight: 100;
   background: #4dc3ac;
   min-height: 100%; }
@@ -404,6 +404,10 @@
             transform: scale(2.04); }
 
 /* all dossiers- end*/
+html,
+body {
+  height: 100%; }
+
 /* top navigation bar - begin*/
 .mstr-navbar {
   background-color: #fff; }
