@@ -10,6 +10,7 @@
     var app = module.exports = express();
 
     var routes = require('./routes/index'),
+        allDossiers = require('./routes/allDossiers'),
         dossier = require('./routes/viewer'),
         dossiers = require('./routes/api/dossiers'),
         data = require('./routes/data'),
@@ -46,6 +47,7 @@
 //    app.use('/logViewer', logViewer);
 //    app.use('/logViewerJSON', logViewerJSON);
 //    app.use('/logViewerBubble', logViewerBubble);
+    app.use('/all', allDossiers);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {

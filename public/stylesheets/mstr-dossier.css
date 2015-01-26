@@ -337,6 +337,73 @@
     .mstr-calendar tbody td span.inactive {
       color: #999; }
 
+/* all dossiers - begin*/
+.mstr-all-dossiers {
+  font: 14px "Helvetica Neue", "Open Sans", sans-serif;
+  color: #333333;
+  height: 100%;
+  font-weight: 100;
+  background: #4dc3ac;
+  min-height: 100%; }
+  .mstr-all-dossiers .mstr-all-dossier-view .mstr-navbar {
+    margin: 0;
+    color: #107BE7;
+    text-align: center;
+    font-size: 1.5em;
+    padding: 10px;
+    box-shadow: 0 1px 10px #AAAAAA; }
+    .mstr-all-dossiers .mstr-all-dossier-view .mstr-navbar ul {
+      margin: 0; }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-navbar ul.navbar-text {
+        cursor: default;
+        float: none;
+        display: inline-block; }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-navbar ul .mstr-nav-sort {
+        cursor: pointer;
+        background: url(icons/sort.png) no-repeat center center; }
+  .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto; }
+    .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item {
+      color: #333333;
+      float: left;
+      border: 1px solid #EEEEEE;
+      background: #FFFFFF;
+      height: 320px;
+      width: 250px;
+      margin: 50px 25px;
+      border-radius: 2px;
+      box-shadow: 0 1px 10px #8B8B8B;
+      padding: 20px;
+      box-sizing: border-box;
+      line-height: 20px;
+      cursor: pointer;
+      transition: all 100ms; }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item:hover {
+        transform: scale(1.04); }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-icn {
+        width: 100%;
+        height: 60%;
+        margin: 0 auto 20px;
+        background: url("icons/report.png") -8px 0 no-repeat; }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-upd {
+        font-size: 0.9em;
+        color: #AAAAAA; }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-pages {
+        padding: 10px 0; }
+        .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-pages .item-page {
+          background: #DDDDDD;
+          border-radius: 50%;
+          margin: 3px;
+          padding: 0px 5px;
+          box-sizing: border-box;
+          font-size: 9px; }
+          .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-pages .item-page:hover {
+            background: #56a9f6;
+            transform: scale(2.04); }
+
+/* all dossiers- end*/
 /* top navigation bar - begin*/
 .mstr-navbar {
   background-color: #fff; }

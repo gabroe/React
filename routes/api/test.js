@@ -5,10 +5,10 @@
         path = require('path');
 
     /* GET test page. */
-    router.get('/', function(req, res) {
+    router.get('/', function (req, res) {
 
         //send the test html, nothing else to do
-        res.sendFile("test.html", {root: path.join(__dirname, '../../public')}) ;
+        res.sendFile("test.html", {root: path.join(__dirname, '../../public')});
 
     });
 

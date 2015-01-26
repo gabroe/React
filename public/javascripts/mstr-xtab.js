@@ -7,17 +7,17 @@
 
     function trackEvent($http, msg) {
 
-        $http.get('/api/logEvent', {params: {msg: msg}}).success(function(data) {
+        $http.get('/api/logEvent', {params: {msg: msg}}).success(function (data) {
             console.log(JSON.stringify(data));
         });
     }
+
     function currentPage(root) {
         var m = root.model,
             pgs = m.pages,
             idx = m.selectedIndex;
         return pgs[idx].name || '';
     }
-
 
     angular.module('mstr.xtab', [])
 
@@ -38,7 +38,8 @@
                     return defer.promise;
                 }
             }
-        }])
+        }
+        ])
 
         .controller('xTabController', ['$scope', '$rootScope', '$http', '$filter', '$chunkLoader', '$mstrdata', function ($scope, $rootScope, $http, $filter, $chunkLoader, $mstrdata) {
             var sortOrder = false,
@@ -149,7 +150,8 @@
                     this.model = cc;
                     try {
                         $scope.$digest();
-                    } catch(e) {}
+                    } catch (e) {
+                    }
                 }
             };
 
@@ -205,7 +207,9 @@
                                     }
                                 });
                             } catch (e) {
-                                if (e !== breakException) throw e;
+                                if (e !== breakException) {
+                                    throw e;
+                                }
                             }
                             $rootScope.$digest();
                         }
@@ -266,7 +270,8 @@
 
             });
 
-        }])
+        }
+        ])
 
         .directive('dynamicCrossTab', ["$filter", "$window", "$mstrFormat", "$mstrDataTypes", function ($filter, $window, $mstrFormat, $mstrDataTypes) {
 
@@ -295,28 +300,26 @@
                         return scope.hasResizableElements;
                     };
 
-
                     var format = function ($filter, value, index, definition, header) {
                         var dataType = definition[header[index]],
                             formatMask;
 
-
                         switch (dataType) {
 
-                            case $mstrDataTypes.date:
+                        case $mstrDataTypes.date:
 
-                                formatMask = formatManager.getDisplayFormat(dataType);
+                            formatMask = formatManager.getDisplayFormat(dataType);
 
-                                return $filter('date')(value, formatMask);
+                            return $filter('date')(value, formatMask);
 
-                            case $mstrDataTypes.name:
+                        case $mstrDataTypes.name:
 
-                                formatMask = formatManager.getDisplayFormat(dataType);
+                            formatMask = formatManager.getDisplayFormat(dataType);
 
-                                if (formatMask) {
-                                    return $filter(formatMask)(value);
-                                }
-                                break;
+                            if (formatMask) {
+                                return $filter(formatMask)(value);
+                            }
+                            break;
                         }
                         return value;
                     }
@@ -376,7 +379,7 @@
                         return rowsArray;
                     }
 
-                    var  alignHeaders = function (element, setAsFixed) {
+                    var alignHeaders = function (element, setAsFixed) {
 
                         var $displayTable = $("table.mstr-xtab.body", element),
                             $lockedHeadersTable = $("table.mstr-xtab.header", element),
@@ -404,7 +407,7 @@
                         }
                     }
 
-                    var onScroll = function() {
+                    var onScroll = function () {
 
                         var model = scope.xTabCtrl.model,
                             position = ($(".mstr-xtab-scrollable", element).scrollTop() * model.window.trc ) / (($(".mstr-xtab-container", element).height()) * PAGE_SIZE),
@@ -448,7 +451,7 @@
                             } else {
 
                                 //loop through all extra chunks and clear the ones we no longer need
-                                while(tBodiesCollection.length > currentChunk + 2) {
+                                while (tBodiesCollection.length > currentChunk + 2) {
 
                                     //remove it from DOM
                                     $(tBodiesCollection[tBodiesCollection.length - 1]).remove();
@@ -492,7 +495,7 @@
                                             tBodiesCollection[i].innerHTML = buildRowsHTMLArray($filter, scope.xTabCtrl.getChunkRows(i), model.defn, model.header).join("");
 
                                             //add to index array
-                                            loadedChunks.splice(i - currentChunk + 1 , 0, i);
+                                            loadedChunks.splice(i - currentChunk + 1, 0, i);
                                         }
                                     }
 
@@ -510,7 +513,7 @@
                             }
                         }
 
-                        $("table.mstr-xtab.header", element).css("left", - $(".mstr-xtab-scrollable", element).scrollLeft());
+                        $("table.mstr-xtab.header", element).css("left", -$(".mstr-xtab-scrollable", element).scrollLeft());
 
                     };
 
@@ -631,5 +634,6 @@
                 }
             }
 
-        }]);
+        }
+        ]);
 })();
