@@ -7,7 +7,7 @@
         },
         name: 3,
         text: 4
-    }
+    };
 
     var columnMapper = {
         "salesforcelead": {"name": "Salesforce Lead", type: dataTypes.name},
@@ -40,7 +40,7 @@
         "numaction": {"name": "Action", type: dataTypes.text},
         "avgtime": {"name": "Average Time", type: dataTypes.text},
         "successrate": {"name": "Success Rate", type: dataTypes.text}
-    }
+    };
 
     module.exports = columnMapper;
-})();
+}());

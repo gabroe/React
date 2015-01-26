@@ -1,0 +1,99 @@
+/* all dossiers - begin*/
+.mstr-all-dossiers {
+    font: 14px "Helvetica Neue", "Open Sans", sans-serif;
+    color: #333333;
+    height: 100%;
+    font-weight: 100;
+
+    $color-common-blue: #107BE7;
+
+    background: rgb(77, 195, 172);
+    min-height: 100%;
+
+    .mstr-all-dossier-view {
+
+        .mstr-navbar {
+            margin: 0;
+            color: $color-common-blue;
+            text-align: center;
+            font-size: 1.5em;
+            padding: 10px;
+            box-shadow: 0 1px 10px #AAAAAA;
+
+            ul {
+                margin: 0;
+
+                &.navbar-text {
+                    cursor: default;
+                    float: none;
+                    display: inline-block;
+                }
+
+                .mstr-nav-sort {
+                    cursor: pointer;
+                    background: url(icons/sort.png) no-repeat center center;
+                }
+            }
+        }
+
+        .mstr-all-dossier-list {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+
+            .mstr-dossier-item {
+                color: #333333;
+                float: left;
+                border: 1px solid #EEEEEE;
+                background: #FFFFFF;
+                height: 320px;
+                width: 250px;
+                margin: 50px 25px;
+                border-radius: 2px;
+                box-shadow: 0 1px 10px #8B8B8B;
+                padding: 20px;
+                box-sizing: border-box;
+                line-height: 20px;
+                cursor: pointer;
+                transition: all 100ms;
+
+                &:hover {
+                    transform: scale(1.04);
+                }
+
+                .item-icn {
+                    width: 100%;
+                    height: 60%;
+                    margin: 0 auto 20px;
+                    background: url("icons/report.png") -8px 0 no-repeat
+                }
+
+                .item-upd {
+                    font-size: 0.9em;
+                    color: #AAAAAA;
+                }
+
+                .item-pages {
+                    $size-page: 5px;
+                    padding: 10px 0;
+
+                    .item-page {
+                        background: #DDDDDD;
+                        border-radius: 50%;
+                        margin: 3px;
+                        padding: 0px 5px;
+                        box-sizing: border-box;
+                        font-size: 9px;
+
+                        &:hover {
+                            background: rgb(86, 169, 246);
+                            transform: scale(2.04);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* all dossiers- end*/

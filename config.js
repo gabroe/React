@@ -1,4 +1,4 @@
-var config = {}
+var config = {};
 
 config.mongodb = {
     url: "10.21.16.125",
