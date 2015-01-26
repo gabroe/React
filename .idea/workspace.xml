@@ -2,306 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc3beaf7-d65e-491d-9392-a58e2df59a5d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/icons/graph.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/icons/report.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/icons/samples.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/AutoFocusMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/BeforeInputEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/CHANGELOG.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/CSSCore.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/CSSProperty.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/CSSPropertyOperations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/CallbackQueue.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ChangeEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ClientReactRootIndex.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/CompositionEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/DOMChildrenOperations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/DOMProperty.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/DOMPropertyOperations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/Danger.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/DefaultEventPluginOrder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EnterLeaveEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventConstants.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventListener.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventPluginHub.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventPluginRegistry.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventPluginUtils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/EventPropagators.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ExecutionEnvironment.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/HTMLDOMPropertyConfig.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/dist/JSXTransformer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/LICENSE.APACHE2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/LICENSE.MIT" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/node_modules/amdefine/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/LinkedStateMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/LinkedValueUtils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/LocalEventTrapMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/Makefile.dryice.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/MobileSafariClickEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/Object.assign.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/PooledClass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/node_modules/amdefine/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/React.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactBrowserComponentMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactBrowserEventEmitter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactCSSTransitionGroup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactCSSTransitionGroupChild.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactChildren.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactComponentBrowserEnvironment.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactComponentWithPureRenderMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactCompositeComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactContext.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactCurrentOwner.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOM.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMButton.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMForm.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMIDOperations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMImg.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMInput.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMOption.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMSelect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMSelection.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDOMTextarea.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDefaultBatchingStrategy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDefaultInjection.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDefaultPerf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactDefaultPerfAnalysis.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactElement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactElementValidator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactEmptyComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactErrorUtils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactEventEmitterMixin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactEventListener.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactInjection.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactInputSelection.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactInstanceHandles.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactLegacyElement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactLink.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactMarkupChecksum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactMount.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactMultiChild.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactMultiChildUpdateTypes.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactNativeComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactOwner.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPerf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPropTransferer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPropTypeLocationNames.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPropTypeLocations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPropTypes.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactPutListenerQueue.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactReconcileTransaction.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactRootIndex.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactServerRendering.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactServerRenderingTransaction.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactStateSetters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactTestUtils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactTextComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactTransitionChildMapping.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactTransitionEvents.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactTransitionGroup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactUpdates.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ReactWithAddons.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/Readme.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SVGDOMPropertyConfig.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SelectEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ServerReactRootIndex.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SimpleEventPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticClipboardEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticCompositionEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticDragEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticFocusEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticInputEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticKeyboardEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticMouseEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticTouchEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticUIEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/SyntheticWheelEvent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/Transaction.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/ViewportMetrics.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/accumulateInto.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/addons.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/adler32.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/all-dossiers.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/node_modules/amdefine/amdefine.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/array-set.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/assert-shim.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/test/async.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/test/auto-destroy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/base62.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/base64-vlq.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/base64.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/binary-search.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/test/buffering.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/camelize.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/camelizeStyleName.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/cloneWithProps.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/test/compat.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/containsNode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/copyProperties.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/createArrayFrom.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/createFullPageComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/createNodesFromMarkup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/custom.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/cx.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/dangerousStyleValue.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/deprecated.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/src/docblock.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/emptyFunction.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/emptyObject.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/test/end.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/.bin/envify" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/bin/envify" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-arrow-function-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-arrow-function-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-class-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-class-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-destructuring-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-destructuring-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-object-concise-method-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-object-concise-method-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-object-short-notation-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-object-short-notation-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-rest-param-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-rest-param-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es6-template-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es6-template-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es7-rest-property-helpers-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es7-rest-property-helpers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/es7-spread-property-visitors-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/es7-spread-property-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/escapeTextForBrowser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/bin/esparse.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/.bin/esparse" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/esprima.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/bin/esvalidate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/.bin/esvalidate" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/flattenChildren.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/focusNode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/forEachAccumulated.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getActiveElement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getEventCharCode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getEventKey.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getEventModifierState.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getEventTarget.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getMarkupWrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getNodeForCharacterOffset.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getReactRootElementInContainer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getTextContentAccessor.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/getUnboundedScrollPosition.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/hyphenate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/hyphenateStyleName.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/test/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/instantiateReactComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/node_modules/amdefine/intercept.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/invariant.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/isEventSupported.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/isNode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/isTextInputElement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/isTextNode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/jestPreprocessor.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/joinClasses.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/src/__tests__/jstransform-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/src/jstransform.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/keyMirror.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/keyOf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/mapObject.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/memoizeStringOnly.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/merge.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/mergeInto.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/mini-require.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/monitorCodeUse.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/mstr-dossiers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/onlyChild.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/node_modules/amdefine/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/performance.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/performanceNow.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/prefix-source-map.jsm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/prefix-utils.jsm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/dist/react-with-addons.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/dist/react-with-addons.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/react.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/dist/react.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/dist/react.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/through/readme.markdown" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/test/reflect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/reserved-words-helper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/__tests__/reserved-words-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/reserved-words-visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/run-tests.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/test/run.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/test/runner.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/setInnerHTML.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/shallowEqual.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/shouldUpdateReactComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/source-map-consumer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/source-map-generator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/source-node.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/suffix-browser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/suffix-source-map.jsm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/suffix-utils.jsm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-api.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-array-set.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-base64-vlq.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-base64.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-binary-search.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-dog-fooding.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/test-prefix.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-source-map-consumer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-source-map-generator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/test-source-node.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/build/test-suffix.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/base62/test/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/esprima-fb/test/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/toArray.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/traverseAllChildren.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/visitors/type-syntax.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/update.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/lib/source-map/util.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/node_modules/source-map/test/source-map/util.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/node_modules/jstransform/src/utils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/node_modules/envify/visitors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/react/lib/warning.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/columnMapper.js" afterPath="$PROJECT_DIR$/routes/columnMapper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.js" afterPath="$PROJECT_DIR$/config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/mstr-dossier.css.map" afterPath="$PROJECT_DIR$/public/stylesheets/mstr-dossier.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/mstr-dossier.css" afterPath="$PROJECT_DIR$/public/stylesheets/mstr-dossier.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/mstr-dossier.js" afterPath="$PROJECT_DIR$/public/javascripts/mstr-dossier.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sass/mstr-dossier.scss" afterPath="$PROJECT_DIR$/sass/mstr-dossier.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/mstr-xtab.js" afterPath="$PROJECT_DIR$/public/javascripts/mstr-xtab.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api/test.js" afterPath="$PROJECT_DIR$/routes/api/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/viewer.js" afterPath="$PROJECT_DIR$/routes/viewer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="WebDossierViewer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -325,22 +26,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mstr-dossiers.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/mstr-dossiers.js">
+      <file leaf-file-name="mstr-xtab.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/mstr-xtab.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1896">
-              <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="allDossiers.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/allDossiers.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.084014006" vertical-offset="0" max-vertical-offset="857">
-              <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-              <folding />
+            <state vertical-scroll-proportion="0.7339557" vertical-offset="1531" max-vertical-offset="7836">
+              <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+              <folding>
+                <marker date="1422299467000" expanded="true" signature="17037:17044" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -363,7 +56,6 @@
         <option value="$PROJECT_DIR$/routes/api/test.js" />
         <option value="$PROJECT_DIR$/routes/viewer.js" />
         <option value="$PROJECT_DIR$/public/javascripts/mstr-dossier.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/mstr-xtab.js" />
         <option value="$PROJECT_DIR$/routes/api/allTest.js" />
         <option value="$PROJECT_DIR$/routes/allTest.js" />
         <option value="$PROJECT_DIR$/public/allDossiers.html" />
@@ -374,6 +66,7 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/public/javascripts/mstr-dossiers.js" />
         <option value="$PROJECT_DIR$/routes/allDossiers.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/mstr-xtab.js" />
       </list>
     </option>
   </component>
@@ -659,7 +352,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15376514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2657614" sideWeight="0.4997367" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21681416" sideWeight="0.4997367" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21681416" sideWeight="0.4997367" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2393993" sideWeight="0.5002633" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -881,8 +574,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
           <folding>
-            <marker date="1422156503000" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;10.21.16.125&quot;...}" />
-            <marker date="1422156503000" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: '10.27.31.80'...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;10.21.16.125&quot;...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: '10.27.31.80'...}" />
           </folding>
         </state>
       </provider>
@@ -982,69 +675,69 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2628">
           <caret line="193" column="7" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="7" />
           <folding>
-            <marker date="1421782162000" expanded="false" signature="-1:-1" placeholder="/** Created by ewang on 12/11/2014. ...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="/** Returns the selector(s) from request object ...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="/** Walk down the JavaScript object to decide which part should be used for calculation, which part should not based on selector ...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="/*...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="/** return the count of hits -- equivalent to messages logged ...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="/** Return the count of users -- equivalent to how many distinguish users in system ...*/" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421782162000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="false" signature="-1:-1" placeholder="/** Created by ewang on 12/11/2014. ...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="/** Returns the selector(s) from request object ...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="/** Walk down the JavaScript object to decide which part should be used for calculation, which part should not based on selector ...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="/** return the count of hits -- equivalent to messages logged ...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="/** Return the count of users -- equivalent to how many distinguish users in system ...*/" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1422299360000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1163,16 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/mstr-xtab.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.0723455" vertical-offset="4687" max-vertical-offset="7728">
-          <caret line="610" column="22" selection-start-line="610" selection-start-column="22" selection-end-line="610" selection-end-column="22" />
-          <folding>
-            <marker date="1422157528000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/all-dossiers.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.428571" vertical-offset="0" max-vertical-offset="264">
@@ -1223,9 +906,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/allDossiers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.084014006" vertical-offset="0" max-vertical-offset="857">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.22403733" vertical-offset="0" max-vertical-offset="857">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/mstr-xtab.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7339557" vertical-offset="1531" max-vertical-offset="7836">
+          <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+          <folding>
+            <marker date="1422299467000" expanded="true" signature="17037:17044" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
