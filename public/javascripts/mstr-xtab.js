@@ -19,6 +19,13 @@
         return pgs[idx].name || '';
     }
 
+<<<<<<< HEAD
+=======
+    function currentDossier(root) {
+        return root.model.name;
+    }
+
+>>>>>>> 4b26a022c7f6d5ea96f981623a211958618b86ec
     angular.module('mstr.xtab', [])
 
         .factory('$chunkLoader', ['$q', function ($q) {
@@ -169,7 +176,7 @@
                 if (search !== undefined) {
                     timeout = window.setTimeout((function () {
                         // event tracking
-                        trackEvent($http, {action: 'search', page: currentPage($rootScope), pattern: search});
+                        trackEvent($http, {action: 'search', page: currentDossier($rootScope), pattern: search});
 
                         this.applyFilters({previousSearch: $scope.previousSearch});
 
