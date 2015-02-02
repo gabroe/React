@@ -5,10 +5,8 @@
 
     /* GET home page. */
     router.get('/', function (req, res) {
-
-
-      //redirect to the dossier viewer by default
-      res.redirect('/dossier');
+        //redirect to the all dossiers viewer by default
+        res.redirect('/all');
     });
 
     module.exports = router;

@@ -11,7 +11,7 @@
         debug = require('debug')('SiriusNode');
 
     /* GET dossier viewer page. */
-    router.get('/:name?', function(req, res) {
+    router.get('/:name?', function (req, res) {
 
         var mstrdb = app.get("mstrdb"),
             dossierName = req.params.name;
@@ -37,7 +37,7 @@
 
             evtLogger.log({action: "browse", page: dossierName}, req);
             //send the viewer html, nothing else to do
-            res.sendFile("mstr-viewer.html", {root: path.join(__dirname, '../public')}) ;
+            res.sendFile("mstr-viewer.html", {root: path.join(__dirname, '../public')});
             //res.send(dossierName);
         }
     });
