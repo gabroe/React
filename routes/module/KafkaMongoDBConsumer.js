@@ -21,6 +21,7 @@
                 {topic: kafkaCfg.topic, partition: kafkaCfg.partition}
             ],
             {
+                fetchMaxBytes: kafkaCfg.fetchMaxBytes,
                 fromOffset: true
             }
         );

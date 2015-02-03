@@ -30,6 +30,7 @@
                         { topic: kafkaCfg.topic, partition: 0, offset: 0 }
                     ],
                     {
+                        fetchMaxBytes: kafkaCfg.fetchMaxBytes,
                         autoCommit: false,
                         fromOffset: true
                     }
