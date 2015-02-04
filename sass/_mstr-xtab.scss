@@ -24,6 +24,10 @@
     margin-bottom: 50px;
     white-space: nowrap;
 
+    &.table > tbody + tbody {
+        border-top: 0;
+    }
+
     &.header {
         position: fixed;
         top:50px;

@@ -6,61 +6,60 @@
         cache = {},
         xhr;
 
-     function getPages(dataURL, startPage, token) {
+    function getPages(dataURL, startPage, token) {
 
-         var pages = {rows: []},
-             page = startPage,
-             getPage = function () {
+        var pages = {rows: []},
+            page = startPage,
+            getPage = function () {
 
-                 var data,
-                     windowInfo;
+                var data,
+                    windowInfo;
 
-                 xhr.open("GET", dataURL + "/" + (page++) + "?token=" + token);
-                 xhr.send();
+                xhr.open("GET", dataURL + "/" + (page++) + "?token=" + token);
+                xhr.send();
 
-                 xhr.onreadystatechange = function () {
+                xhr.onreadystatechange = function () {
 
-                     if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
 
-                         if (xhr.response) {
-                             data = JSON.parse(xhr.response);
+                        if (xhr.response) {
+                            data = JSON.parse(xhr.response);
 
-                             if (data) {
+                            if (data) {
 
-                                 pages.rows = pages.rows.concat(data.rows);
+                                pages.rows = pages.rows.concat(data.rows);
 
-                                 windowInfo = data.window;
+                                windowInfo = data.window;
 
-                                 if (windowInfo.cp < windowInfo.tpc - 1) {
+                                if (windowInfo.cp < windowInfo.tpc - 1) {
 
-                                     timeout = setTimeout(getPage, 0);
+                                    timeout = setTimeout(getPage, 0);
 
-                                 } else {
-                                     cache[dataURL] = pages;
-                                     postMessage(pages);
+                                } else {
+                                    cache[dataURL] = pages;
+                                    postMessage(pages);
 
-                                 }
-                             }
-                         }
-                     }
-                 }
+                                }
+                            }
+                        }
+                    }
+                }
 
-             };
+            };
 
+        if (timeout) {
 
-         if (timeout) {
+            clearTimeout(timeout);
+        }
 
-             clearTimeout(timeout);
-         }
+        if (cache[dataURL]) {
+            postMessage(cache[dataURL]);
+            return;
+        }
 
-         if (cache[dataURL]) {
-             postMessage(cache[dataURL]);
-             return;
-         }
-
-         xhr = xhr|| new XMLHttpRequest();
-         getPage();
-    };
+        xhr = xhr || new XMLHttpRequest();
+        getPage();
+    }
 
     addEventListener('message', function (e) {
 
