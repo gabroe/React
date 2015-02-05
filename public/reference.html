@@ -24,12 +24,12 @@
         <h1>API</h1>
         <h3>Reference</h3>
         <ul class="nav nav-pills nav-stacked">
-            <li ng-repeat="api in apiCtrl.apis" role="presentation"><a href="#">{{api.name}}</a></li>
+            <li ng-repeat="apiNode in apis" role="presentation" ng-class="{active:apiCtrl.isActive($index)}" ng-click="apiCtrl.selectApi($index)"><a href="#" ng-bind="apiNode.name"></a></li>
         </ul>
     </div>
     <div class="mstr-api-doc">
         <div class="mstr-box">
-            <h1 ng-bind-html="api.url + ' ' + apiCtrl.format(api.node)"></h1>
+            <h1 ng-bind-html="api.url + ' ' + apiCtrl.format(api.node) + ' ' + api.edge"></h1>
             <p>{{api.description}}</p>
         </div>
         <div class="mstr-box" ng-repeat="method in api.methods">
@@ -62,7 +62,9 @@
             <div ng-if="method.try">
                 <h2>Try it</h2>
                 <p>
-                    /api/dossiers/ <input size="50" ng-show="method.try.node" type="text" ng-model="apiCtrl.parameters[method.try.method].node" placeholder="{{method.try.node.placeholder + ' ' + (method.try.node.required ? '(required)' : '(optional)')}}"/>
+                    /api/dossiers/
+                    <input size="50" ng-show="method.try.node" type="text" ng-model="apiCtrl.parameters[method.try.method].node" placeholder="{{method.try.node.placeholder + ' ' + (method.try.node.required ? '(required)' : '(optional)')}}"/>
+                    {{api.edge}}
                     <textarea ng-show="method.try.body" ng-model="apiCtrl.parameters[method.try.method].body" placeholder="{{method.try.body.placeholder + ' ' + (method.try.body.required ? '(required)' : '(optional)')}}"></textarea>
                     <input type="button" value="{{method.try.method}}" ng-click="apiCtrl.callAPI(method.try.method)"/>
                 </p>

@@ -104,18 +104,21 @@
 
         var mstrdb = app.get("mstrdb"),
             dossierName = req.params.name,
-            query = {};
+            query = [];
 
         if (dossierName === undefined) {
             res.status(HTTP_STATUS.BAD_REQUEST).end();
             return;
         }
 
+        query.push({
+            "name": dossierName
+        });
         try {
-            query["_id"] = new ObjectID(dossierName);
-        } catch (e) {
-            query.name = dossierName;
-        }
+            query.push({
+                "_id": new ObjectID(dossierName)
+            });
+        } catch (e) {}
 
         //no database connection available, return 500 error
         if (!mstrdb) {
@@ -124,7 +127,7 @@
             return;
         }
 
-        mstrdb.collection(MONGODB_COLLECTION_NAME).remove(query, function (err, result) {
+        mstrdb.collection(MONGODB_COLLECTION_NAME).remove({$or:query}, function (err, result) {
             if (err || !result) {
                 //something went wrong, return 400
                 res.status(HTTP_STATUS.BAD_REQUEST).json({"status":"error", "message": "No dossiers deleted."}).end();
@@ -193,18 +196,21 @@
             dossierName = req.params.name,
             data = req.body,
             timestampUpdate = {"time_modified": true},
-            query = {};
+            query = [];
 
         if (dossierName === undefined) {
             res.status(HTTP_STATUS.BAD_REQUEST).end();
             return;
         }
 
+        query.push({
+            "name": dossierName
+        });
         try {
-            query["_id"] = new ObjectID(dossierName);
-        } catch (e) {
-            query.name = dossierName;
-        }
+            query.push({
+                "_id": new ObjectID(dossierName)
+            });
+        } catch (e) {}
 
         //no database connection available, return 500 error
         if (!mstrdb) {
@@ -219,7 +225,7 @@
                 timestampUpdate["service.time_published"] = true;
             }
 
-            mstrdb.collection(MONGODB_COLLECTION_NAME).update(query, {
+            mstrdb.collection(MONGODB_COLLECTION_NAME).update({$or:query}, {
                 $currentDate: timestampUpdate,
                 $set: data
             }, {w:1}, function (err, result) {
@@ -240,12 +246,14 @@
     });
 
     /* GET dossiers. */
-    router.get('/:name?', function(req, res) {
+    router.get('/:name?/:edge?', function(req, res) {
 
         var dossierName = req.params.name,
+            edge = req.params.edge,
             mstrdb = app.get("mstrdb"),
-            query = {},
-            findFunction = "find";
+            query,
+            findFunction = "find",
+            knownEdges = ["time_modified"];
 
         //no database connection available, return 500 error
         if (!mstrdb) {
@@ -255,17 +263,32 @@
 
         //setup the query criteria
         if (dossierName !== undefined) {
-            try {
-                query["_id"] = new ObjectID(dossierName);
-            } catch (e) {
-                query.name = {
+            query = [];
+            query.push({
+                "name": {
                     $regex: "^" + dossierName,
                     $options: 'i'
                 }
-            }
+            });
+            try {
+                query.push({
+                    "_id": new ObjectID(dossierName)
+                });
+            } catch (e) {}
+
             //if we are looking for only one record, switch the function to findOne.
             findFunction = "findOne";
+            if (query.length > 1) {
+                query = {
+                    $or: query
+                };
+            } else {
+                query = query[0];
+            }
+        } else {
+            query = {};
         }
+
 
         var processResult = function (result) {
 
@@ -278,7 +301,18 @@
                 });
             } else {
                 if (!result.service || !result.service.fence || validateFencing(req, result.service.fence)) {
-                    res.json(result);
+                    if (edge !== undefined && knownEdges.indexOf(edge) >= 0) {
+
+                        var jsonResponse = {
+                            "_id": result["_id"]
+                        };
+
+                        jsonResponse[edge] = result[edge] !== undefined ? result[edge] : "";
+
+                        res.json(jsonResponse);
+                    } else {
+                        res.json(result);
+                    }
                 } else {
                     res.json({"status":"error", "message":"outside fence"});
                 }

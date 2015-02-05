@@ -6,14 +6,24 @@
 
         $http.get("/javascripts/api/api-reference.json").success(function (data) {
 
-            this.apis = data.api;
-            $scope.api = this.apis[0];
+            $scope.apis = this.apis = data.api;
+            $scope.selected = 0;
+            $scope.api = this.apis[$scope.selected];
 
         });
 
         this.parameters = {};
 
         $scope.result = {};
+
+        this.selectApi = function (index) {
+            $scope.selected = index;
+            $scope.api = $scope.apis[index];
+        }
+
+        this.isActive = function (index) {
+            return $scope.selected === index;
+        }
 
         this.format = function (label) {
             if (label) {
@@ -56,6 +66,10 @@
 
             if (node !== undefined) {
                 url += ("/" + node);
+            }
+
+            if ($scope.api.edge !== undefined) {
+                url += ($scope.api.edge);
             }
 
             parameters.push(url);

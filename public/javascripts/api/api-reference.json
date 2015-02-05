@@ -14,7 +14,7 @@
             "GET /api/dossiers/{dossier-name-suffix} HTTP 1.1",
             "GET /api/dossiers/{dossier-id} HTTP 1.1"
           ],
-          "description": "Fetches either the entire list of dossiers available in the catalog or a since dossier if either a dossier name or the suffix of a dossier's name is specified. The results are limited by the availabilty of the dossier provided its definition includes fencing restrictions.",
+          "description": "Fetches either the entire list of dossiers available in the catalog or a since dossier if either a dossier's name, its id or the suffix of a dossier's name is specified. The results are limited by the availabilty of the dossier provided its definition includes fencing restrictions.",
           "sections": [
             {
               "title": "Fields",
@@ -94,6 +94,16 @@
                   "-- columnHeader",
                   "The style associated with the column header section of the page when displaying a grid.",
                   "object (css)"
+                ],
+                [
+                  "time_created",
+                  "The time when the dossier was created by the author.",
+                  "datetime"
+                ],
+                [
+                  "time_modified",
+                  "The time when the dossier last modified.",
+                  "datetime"
                 ],
                 [
                   "service",
@@ -226,6 +236,49 @@
               "required": true
             },
             "method": "POST"
+          }
+        }
+      ]
+    },
+    {
+      "name": "-- /time_modified",
+      "url": "/api/dossiers",
+      "node": "<_/{dossier-name}_>",
+      "edge": "/time_modified",
+      "description": "The last modification time of a dossier.",
+      "methods": [
+        {
+          "action": "Reading",
+          "usage": [
+            "GET /api/dossiers/{dossier-name}/time_modified HTTP 1.1",
+            "GET /api/dossiers/{dossier-name-suffix}/time_modified HTTP 1.1",
+            "GET /api/dossiers/{dossier-id}/time_modified HTTP 1.1"
+          ],
+          "description": "Returns a json response which includes the last modification time of a dossier either by dossier name, id or the suffix of a dossier's name. The results are limited by the availabilty of the dossier provided its definition includes fencing restrictions.",
+          "sections": [
+            {
+              "title": "Fields",
+              "type": "fields",
+              "rows": [
+                [
+                  "_id",
+                  "The id of a dossier",
+                  "string"
+                ],
+                [
+                  "time_modified",
+                  "The time when the dossier last modified.",
+                  "datetime"
+                ]
+              ]
+            }
+          ],
+          "try": {
+            "node": {
+              "placeholder": "{dossier-name | dossier-id}",
+              "required": true
+            },
+            "method": "GET"
           }
         }
       ]
