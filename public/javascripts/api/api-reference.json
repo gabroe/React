@@ -287,7 +287,169 @@
     },
     {
       "key": "event",
-      "name": "event"
+      "name": "event",
+      "url": "/api/event",
+      "description": "Event logging API.",
+      "methods": [
+        {
+          "action": "Reading",
+          "usage": [
+            "GET /api/event HTTP 1.1"
+          ],
+          "description": "Returns an event summary json object, which includes usage times as well as the events logged by the system.",
+          "sections": [
+            {
+              "title": "Fields",
+              "type": "fields",
+              "rows": [
+                [
+                  "total",
+                  "",
+                  "number"
+                ],
+                [
+                  "user",
+                  "",
+                  "object"
+                ],
+                [
+                  "os",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- Windows",
+                  "",
+                  "number"
+                ],
+                [
+                  "-- Mac OS",
+                  "",
+                  "number"
+                ],
+                [
+                  "-- iOS",
+                  "",
+                  "number"
+                ],
+                [
+                  "messages",
+                  "",
+                  "array"
+                ],
+                [
+                  "-- msg",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- action",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- page",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- timestamp",
+                  "",
+                  "datetime"
+                ],
+                [
+                  "-- host",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- client",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- ua",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- browser",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- -- name",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- -- version",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- -- major",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- engine",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- -- name",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- -- version",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- os",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- -- name",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- -- version",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- device",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- cpu",
+                  "",
+                  "object"
+                ],
+                [
+                  "-- -- -- architecture",
+                  "",
+                  "string"
+                ],
+                [
+                  "-- -- ip",
+                  "",
+                  "string"
+                ]
+              ]
+            }
+          ],
+          "try": {
+            "method": "GET"
+          }
+        }
+      ]
     }
   ]
 }

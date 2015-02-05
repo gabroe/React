@@ -62,7 +62,7 @@
             <div ng-if="method.try">
                 <h2>Try it</h2>
                 <p>
-                    /api/dossiers/
+                    {{api.url}}{{method.try.node ? "/" : ""}}
                     <input size="50" ng-show="method.try.node" type="text" ng-model="apiCtrl.parameters[method.try.method].node" placeholder="{{method.try.node.placeholder + ' ' + (method.try.node.required ? '(required)' : '(optional)')}}"/>
                     {{api.edge}}
                     <textarea ng-show="method.try.body" ng-model="apiCtrl.parameters[method.try.method].body" placeholder="{{method.try.body.placeholder + ' ' + (method.try.body.required ? '(required)' : '(optional)')}}"></textarea>
