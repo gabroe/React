@@ -1,0 +1,237 @@
+{
+  "api": [
+    {
+      "name": "dossiers",
+      "url": "/api/dossiers",
+      "node": "<_/{dossier-name}_>",
+      "description": "Manages dossiers. Specifying a dossier-name returns a single dossier.",
+      "methods": [
+        {
+          "action": "Reading",
+          "usage": [
+            "GET /api/dossiers HTTP 1.1",
+            "GET /api/dossiers/{dossier-name} HTTP 1.1",
+            "GET /api/dossiers/{dossier-name-suffix} HTTP 1.1",
+            "GET /api/dossiers/{dossier-id} HTTP 1.1"
+          ],
+          "description": "Fetches either the entire list of dossiers available in the catalog or a since dossier if either a dossier name or the suffix of a dossier's name is specified. The results are limited by the availabilty of the dossier provided its definition includes fencing restrictions.",
+          "sections": [
+            {
+              "title": "Fields",
+              "type": "fields",
+              "rows": [
+                [
+                  "_id",
+                  "The id of a dossier",
+                  "string"
+                ],
+                [
+                  "name",
+                  "The name of a dossier",
+                  "string"
+                ],
+                [
+                  "selectedIndex",
+                  "The index corresponding to the default page to be displayed if no page is specified when displaying the dossier.",
+                  "integer"
+                ],
+                [
+                  "pages",
+                  "The pages available in the dossier.",
+                  "array"
+                ],
+                [
+                  "-- name",
+                  "The page title.",
+                  "string"
+                ],
+                [
+                  "-- data",
+                  "The source of the page's data.",
+                  "string"
+                ],
+                [
+                  "-- connection",
+                  "The connection details of the page's data source.",
+                  "string"
+                ],
+                [
+                  "-- -- dbtype",
+                  "The database type, i.e. \"postgress\"",
+                  "string"
+                ],
+                [
+                  "-- -- server",
+                  "The database server URL.",
+                  "string"
+                ],
+                [
+                  "-- -- port",
+                  "The database server port.",
+                  "integer"
+                ],
+                [
+                  "-- -- database",
+                  "The database name.",
+                  "string"
+                ],
+                [
+                  "-- -- user",
+                  "The database user name.",
+                  "string"
+                ],
+                [
+                  "style",
+                  "The formatting definition of the dossier.",
+                  "object"
+                ],
+                [
+                  "-- title",
+                  "The style associated with the title of the dossier.",
+                  "object (css)"
+                ],
+                [
+                  "-- columnHeader",
+                  "The style associated with the column header section of the page when displaying a grid.",
+                  "object (css)"
+                ],
+                [
+                  "service",
+                  "The information related to the dossier availability as a service.",
+                  "object"
+                ],
+                [
+                  "-- shared",
+                  "Whether the dossier is ready for client consumption. <_{\"shared\":1}_> indicates dossier has been published.",
+                  "integer"
+                ],
+                [
+                  "-- time_published",
+                  "The time when the dossier got published by the author.",
+                  "datetime"
+                ],
+                [
+                  "-- fence",
+                  "The information about viewing the dossier viewing restrictions.",
+                  "object"
+                ],
+                [
+                  "-- -- ip",
+                  "The list of IP addresses that can view the dossier. If no list is provided no restrictions apply. Each value on the list can take * and ? as wildcards, for instance <<\"10.12.34.*\">> or <<\"10.12.34.21?\">>",
+                  "array"
+                ],
+                [
+                  "-- -- time",
+                  "The list of time ranges that indicates when the dossier can be viewed, for instance: <<[\"9:00-12:00\", \"16:00-18:00\"]>>",
+                  "array"
+                ],
+                [
+                  "-- -- date",
+                  "A list of objects representing dates and times within those dates that indicates when the dossier can be viewed. <_time_> is optional. If no <_end_> is specified, the date window has no end. If no <_start_> is specified, the date window has no beginning.",
+                  "array"
+                ],
+                [
+                  "-- -- -- start",
+                  "The start date of the viewing window.",
+                  "datetime"
+                ],
+                [
+                  "-- -- -- end",
+                  "The end date of the viewing window.",
+                  "datetime"
+                ],
+                [
+                  "-- -- -- time",
+                  "The list of time ranges withing the date window that indicates when the dossier can be viewed, for instance: <<[\"9:00-12:00\", \"16:00-18:00\"]>>",
+                  "array"
+                ]
+              ]
+            }
+          ],
+          "try": {
+            "node": {
+              "placeholder": "{dossier-name | dossier-id}",
+              "required": false
+            },
+            "method": "GET"
+          }
+        },
+        {
+          "action": "Updating",
+          "usage": [
+            "PUT /api/dossiers/{dossier-name} HTTP 1.1",
+            "PUT /api/dossiers/{dossier-id} HTTP 1.1"
+          ],
+          "description": "Updating a dossier will automatically update the <_time_modified_> field to the current time. Publishing a dossier, by updating a dossier using <_{\"service.shared\": 1}_> will also update the <_service.time_published_> field to the current time.",
+          "sections": [
+            {
+              "title": "Parameters",
+              "type": "fields",
+              "rows": [
+                [
+                  "{message-body}",
+                  "A flat JSON representation of the fields to changed, using (.) notation, for example: <<{ \"name\": \"New Dossier Name\" }>> or <<{ \"name\": \"New Dossier Name\", \"service.shared\": 1 }>>",
+                  "json"
+                ]
+              ]
+            }
+          ],
+          "try": {
+            "node": {
+              "placeholder": "{dossier-name | dossier-id}",
+              "required": true
+            },
+            "body": {
+              "placeholder": "dossier-update-json",
+              "required": true
+            },
+            "method": "PUT"
+          }
+        },
+        {
+          "action": "Deleting",
+          "usage": [
+            "DELETE /api/dossiers/{dossier-name} HTTP 1.1",
+            "DELETE /api/dossiers/{dossier-id} HTTP 1.1"
+          ],
+          "description": "Deletes the specified dossier from the dossier catalog.",
+          "try": {
+            "node": {
+              "placeholder": "{dossier-name | dossier-id}",
+              "required": true
+            },
+            "method": "DELETE"
+          }
+        },
+        {
+          "action": "Publishing",
+          "usage": ["POST /api/dossiers HTTP 1.1"],
+          "description": "Adds a new dossier to the catalog. The name given to a dossier must be unique.",
+          "sections": [
+            {
+              "title": "Parameters",
+              "type": "fields",
+              "rows": [
+                [
+                  "{message-body}",
+                  "The JSON representation of a single dossier definition, for example: <<{\"pages\":[{\"name\":\"leadsmqllast7days1000\",\"data\":\"/redshift/leadsmqllast7days1000\",\"connection\":{\"password\":\"jLebrun1\",\"port\":\"5439\",\"database\":\"jlebrun\",\"dbtype\":\"postgres\",\"server\":\"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com\",\"user\":\"jlebrun\"}},{\"name\":\"leadsmqllast7days10000\",\"data\":\"/redshift/leadsmqllast7days10000\",\"connection\":{\"password\":\"jLebrun1\",\"port\":\"5439\",\"database\":\"jlebrun\",\"dbtype\":\"postgres\",\"server\":\"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com\",\"user\":\"jlebrun\"}},{\"name\":\"leadsmqllast7days100000\",\"data\":\"/redshift/leadsmqllast7days100000\",\"connection\":{\"password\":\"jLebrun1\",\"port\":\"5439\",\"database\":\"jlebrun\",\"dbtype\":\"postgres\",\"server\":\"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com\",\"user\":\"jlebrun\"}}],\"style\":{\"title\":{\"color\":\"rgba(70,172,225,1.000000)\"},\"columnheader\":{\"color\":\"rgba(255,255,255,1.000000)\",\"background\":\"rgba(70,172,225,1.000000)\"}},\"name\":\"MQL Dossier\",\"selectedIndex\":0}>> or an array or dossier definitions.",
+                  "json"
+                ]
+              ]
+            }
+          ],
+          "try": {
+            "body": {
+              "placeholder": "dossier-definition-json",
+              "required": true
+            },
+            "method": "POST"
+          }
+        }
+      ]
+    },
+    {
+      "name": "events"
+    }
+  ]
+}
