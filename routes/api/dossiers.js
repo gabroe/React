@@ -5,6 +5,7 @@
 
     var express = require('express'),
         mongoClient = require('mongodb').MongoClient,
+        ObjectID = require('mongodb').ObjectID,
         router = express.Router(),
         app = require('../../app'),
         debug = require('debug')('SiriusNode');
@@ -102,11 +103,18 @@
     router.delete('/:name', function (req, res) {
 
         var mstrdb = app.get("mstrdb"),
-            dossierName = req.params.name;
+            dossierName = req.params.name,
+            query = {};
 
         if (dossierName === undefined) {
             res.status(HTTP_STATUS.BAD_REQUEST).end();
             return;
+        }
+
+        try {
+            query["_id"] = new ObjectID(dossierName);
+        } catch (e) {
+            query.name = dossierName;
         }
 
         //no database connection available, return 500 error
@@ -116,13 +124,13 @@
             return;
         }
 
-        mstrdb.collection(MONGODB_COLLECTION_NAME).remove({name: dossierName}, function (err, result) {
-            if (err) {
+        mstrdb.collection(MONGODB_COLLECTION_NAME).remove(query, function (err, result) {
+            if (err || !result) {
                 //something went wrong, return 400
-                res.status(HTTP_STATUS.BAD_REQUEST).end();
+                res.status(HTTP_STATUS.BAD_REQUEST).json({"status":"error", "message": "No dossiers deleted."}).end();
             } else {
                 //all good
-                res.status(HTTP_STATUS.OK).end();
+                res.status(HTTP_STATUS.OK).json({"status":"success", "message": result + " dossier deleted."}).end();
             }
         });
     });
@@ -131,9 +139,11 @@
     router.post('/', function (req, res) {
 
         var mstrdb = app.get("mstrdb"),
-            dossier = req.body;
-
-        debug(req.body);
+            dossier = req.body,
+            setTimestamp = function (dossierDefinition) {
+                dossierDefinition["time_created"] = (new Date()).toISOString();
+                dossierDefinition["time_modified"] = dossierDefinition["time_created"];
+            };
 
         //no database connection available, return 500 error
         if (!mstrdb) {
@@ -141,32 +151,39 @@
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).end();
         }
 
-        if (dossier && dossier.name !== undefined) {
+        mstrdb.collection(MONGODB_COLLECTION_NAME).ensureIndex({name: 1}, {unique: true}, function (err, result) {});
 
-            mstrdb.collection(MONGODB_COLLECTION_NAME).findOne({name: dossier.name}, function (err, result) {
-                if (!result) {
+        if (dossier) {
 
-                    dossier["time_created"] = (new Date()).toISOString();
-                    dossier["time_modified"] = dossier["time_created"];
+            if (Array.isArray(dossier)) {
+                dossier.forEach(function (singleDossier) {
+                    setTimestamp(singleDossier);
+                });
+            } else {
+                setTimestamp(dossier);
+            }
 
-                    mstrdb.collection(MONGODB_COLLECTION_NAME).insert(dossier, {w:1}, function (err, result) {
-                        if (err) {
-                            //something went wrong, return 400
-                            res.status(HTTP_STATUS.BAD_REQUEST).end();
-                        } else {
-                            //all good
-                            res.status(HTTP_STATUS.OK).end();
-                        }
-                    });
+            mstrdb.collection(MONGODB_COLLECTION_NAME).insert(dossier, {ordered: false}, function (err, result) {
+                if (err) {
+                    var error = {"status":"error", "message": "Unable to publish dossier."};
+
+                    if (err.code === 11000) {
+                        error.cause = "A dossier with the same name already exists in the catalog."
+                    }
+                    //something went wrong, return 400
+                    res.status(HTTP_STATUS.BAD_REQUEST).json(error).end();
                 } else {
-                    //dossier with given name already exists, prevent overwrite.
-                    res.status(HTTP_STATUS.BAD_REQUEST).end();
+                    var ids = [];
+                    result.forEach(function (dossier) {
+                        ids.push(dossier["_id"]);
+                    });
+                    //all good
+                    res.status(HTTP_STATUS.OK).json({"status":"success", "message": "Dossier(s) created successfully.", "id-list": ids}).end();
                 }
             });
-
         } else {
             //something went wrong, return 400
-            res.status(HTTP_STATUS.BAD_REQUEST).end();
+            res.status(HTTP_STATUS.BAD_REQUEST).json({"status":"error", "message": "Dossier definition not specified.", "id-list": ids}).end();
         }
 
     });
@@ -175,11 +192,18 @@
         var mstrdb = app.get("mstrdb"),
             dossierName = req.params.name,
             data = req.body,
-            timestampUpdate = {"time_modified": true};
+            timestampUpdate = {"time_modified": true},
+            query = {};
 
-            if (dossierName === undefined) {
+        if (dossierName === undefined) {
             res.status(HTTP_STATUS.BAD_REQUEST).end();
             return;
+        }
+
+        try {
+            query["_id"] = new ObjectID(dossierName);
+        } catch (e) {
+            query.name = dossierName;
         }
 
         //no database connection available, return 500 error
@@ -195,16 +219,16 @@
                 timestampUpdate["service.time_published"] = true;
             }
 
-            mstrdb.collection(MONGODB_COLLECTION_NAME).update({name: dossierName}, {
+            mstrdb.collection(MONGODB_COLLECTION_NAME).update(query, {
                 $currentDate: timestampUpdate,
                 $set: data
             }, {w:1}, function (err, result) {
-                if (err) {
+                if (err || !result) {
                     //something went wrong, return 400
-                    res.status(HTTP_STATUS.BAD_REQUEST).end();
+                    res.status(HTTP_STATUS.BAD_REQUEST).json({"status":"error", "message": "No dossiers updated."}).end();
                 } else {
                     //all good
-                    res.status(HTTP_STATUS.OK).end();
+                    res.status(HTTP_STATUS.OK).json({"status":"success", "message": result + " dossier updated."}).end();
                 }
             });
         } else {
@@ -231,12 +255,34 @@
 
         //setup the query criteria
         if (dossierName !== undefined) {
-            query.name = {
-                $regex: "^" + dossierName,
-                $options: 'i'
-            };
+            try {
+                query["_id"] = new ObjectID(dossierName);
+            } catch (e) {
+                query.name = {
+                    $regex: "^" + dossierName,
+                    $options: 'i'
+                }
+            }
             //if we are looking for only one record, switch the function to findOne.
             findFunction = "findOne";
+        }
+
+        var processResult = function (result) {
+
+            //if the result is a collection of dossiers, convert it to array before sending the response back
+            if (result.toArray) {
+                result.toArray(function (err, dossiers) {
+                    res.json(dossiers.filter(function (dossier) {
+                        return !dossier.service || !dossier.service.fence || validateFencing(req, dossier.service.fence)
+                    }));
+                });
+            } else {
+                if (!result.service || !result.service.fence || validateFencing(req, result.service.fence)) {
+                    res.json(result);
+                } else {
+                    res.json({"status":"error", "message":"outside fence"});
+                }
+            }
         }
 
         //find the first dossier that matches the name
@@ -247,24 +293,11 @@
 
             if (result) {
 
-                //if the result is a collection of dossiers, convert it to array before sending the response back
-                if (result.toArray) {
-                    result.toArray(function (err, dossiers) {
-                        res.json(dossiers.filter(function (dossier) {
-                            return !dossier.service || !dossier.service.fence || validateFencing(req, dossier.service.fence)
-                        }));
-                    });
-                } else {
-                    if (!result.service || !result.service.fence || validateFencing(req, result.service.fence)) {
-                        res.json(result);
-                    } else {
-                        res.json({"status":"error", "message":"outside fence"});
-                    }
-                }
+                processResult(result);
 
             } else {
                 //if the query did not find results, or the database is empty, return 404
-                res.status(HTTP_STATUS.NOT_FOUND).end()
+                res.status(HTTP_STATUS.NOT_FOUND).json({"status":"error", "message":"Dossier not found"}).end()
             }
         });
 

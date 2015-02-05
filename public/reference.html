@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html ng-app="mstr.api">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>MicroStrategy API</title>
+
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+        body {
+            padding: 0 50px;
+            background-color: #e9eaed;
+        }
+        textarea {
+            width: 100%;
+            display: block;
+            margin: 20px 0;
+
+        }
+        .mstr-left-nav {
+            width: 100px;
+        }
+        .mstr-box {
+            background-color: #fff;
+            font-size: small;
+            border: 1px solid #dbdbdb;
+            margin-bottom: 20px;
+        }
+        .modal-header {
+            background-color: #f6f7f8;
+        }
+        .modal-content {
+            border-radius: 0;
+        }
+        .modal-title {
+            font-size:medium;
+        }
+        .mstr-box h1{
+            font-size:medium;
+            padding: 0 10px;
+            font-weight: normal;
+            background-color: #f6f7f8;
+            height: 40px;
+            line-height: 40px;
+            margin: 0;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .mstr-box h2 {
+            font-size:medium;
+            padding: 0 10px;
+            line-height: 40px;
+            margin: 0;
+            color: #0086B3;
+        }
+        .mstr-box h3 {
+            font-size:small;
+            font-weight: bold;
+            padding: 0 10px;
+            line-height: 40px;
+            margin: 0;
+        }
+        .mstr-box p {
+            padding: 10px;
+            margin: 0;
+        }
+        .node {
+            color: #0086B3;
+        }
+        .field,
+        .type {
+            color: #0086B3;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+        }
+        .mstr-box code {
+            display: block;
+        }
+        .mstr-api-doc {
+            position: absolute;
+            right: 50px;
+            top: 20px;
+            left: 200px;
+        }
+        .mstr-left-nav {
+            position: absolute;
+            top: 20px;
+            width: 140px;
+        }
+    </style>
+
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <script>
+        (function () {
+
+            var apis = [
+                {
+                    name: "dossiers",
+                    url: "/api/dossiers",
+                    node: "<_/{dossier-name}_>",
+                    description: "Manages dossiers. Specifying a dossier-name returns a single dossier.",
+                    methods: [
+                        {
+                            action: "Reading",
+                            usage: [
+                                "GET /api/dossiers HTTP 1.1",
+                                "GET /api/dossiers/{dossier-name} HTTP 1.1",
+                                "GET /api/dossiers/{dossier-name-suffix} HTTP 1.1",
+                                "GET /api/dossiers/{dossier-id} HTTP 1.1"
+                            ],
+                            description: "Fetches either the entire list of dossiers available in the catalog or a since dossier if either a dossier name or the suffix of a dossier's name is specified. The results are limited by the availabilty of the dossier provided its definition includes fencing restrictions.",
+                            sections: [
+                                {
+                                    title: "Fields",
+                                    type: "fields",
+                                    rows: [
+                                        ["_id", "The id of a dossier", "string"],
+                                        ["name", "The name of a dossier", "string"],
+                                        ["selectedIndex", "The index corresponding to the default page to be displayed if no page is specified when displaying the dossier.", "integer"],
+                                        ["pages", "The pages available in the dossier.", "array"],
+                                        ["-- name", "The page title.", "string"],
+                                        ["-- data", "The source of the page's data.", "string"],
+                                        ["-- connection", "The connection details of the page's data source.", "string"],
+                                        ["-- -- dbtype", "The database type, i.e. \"postgress\"", "string"],
+                                        ["-- -- server", "The database server URL.", "string"],
+                                        ["-- -- port", "The database server port.", "integer"],
+                                        ["-- -- database", "The database name.", "string"],
+                                        ["-- -- user", "The database user name.", "string"],
+                                        ["style", "The formatting definition of the dossier.", "object"],
+                                        ["-- title", "The style associated with the title of the dossier.", "object (css)"],
+                                        ["-- columnHeader", "The style associated with the column header section of the page when displaying a grid.", "object (css)"]
+                                    ]
+                                }
+                            ],
+                            try: {
+                                "node": {
+                                    placeholder: "{dossier-name | dossier-id}",
+                                    required: false
+                                },
+                                method: "GET"
+                            }
+                        },
+                        {
+                            action: "Updating",
+                            usage: [
+                                "PUT /api/dossiers/{dossier-name} HTTP 1.1",
+                                "PUT /api/dossiers/{dossier-id} HTTP 1.1"
+                            ],
+                            description: "Updating a dossier will automatically update the <_time_modified_> field to the current time. Publishing a dossier, by updating a dossier using <_{\"service.shared\": 1}_> will also update the <_service.time_published_> field to the current time.",
+                            sections: [
+                                {
+                                    title: "Parameters",
+                                    type: "fields",
+                                    rows: [
+                                        ["{message-body}", 'A flat JSON representation of the fields to changed, using (.) notation, for example: <<{ "name": "New Dossier Name" }>> or <<{ "name": "New Dossier Name", "service.shared": 1 }>>', "json"]
+                                    ]
+                                }
+                            ],
+                            try: {
+                                "node": {
+                                    placeholder: "{dossier-name | dossier-id}",
+                                    required: true
+                                },
+                                "body": {
+                                    placeholder: "dossier-update-json",
+                                    required: true
+                                },
+                                method: "PUT"
+                            }
+                        },
+                        {
+                            action: "Deleting",
+                            usage: [
+                                "DELETE /api/dossiers/{dossier-name} HTTP 1.1",
+                                "DELETE /api/dossiers/{dossier-id} HTTP 1.1"
+                            ],
+                            description: "Deletes the specified dossier from the dossier catalog.",
+                            try: {
+                                "node": {
+                                    placeholder: "{dossier-name | dossier-id}",
+                                    required: true
+                                },
+                                method: "DELETE"
+                            }
+                        },
+                        {
+                            action: "Publishing",
+                            usage: ["POST /api/dossiers HTTP 1.1"],
+                            description: "Adds a new dossier to the catalog. The name given to a dossier must be unique.",
+                            sections: [
+                                {
+                                    title: "Parameters",
+                                    type: "fields",
+                                    rows: [
+                                        ["{message-body}", 'The JSON representation of a single dossier definition, for example: <<{"pages":[{"name":"leadsmqllast7days1000","data":"/redshift/leadsmqllast7days1000","connection":{"password":"jLebrun1","port":"5439","database":"jlebrun","dbtype":"postgres","server":"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com","user":"jlebrun"}},{"name":"leadsmqllast7days10000","data":"/redshift/leadsmqllast7days10000","connection":{"password":"jLebrun1","port":"5439","database":"jlebrun","dbtype":"postgres","server":"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com","user":"jlebrun"}},{"name":"leadsmqllast7days100000","data":"/redshift/leadsmqllast7days100000","connection":{"password":"jLebrun1","port":"5439","database":"jlebrun","dbtype":"postgres","server":"labs-cluster.chvvaq8wng8j.us-east-1.redshift.amazonaws.com","user":"jlebrun"}}],"style":{"title":{"color":"rgba(70,172,225,1.000000)"},"columnheader":{"color":"rgba(255,255,255,1.000000)","background":"rgba(70,172,225,1.000000)"}},"name":"MQL Dossier","selectedIndex":0}>> or an array or dossier definitions.', "json"]
+                                    ]
+                                }
+                            ],
+                            try: {
+                                "body": {
+                                    placeholder: "dossier-definition-json",
+                                    required: true
+                                },
+                                method: "POST"
+                            }
+                        }
+                    ]
+                },{name:"events"}];
+
+            var app = angular.module('mstr.api', ['ui.bootstrap', 'ngSanitize']);
+
+            app.controller('APIRefCtrl', ['$sce', '$scope', '$http', function ($sce, $scope, $http) {
+                this.apis = apis;
+                this.parameters = {};
+
+                $scope.api = this.apis[0];
+                $scope.result = {};
+
+                this.format = function (label) {
+                    return $sce.trustAsHtml(label.replace(/<_/g, "<span class=\"field\">").replace(/\_>/g, "</span>").replace(/<</g, "<code>").replace(/>>/g, "</code>"));
+                };
+
+                var processResult = function (data, status) {
+                    $scope.result.status = status;
+                    $scope.result.data = data;
+                    $('.modal').modal('show');
+                };
+
+                this.get = function () {
+                    var url = $scope.api.url,
+                        node = this.parameters['GET'] && this.parameters['GET'].node;
+
+                    if (node !== undefined) {
+                        url += ("/" + node);
+                    }
+
+                    $http.get(url)
+                        .success(processResult)
+                        .error(processResult);
+                };
+
+                this.put = function () {
+                    var params = this.parameters['PUT'],
+                        node = params && params.node,
+                        body = params && params.body;
+
+                    if (node && body) {
+
+                        $http.put($scope.api.url + "/" + node, body)
+                            .success(processResult)
+                            .error(processResult);
+                    }
+                };
+
+                this.delete = function () {
+                    var params = this.parameters['DELETE'],
+                        node = params && params.node;
+
+                    if (node) {
+
+                        $http.delete($scope.api.url + "/" + node)
+                            .success(processResult)
+                            .error(processResult);
+                    }
+                };
+
+                this.post = function () {
+                    var params = this.parameters['POST'],
+                        body = params && params.body;
+
+                    if (body) {
+
+                        $http.post($scope.api.url, body)
+                            .success(processResult)
+                            .error(processResult);
+                }
+                };
+
+                this.callAPI = function (method) {
+                    this[method.toLowerCase()].call(this);
+                }
+
+
+            }]);
+
+        })();
+
+    </script>
+
+</head>
+<body ng-app="mstr.api">
+<div ng-controller="APIRefCtrl as apiCtrl">
+    <div class="mstr-left-nav mstr-box">
+        <h1>API</h1>
+        <h3>Reference</h3>
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-repeat="api in apiCtrl.apis" role="presentation"><a href="#">{{api.name}}</a></li>
+        </ul>
+    </div>
+    <div class="mstr-api-doc">
+        <div class="mstr-box">
+            <h1 ng-bind-html="api.url + ' ' + apiCtrl.format(api.node)"></h1>
+            <p>{{api.description}}</p>
+        </div>
+        <div class="mstr-box" ng-repeat="method in api.methods">
+            <h1>{{method.action}}</h1>
+            <p>
+                <code ng-repeat="usage in method.usage">{{usage}}</code>
+            </p>
+            <p ng-bind-html="apiCtrl.format(method.description)"></p>
+            <div ng-repeat="section in method.sections">
+                <h2>{{section.title}}</h2>
+                <p>
+                    <table ng-if="section.type == 'fields'" class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in section.rows">
+                            <td class="field">{{row[0]}}</td>
+                            <td ng-bind-html="apiCtrl.format(row[1])"></td>
+                            <td class="type">{{row[2]}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+            <div ng-if="method.try">
+                <h2>Try it</h2>
+                <p>
+                    /api/dossiers/ <input size="50" ng-show="method.try.node" type="text" ng-model="apiCtrl.parameters[method.try.method].node" placeholder="{{method.try.node.placeholder + ' ' + (method.try.node.required ? '(required)' : '(optional)')}}"/>
+                    <textarea ng-show="method.try.body" ng-model="apiCtrl.parameters[method.try.method].body" placeholder="{{method.try.body.placeholder + ' ' + (method.try.body.required ? '(required)' : '(optional)')}}"></textarea>
+                    <input type="button" value="{{method.try.method}}" ng-click="apiCtrl.callAPI(method.try.method)"/>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">Status: {{result.status}}</h4>
+                </div>
+                <div class="modal-body">
+                    <span class="field">Response</span>
+                    <textarea>{{result.data}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

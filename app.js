@@ -16,6 +16,7 @@
         data = require('./routes/data'),
         redshift = require('./routes/redshift'),
         test = require('./routes/api/test'),
+        reference = require('./routes/api/reference'),
 //        logViewerJSON = require('./routes/logViewer-JSON'),
 //        logViewerBubble = require('./routes/logViewer-Bubble'),
 //        logViewer = require('./routes/logViewer'),
@@ -41,6 +42,7 @@
     app.use('/dossier', dossier);
     app.use('/api/dossiers', dossiers);
     app.use('/api/test', test);
+    app.use('/api/reference', reference);
     app.use('/api/logEvent', logEvent);
     app.use('/api/getEvents', getEvents);
     app.use('/api/event', getEvents);
