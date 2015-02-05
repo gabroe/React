@@ -38,6 +38,22 @@
             return $scope.selected === index;
         }
 
+        this.isSubmitDisabled = function (method, nodeRequired, bodyRequired) {
+            var params = this.parameters[method],
+                nodeValue = params && params.node,
+                bodyValue = params && params.body;
+
+            if (nodeRequired && (nodeValue === undefined || nodeValue.length === 0)) {
+                return true;
+            }
+
+            if (bodyRequired && (bodyValue === undefined || bodyValue.length === 0)) {
+                return true;
+            }
+
+            return false;
+        }
+
         this.format = function (label) {
             if (label) {
                 return $sce.trustAsHtml(label.replace(/<_/g, "<span class=\"field\">").replace(/\_>/g, "</span>").replace(/<</g, "<code>").replace(/>>/g, "</code>"));
@@ -56,26 +72,7 @@
                 params = this.parameters[method],
                 node = params && params.node,
                 body = params && params.body,
-                requiredParams = {
-                    "PUT": ["node", "body"],
-                    "DELETE": ["node"],
-                    "POST" : ["body"]
-                },
                 parameters = [];
-
-            try {
-                if (requiredParams[method]) {
-                    requiredParams[method].forEach(function (parameter) {
-                        if ((params && params[parameter]) === undefined) {
-                            throw 1;
-                        }
-                    });
-                }
-            }
-            catch (e) {
-                processResult("Missing required field.", "Error");
-                return;
-            }
 
             if (node !== undefined) {
                 url += ("/" + node);
