@@ -1,6 +1,7 @@
 {
   "api": [
     {
+      "key": "dossiers",
       "name": "dossiers",
       "url": "/api/dossiers",
       "node": "<_/{dossier-name}_>",
@@ -241,6 +242,7 @@
       ]
     },
     {
+      "key": "dossiers/time_modified",
       "name": "-- /time_modified",
       "url": "/api/dossiers",
       "node": "<_/{dossier-name}_>",
@@ -284,7 +286,8 @@
       ]
     },
     {
-      "name": "events"
+      "key": "event",
+      "name": "event"
     }
   ]
 }

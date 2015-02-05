@@ -22,9 +22,9 @@
 <div ng-controller="APIRefCtrl as apiCtrl">
     <div class="mstr-left-nav mstr-box">
         <h1>API</h1>
-        <h3>Reference</h3>
+        <h3>Reference</h3>  
         <ul class="nav nav-pills nav-stacked">
-            <li ng-repeat="apiNode in apis" role="presentation" ng-class="{active:apiCtrl.isActive($index)}" ng-click="apiCtrl.selectApi($index)"><a href="#" ng-bind="apiNode.name"></a></li>
+            <li ng-repeat="apiNode in apis" role="presentation" ng-class="{active:apiCtrl.isActive($index)}" ng-click="apiCtrl.selectApi($index)"><a href="#{{apiNode.key}}" ng-bind="apiNode.name"></a></li>
         </ul>
     </div>
     <div class="mstr-api-doc">

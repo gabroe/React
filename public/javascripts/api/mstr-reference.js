@@ -1,14 +1,27 @@
 (function () {
 
+    function findApiIndex(apis, apiName) {
+        try {
+            apis.forEach(function (api, index) {
+                if (api.key.toLowerCase() === apiName.toLowerCase()) {
+                    throw index;
+                }
+            });
+        } catch (index) {
+            return index;
+        }
+        return 0;
+    }
+
     var app = angular.module('mstr.api', ['ui.bootstrap', 'ngSanitize']);
 
-    app.controller('APIRefCtrl', ['$sce', '$scope', '$http', function ($sce, $scope, $http) {
+    app.controller('APIRefCtrl', ['$sce', '$scope', '$http', '$location', function ($sce, $scope, $http, $location) {
 
         $http.get("/javascripts/api/api-reference.json").success(function (data) {
 
-            $scope.apis = this.apis = data.api;
-            $scope.selected = 0;
-            $scope.api = this.apis[$scope.selected];
+            $scope.apis = data.api;
+            $scope.selected = findApiIndex(data.api, $location.path().substring(1));
+            $scope.api = $scope.apis[$scope.selected];
 
         });
 
