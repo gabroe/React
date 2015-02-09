@@ -54,7 +54,7 @@
                 [
                   "-- connection",
                   "The connection details of the page's data source.",
-                  "string"
+                  "object"
                 ],
                 [
                   "-- -- dbtype",
@@ -450,6 +450,11 @@
           }
         }
       ]
+    },
+    {
+      "key": "event/count",
+      "name": "-- /count",
+      "url": "/api/event/count"
     }
   ]
 }
