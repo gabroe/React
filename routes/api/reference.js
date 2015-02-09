@@ -7,7 +7,8 @@
     /* GET test page. */
     router.get('/', function (req, res) {
 
-        res.redirect("./reference");
+        //send the test html, nothing else to do
+        res.sendFile("reference.html", {root: path.join(__dirname, '../../public')});
 
     });
 

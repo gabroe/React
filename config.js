@@ -10,6 +10,7 @@ config.kafka = {
     port: '2181',
     topic: 'dossier',
     partition: 0,
+    fetchMaxBytes: 10240,
     mongodb: {
         url: "10.21.16.125",
         port: 27017,

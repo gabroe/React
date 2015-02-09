@@ -1,0 +1,81 @@
+/* api reference css stylesheet */
+
+body {
+    padding: 0 50px;
+    background-color: #e9eaed;
+}
+textarea {
+    width: 100%;
+    display: block;
+    margin: 20px 0;
+
+}
+.modal-header {
+    background-color: #f6f7f8;
+}
+.modal-content {
+    border-radius: 0;
+}
+.modal-title {
+    font-size:medium;
+}
+.mstr-box {
+    background-color: #fff;
+    font-size: small;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+
+    h1{
+        font-size:medium;
+        padding: 0 10px;
+        font-weight: normal;
+        background-color: #f6f7f8;
+        height: 40px;
+        line-height: 40px;
+        margin: 0;
+        border-bottom: 1px solid #dbdbdb;
+    }
+    h2 {
+        font-size:medium;
+        padding: 0 10px;
+        line-height: 40px;
+        margin: 0;
+        color: #0086B3;
+    }
+    h3 {
+        font-size:small;
+        font-weight: bold;
+        padding: 0 10px;
+        line-height: 40px;
+        margin: 0;
+    }
+    p {
+        padding: 10px;
+        margin: 0;
+    }
+    code {
+        display: block;
+    }
+}
+
+.node {
+    color: #0086B3;
+}
+.field,
+.type {
+    color: #0086B3;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+    white-space: nowrap;
+}
+
+.mstr-api-doc {
+    position: absolute;
+    right: 50px;
+    top: 20px;
+    left: 200px;
+}
+.mstr-left-nav {
+    position: fixed;
+    top: 20px;
+    width: 140px;
+}
