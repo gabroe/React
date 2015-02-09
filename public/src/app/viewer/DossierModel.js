@@ -11,8 +11,9 @@
          * Constant specifying the number of rows per page.
          *
          * @constant
+         * @default 100
          */
-        PAGE_SIZE: 200,
+        PAGE_SIZE: 100,
 
         /**
          * Spins off a web worker and incrementally fetches all the data for the current page.
