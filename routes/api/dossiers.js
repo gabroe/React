@@ -48,25 +48,29 @@
         if (timeArray && timeArray.length) {
 
             timeArray.forEach(function (time) {
-                var timeRange = time.split("-");
 
-                if (timeRange.length === 2) {
+                if (time.split) {
 
-                    var startTimeRestriction = timeRange[0].split(":"),
-                        endTimeRestriction = timeRange[1].split(":"),
-                        startTime = new Date(),
-                        endTime = new Date(),
-                        setupTime = function (time, timeRestriction) {
-                            time.setHours(parseInt(timeRestriction[0], 10));
-                            time.setMinutes(parseInt(timeRestriction[1], 10));
-                        };
+                    var timeRange = time.split("-");
+
+                    if (timeRange.length === 2) {
+
+                        var startTimeRestriction = timeRange[0].split(":"),
+                            endTimeRestriction = timeRange[1].split(":"),
+                            startTime = new Date(),
+                            endTime = new Date(),
+                            setupTime = function (time, timeRestriction) {
+                                time.setHours(parseInt(timeRestriction[0], 10));
+                                time.setMinutes(parseInt(timeRestriction[1], 10));
+                            };
 
 
-                    if (startTimeRestriction.length >= 2 && endTimeRestriction.length >=2) {
-                        setupTime(startTime, startTimeRestriction);
-                        setupTime(endTime, endTimeRestriction);
+                        if (startTimeRestriction.length >= 2 && endTimeRestriction.length >=2) {
+                            setupTime(startTime, startTimeRestriction);
+                            setupTime(endTime, endTimeRestriction);
 
-                        result |= (currentTime >= startTime && currentTime <= endTime);
+                            result |= (currentTime >= startTime && currentTime <= endTime);
+                        }
                     }
                 }
             });
@@ -75,29 +79,32 @@
         return true;
     }
 
-    function validateIPFence(req, ipArray) {
-        var remoteIP = req.connection.remoteAddress,
-            regEx,
+    function validateIPFence(ipAddress, ipArray) {
+        var regEx,
             result = false;
 
-        if (remoteIP && ipArray && ipArray.length) {
+        if (ipAddress && ipArray && ipArray.length) {
 
             ipArray.forEach(function (ip) {
                 regEx = new RegExp(ip.replace(".", "\\.").replace("*", "\\d*").replace("?", "\\d"));
 
-                result |= regEx.test(remoteIP);
+                result |= regEx.test(ipAddress);
             });
             return result;
         }
         return true;
     }
 
-    function validateFencing(req, fence) {
+    function validateFencing(ipAddress, dossier) {
+        return true;
+        var service = dossier && dossier.service,
+            fence = service && service.fence;
+
         if (!fence) {
             return true;
         }
 
-        return validateIPFence(req, fence.ip) && validateTimeFence(fence.time) && validateDateFence(fence.date);
+        return validateIPFence(ipAddress, fence.ip) && validateTimeFence(fence.time) && validateDateFence(fence.date);
     }
 
     router.delete('/:name', function (req, res) {
@@ -296,11 +303,11 @@
             if (result.toArray) {
                 result.toArray(function (err, dossiers) {
                     res.json(dossiers.filter(function (dossier) {
-                        return !dossier.service || !dossier.service.fence || validateFencing(req, dossier.service.fence)
+                        return validateFencing(req.connection.remoteAddress, dossier);
                     }));
                 });
             } else {
-                if (!result.service || !result.service.fence || validateFencing(req, result.service.fence)) {
+                if (validateFencing(req.connection.remoteAddress, result)) {
                     if (edge !== undefined && knownEdges.indexOf(edge) >= 0) {
 
                         var jsonResponse = {
