@@ -33,6 +33,10 @@
       transition: all 100ms; }
       .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item:hover {
         transform: scale(1.04); }
+      .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap; }
       .mstr-all-dossiers .mstr-all-dossier-view .mstr-all-dossier-list .mstr-dossier-item .item-icn {
         width: 100%;
         height: 60%;
