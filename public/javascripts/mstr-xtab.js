@@ -417,7 +417,6 @@
                     }
 
                     var onScroll = function () {
-
                         var model = scope.xTabCtrl.model,
                             position = ($(".mstr-xtab-scrollable", element).scrollTop() * model.window.trc ) / (($(".mstr-xtab-container", element).height()) * PAGE_SIZE),
                             currentChunk = parseInt(position, 10),
@@ -523,7 +522,6 @@
                         }
 
                         $("table.mstr-xtab.header", element).css("left", -$(".mstr-xtab-scrollable", element).scrollLeft());
-
                     };
 
                     var displayXTab = function (model, adjustColumn) {
@@ -586,7 +584,7 @@
                             alignHeaders(element, false);
                         }
 
-                        adjustDisplayFormats(model, adjustColumn);
+                        //adjustDisplayFormats(model, adjustColumn);
                     };
 
                     var adjustDisplayFormats = function (model, adjustColumn) {

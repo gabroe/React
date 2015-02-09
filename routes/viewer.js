@@ -6,15 +6,16 @@
     var express = require('express'),
         path = require('path'),
         app = require('../app'),
+        url = require('url'),
         router = express.Router(),
         evtLogger = require('./module/EventLogger').getInstance(),
         debug = require('debug')('SiriusNode');
 
     /* GET dossier viewer page. */
     router.get('/:name?', function (req, res) {
-
         var mstrdb = app.get("mstrdb"),
-            dossierName = req.params.name;
+            dossierName = req.params.name,
+            queryObject = url.parse(req.url,true).query;
 
         if (dossierName === undefined) {
             //no database connection available, return 500 error
@@ -32,6 +33,18 @@
                     res.redirect("/dossier/" + dossier.name);
                 }
             });
+
+        } else if (queryObject.react) {
+            console.log("react-test");
+
+            // Log the dev
+            evtLogger.log({
+                action: "browse-react-viewer",
+                page: dossierName
+            }, req);
+
+            //send the viewer html, nothing else to do
+            res.sendFile("mstr-dossier-viewer.html", {root: path.join(__dirname, '../public')});
 
         } else {
 

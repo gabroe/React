@@ -2,16 +2,30 @@
 <html>
 <head>
     <title>All Dossiers</title>
-    <script src="http://fb.me/react-0.12.2.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/underscore/underscore-min.js"></script>
+    <script src="/bower_components/backbone/backbone.js"></script>
+    <script src="/bower_components/react/react.min.js"></script>
+    <script src="/bower_components/react/JSXTransformer.js"></script>
+
+
     <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="/bower_components/html5-boilerplate/css/main.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/mstr-dossier.css">
+    <link rel="stylesheet" href="/stylesheets/mstr-all-dossiers.css">
+    <style>
+        html, body {
+            background: rgb(77, 195, 172);
+        }
+    </style>
 </head>
 <body>
     <div id="mstr-all-dossiers" class="mstr-all-dossiers"></div>
-    <script type="text/jsx" src="/javascripts/mstr-dossiers.js"></script>
+    <script src="/src/mstrX.js"></script>
+    <script src="/src/util/xhr.js"></script>
+    <script src="/src/app/dossiers/AllDossierModel.js"></script>
+    <script type="text/jsx" src="/src/ui/NavigationBar.jsx"></script>
+    <script type="text/jsx" src="/src/app/dossiers/AllDossiers.jsx"></script>
 </body>
 </html>
