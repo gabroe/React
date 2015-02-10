@@ -16,12 +16,13 @@
     }
 
     function isUserAgent(req, userAgent) {
-
         var reqUserAgent = getUserAgent(req);
+
+        if (!reqUserAgent) return false;
 
         switch (userAgent) {
             case USER_AGENT_SIRIUS_WORKSHOP:
-                if (reqUserAgent && reqUserAgent.indexOf("SiriusWorkshop") >= 0) {
+                if (reqUserAgent.indexOf("SiriusWorkshop") >= 0 || (reqUserAgent.indexOf("AppleWebKit") >= 0 && (reqUserAgent.indexOf("Safari") < 0 && reqUserAgent.indexOf("Chrome") < 0))) {
                     return true;
                 }
         }
@@ -326,7 +327,7 @@
                     res.json(dossiers);
                 });
             } else {
-                if (isUserAgent(USER_AGENT_SIRIUS_WORKSHOP) || validateFencing(req.connection.remoteAddress, result)) {
+                if (isUserAgent(req, USER_AGENT_SIRIUS_WORKSHOP) || validateFencing(req.connection.remoteAddress, result)) {
                     if (edge !== undefined && knownEdges.indexOf(edge) >= 0) {
 
                         var jsonResponse = {
