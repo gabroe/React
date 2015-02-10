@@ -15,13 +15,9 @@
         page: 0,
 
         /**
-         *
-         */
-        pageData: undefined,
-
-        /**
          * Overriding the constructor of the model to request the data for the all dossiers page.
          *
+         * @ignore
          */
         constructor: function constructor() {
             // Call super.
@@ -37,7 +33,7 @@
         /**
          * Sorts the dossiers in the app by the name of the dossier.
          *
-         * @param {Object} data The all dossier data.
+         * @param {Array} data The all dossier data.
          */
         sort: function triggerSort(data) {
             var sortValue = this.sortValue,
