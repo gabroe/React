@@ -21,8 +21,19 @@
     "ua-parser-js": "^0.7.3"
   },
   "devDependencies": {
-    "mocha": "^2.1.0",
-    "should": "^4.6.5",
-    "supertest": "^0.15.0"
+    "blanket": "^1.1.6",
+    "grunt": "~0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.10.1",
+    "grunt-mocha-test": "~0.12.7",
+    "jasmine-core": "~2.2.0",
+    "karma": "~0.12.31",
+    "karma-chrome-launcher": "~0.1.7",
+    "karma-coverage": "~0.2.7",
+    "karma-jasmine": "~0.3.5",
+    "karma-junit-reporter": "~0.2.2",
+    "mocha": "~2.1.0",
+    "should": "~4.6.5",
+    "supertest": "~0.15.0"
   }
 }
