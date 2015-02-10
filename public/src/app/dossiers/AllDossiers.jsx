@@ -1,58 +1,16 @@
 (function () {
-    // Testing mixin.
-    mstrX.DossierItemMixin = {
-        goToPage: function goToPage(dossierName, index) {
-            window.open("/dossier/" + dossierName + '#/' + index, "_self");
-        }
-    };
-
-    // Individual dossier item.
-    mstrX.DossierItem = React.createClass({
-        mixins: [mstrX.DossierItemMixin],
-
-        getDefaultProps: function () {
-            return {
-                lastUpdated: 'Last Updated: 2 days ago'
-            };
-        },
-
-        handleClick: function handleClick(evt) {
-            this.goToPage(this.props.item.name, evt.target.getAttribute("data-idx") || 0);
-        },
-
-        render: function render() {
-            var props = this.props,
-                dossierItem = props.item;
-
-            var dossierPageNodes = (dossierItem.pages || []).map(function (dossierPage, index) {
-                return (
-                    <span title={"Navigate to page: " + dossierPage.name} className="item-page" data-idx={index}>
-                    </span>
-                );
-            }, this);
-
-            return (
-                <div className="mstr-dossier-item" onClick={this.handleClick.bind(this)}>
-                    <div className="item-icn"></div>
-                    <div className="item-name">{dossierItem.name}</div>
-                    <div className="item-upd">{props.lastUpdated}</div>
-                    <div className="item-pages">{dossierPageNodes}</div>
-                </div>
-            );
-        }
-    });
-
     /**
      * Dossier List to display a list of dossier items.
      *
+     * @class
      */
-    mstrX.DossierList = React.createClass({
+    mstrX.app.dossiers.DossierList = React.createClass({
         render: function render() {
             var dossierItemNodes = this.props.data.map(function (dossierItem) {
                 return (
-                    <mstrX.DossierItem item={dossierItem} name={dossierItem.name}>
+                    <mstrX.app.dossiers.DossierItem item={dossierItem} name={dossierItem.name}>
                         {dossierItem.name}
-                    </mstrX.DossierItem>
+                    </mstrX.app.dossiers.DossierItem>
                 );
             });
 
@@ -79,7 +37,7 @@
         /**
          * Called immediately after component rendering.
          *
-         * @see {http://facebook.github.io/react/docs/component-specs.html}
+         * @ignore
          */
         componentDidMount: function componentDidMount() {
             // Set up an event listener on the model to refresh view.
@@ -109,12 +67,13 @@
             return (
                 <div className="mstr-all-dossier-view">
                     <mstrX.ui.NavigationBar handleNagivationClick={this.handleClick.bind(this)} title="All Dossiers" rightItems={rightNavBarItems}/>
-                    <mstrX.DossierList data={this.state.data} />
+                    <mstrX.app.dossiers.DossierList data={this.state.data} />
                 </div>
             );
         }
     });
 
+    // Render the All Dossier view in the
     React.render(
         <mstrX.app.dossiers.AllDossiersView model={new mstrX.app.dossiers.AllDossierModel}/>,
         document.getElementById('mstr-all-dossiers')
