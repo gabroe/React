@@ -1,7 +1,8 @@
 (function () {
 
     const HTTP_STATUS = require('http-status-codes'),
-        MONGODB_COLLECTION_NAME = 'dossiers';
+        MONGODB_COLLECTION_NAME = 'dossiers',
+        USER_AGENT_SIRIUS_WORKSHOP = 1;
 
     var express = require('express'),
         mongoClient = require('mongodb').MongoClient,
@@ -9,6 +10,23 @@
         router = express.Router(),
         app = require('../../app'),
         debug = require('debug')('SiriusNode');
+
+    function getUserAgent(req) {
+        return req.headers['user-agent'];
+    }
+
+    function isUserAgent(req, userAgent) {
+
+        var reqUserAgent = getUserAgent(req);
+
+        switch (userAgent) {
+            case USER_AGENT_SIRIUS_WORKSHOP:
+                if (reqUserAgent && reqUserAgent.indexOf("SiriusWorkshop") >= 0) {
+                    return true;
+                }
+        }
+        return false;
+    }
 
     function validateDateFence(dateArray) {
         var result = false,
@@ -96,7 +114,7 @@
     }
 
     function validateFencing(ipAddress, dossier) {
-        return true;
+
         var service = dossier && dossier.service,
             fence = service && service.fence;
 
@@ -302,12 +320,13 @@
             //if the result is a collection of dossiers, convert it to array before sending the response back
             if (result.toArray) {
                 result.toArray(function (err, dossiers) {
-                    res.json(dossiers.filter(function (dossier) {
-                        return validateFencing(req.connection.remoteAddress, dossier);
-                    }));
+                    //res.json(dossiers.filter(function (dossier) { //ignore fencing for now
+                    //    return validateFencing(req.connection.remoteAddress, dossier);
+                    //}));
+                    res.json(dossiers);
                 });
             } else {
-                if (validateFencing(req.connection.remoteAddress, result)) {
+                if (isUserAgent(USER_AGENT_SIRIUS_WORKSHOP) || validateFencing(req.connection.remoteAddress, result)) {
                     if (edge !== undefined && knownEdges.indexOf(edge) >= 0) {
 
                         var jsonResponse = {
