@@ -5,18 +5,18 @@
      *
      * @class
      */
-    var XtabTRow = React.createClass({
+    var XtabTRow = React.createClass({displayName: "XtabTRow",
         render: function render() {
             var tdNodes = this.props.rowData.map(function (rowValue) {
                 return (
-                    <td>{rowValue}</td>
+                    React.createElement("td", null, rowValue)
                 );
             });
 
             return (
-                <tr>
-                    {tdNodes}
-                </tr>
+                React.createElement("tr", null, 
+                    tdNodes
+                )
             );
         }
     });

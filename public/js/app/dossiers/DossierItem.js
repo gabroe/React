@@ -19,7 +19,7 @@
      * @class
      * @mixes mstrX.app.dossiers.DossierItemMixin
      */
-    var DossierItem = React.createClass({
+    var DossierItem = React.createClass({displayName: "DossierItem",
 
         mixins: [DossierItemMixin],
 
@@ -39,18 +39,18 @@
 
             var dossierPageNodes = (dossierItem.pages || []).map(function (dossierPage, index) {
                 return (
-                    <span title={"Navigate to page: " + dossierPage.name} className="item-page" data-idx={index}>
-                    </span>
+                    React.createElement("span", {title: "Navigate to page: " + dossierPage.name, className: "item-page", "data-idx": index}
+                    )
                 );
             }, this);
 
             return (
-                <div className="mstr-dossier-item" onClick={this.handleClick.bind(this)}>
-                    <div className="item-icn"></div>
-                    <div className="item-name">{dossierItem.name}</div>
-                    <div className="item-upd">{props.lastUpdated}</div>
-                    <div className="item-pages">{dossierPageNodes}</div>
-                </div>
+                React.createElement("div", {className: "mstr-dossier-item", onClick: this.handleClick.bind(this)}, 
+                    React.createElement("div", {className: "item-icn"}), 
+                    React.createElement("div", {className: "item-name"}, dossierItem.name), 
+                    React.createElement("div", {className: "item-upd"}, props.lastUpdated), 
+                    React.createElement("div", {className: "item-pages"}, dossierPageNodes)
+                )
             );
         }
     });

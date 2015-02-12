@@ -7,34 +7,34 @@
      *
      * @class
      */
-    var XtabHeader = React.createClass({
+    var XtabHeader = React.createClass({displayName: "XtabHeader",
         render: function render() {
             var headerItems = this.props.headerItems,
                 headerNodes = headerItems.map(function (headerName, idx) {
                     return (
-                        <th data-idx={idx}>{headerName}</th>
+                        React.createElement("th", {"data-idx": idx}, headerName)
                     );
                 }),
                 colNodes = headerItems.map(function () {
                     return (
-                        <col></col>
+                        React.createElement("col", null)
                     );
                 }),
                 tableHeaderStyle = $FMT_MGR.getStyle(this.props.model.get('data'), 'columnheader');
 
             return (
-                <div className="mstr-xtab-header-container" onClick={this.handleClick.bind(this)}>
-                    <table className="table mstr-xtab header" style={tableHeaderStyle} ref="headerTableNode">
-                        <colgroup>
-                            {colNodes}
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                {headerNodes}
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                React.createElement("div", {className: "mstr-xtab-header-container", onClick: this.handleClick.bind(this)}, 
+                    React.createElement("table", {className: "table mstr-xtab header", style: tableHeaderStyle, ref: "headerTableNode"}, 
+                        React.createElement("colgroup", null, 
+                            colNodes
+                        ), 
+                        React.createElement("thead", null, 
+                            React.createElement("tr", null, 
+                                headerNodes
+                            )
+                        )
+                    )
+                )
             );
         },
 

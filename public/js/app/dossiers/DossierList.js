@@ -8,20 +8,20 @@
      *
      * @class
      */
-    var DossierList = React.createClass({
+    var DossierList = React.createClass({displayName: "DossierList",
         render: function render() {
             var dossierItemNodes = this.props.data.map(function (dossierItem) {
                 return (
-                    <DossierItem item={dossierItem} name={dossierItem.name}>
-                        {dossierItem.name}
-                    </DossierItem>
+                    React.createElement(DossierItem, {item: dossierItem, name: dossierItem.name}, 
+                        dossierItem.name
+                    )
                 );
             });
 
             return (
-                <div className="mstr-all-dossier-list clearfix">
-                    {dossierItemNodes}
-                </div>
+                React.createElement("div", {className: "mstr-all-dossier-list clearfix"}, 
+                    dossierItemNodes
+                )
             );
         }
     });

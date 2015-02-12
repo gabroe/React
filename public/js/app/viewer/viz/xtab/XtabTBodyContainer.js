@@ -9,7 +9,7 @@
      *
      * @class
      */
-    var XtabTBodyContainer = React.createClass({
+    var XtabTBodyContainer = React.createClass({displayName: "XtabTBodyContainer",
         /**
          * The average row height of the rows in a given table.
          *
@@ -22,7 +22,7 @@
                 rowItems = props.rowItems,
                 colNodes = props.rowItems[0].map(function () {
                     return (
-                        <col></col>
+                        React.createElement("col", null)
                     );
                 }),
                 PAGE_SIZE = props.model.PAGE_SIZE,
@@ -35,19 +35,19 @@
 
             for (i = 0; i <= maxTBodies; i++) {
                 tBodies.push(
-                    <XtabTBody isEmpty={loadedChunks.indexOf(i) < 0} key={i} rowHeight={rowHeight} rowItems={rowItems.slice(i * PAGE_SIZE, ((i + 1) * PAGE_SIZE))}/>
+                    React.createElement(XtabTBody, {isEmpty: loadedChunks.indexOf(i) < 0, key: i, rowHeight: rowHeight, rowItems: rowItems.slice(i * PAGE_SIZE, ((i + 1) * PAGE_SIZE))})
                 );
             }
 
             return (
-                <div className="mstr-xtab-container" style={{height: containerHeight}}>
-                    <table className="table mstr-xtab body" ref="bodyTableNode">
-                        <colgroup>
-                            {colNodes}
-                        </colgroup>
-                        {tBodies}
-                    </table>
-                </div>
+                React.createElement("div", {className: "mstr-xtab-container", style: {height: containerHeight}}, 
+                    React.createElement("table", {className: "table mstr-xtab body", ref: "bodyTableNode"}, 
+                        React.createElement("colgroup", null, 
+                            colNodes
+                        ), 
+                        tBodies
+                    )
+                )
             );
         },
 

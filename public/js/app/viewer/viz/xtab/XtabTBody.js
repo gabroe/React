@@ -8,7 +8,7 @@
      *
      * @class
      */
-    var XtabTBody = React.createClass({
+    var XtabTBody = React.createClass({displayName: "XtabTBody",
         render: function render() {
             var rowItems = this.props.rowItems,
                 rowNodes = [];
@@ -18,23 +18,23 @@
                 // Map each of the row-items to a XtabTRow component.
                 rowNodes = rowItems.map(function (rowValue) {
                     return (
-                        <XtabTRow rowData={rowValue} />
+                        React.createElement(XtabTRow, {rowData: rowValue})
                     );
                 });
             } else {
                 // Else push an empty tbody with a single row and the approx height.
                 rowNodes.push(
-                    <tr style={{height: (rowItems.length * this.props.rowHeight) + 'px'}}>
-                        <td colSpan={rowItems[0].length}>
-                        </td>
-                    </tr>
+                    React.createElement("tr", {style: {height: (rowItems.length * this.props.rowHeight) + 'px'}}, 
+                        React.createElement("td", {colSpan: rowItems[0].length}
+                        )
+                    )
                 );
             }
 
             return (
-                <tbody>
-                    {rowNodes}
-                </tbody>
+                React.createElement("tbody", null, 
+                    rowNodes
+                )
             );
         },
 

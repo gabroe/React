@@ -129,7 +129,7 @@
      *
      * @class
      */
-    var Xtab = React.createClass({
+    var Xtab = React.createClass({displayName: "Xtab",
         /**
          * An array of indices specifying the chunks in the Xtab that are loaded with rows. The rest of the tbodies,
          * if rendered, will be rendered empty.
@@ -146,12 +146,12 @@
                 pageData = state.pageData;
 
             return (
-                <div className="small">
-                    <div className="mstr-xtab-scrollable" onScroll={onScrollIFHandler.bind(this)} ref="containerScrollNode">
-                        <XtabTBodyContainer model={state.model} pageData={pageData} rowItems={pageData.rows} loadedChunks={this.loadedChunks}/>
-                    </div>
-                    <XtabHeader model={state.model} headerItems={pageData.header}  ref="headerTable"/>
-                </div>
+                React.createElement("div", {className: "small"}, 
+                    React.createElement("div", {className: "mstr-xtab-scrollable", onScroll: onScrollIFHandler.bind(this), ref: "containerScrollNode"}, 
+                        React.createElement(XtabTBodyContainer, {model: state.model, pageData: pageData, rowItems: pageData.rows, loadedChunks: this.loadedChunks})
+                    ), 
+                    React.createElement(XtabHeader, {model: state.model, headerItems: pageData.header, ref: "headerTable"})
+                )
             );
         },
 

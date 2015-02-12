@@ -10,7 +10,7 @@
      *
      * @class
      */
-    var AllDossiersView = React.createClass({
+    var AllDossiersView = React.createClass({displayName: "AllDossiersView",
         getInitialState: function getInitialState() {
             return {
                 data: []
@@ -48,10 +48,10 @@
             }];
 
             return (
-                <div className="mstr-all-dossier-view">
-                    <NavigationBar handleNagivationClick={this.handleClick.bind(this)} title="All Dossiers" rightItems={rightNavBarItems}/>
-                    <DossierList data={this.state.data} />
-                </div>
+                React.createElement("div", {className: "mstr-all-dossier-view"}, 
+                    React.createElement(NavigationBar, {handleNagivationClick: this.handleClick.bind(this), title: "All Dossiers", rightItems: rightNavBarItems}), 
+                    React.createElement(DossierList, {data: this.state.data})
+                )
             );
         }
     });
@@ -60,7 +60,7 @@
 
     // Render the All Dossier view in the
     React.render(
-        <AllDossiersView model={new AllDossierModel}/>,
+        React.createElement(AllDossiersView, {model: new AllDossierModel}),
         document.getElementById('mstr-all-dossiers')
     );
 })();

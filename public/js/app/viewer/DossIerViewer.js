@@ -4,7 +4,7 @@
         NavigationBar = require('../../ui/NavigationBar'),
         Xtab = require('./viz/xtab/Xtab');
 
-    var Viewer = React.createClass({
+    var Viewer = React.createClass({displayName: "Viewer",
         getInitialState: function getInitialState() {
             return this.props;
         },
@@ -22,13 +22,13 @@
                 }];
 
             return (
-                <div id="mstr-dossier-viewer">
-                    <NavigationBar handleNagivationClick={this.handleClick.bind(this)}
-                        title={model.getPageName()} leftItems={leftToolbarItems} rightItems={rightToolbarItems}/>
-                    <div className="mstr-dossier-page">
-                        <Xtab model={model} pageData={pageData}/>
-                    </div>
-                </div>
+                React.createElement("div", {id: "mstr-dossier-viewer"}, 
+                    React.createElement(NavigationBar, {handleNagivationClick: this.handleClick.bind(this), 
+                        title: model.getPageName(), leftItems: leftToolbarItems, rightItems: rightToolbarItems}), 
+                    React.createElement("div", {className: "mstr-dossier-page"}, 
+                        React.createElement(Xtab, {model: model, pageData: pageData})
+                    )
+                )
             );
         },
 
@@ -55,7 +55,7 @@
 
             if (!view) {
                 this.view = React.render(
-                    <Viewer model={model}/>,
+                    React.createElement(Viewer, {model: model}),
                     document.body
                 );
             } else {
