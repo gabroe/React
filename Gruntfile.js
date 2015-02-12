@@ -1,13 +1,12 @@
 module.exports = function(grunt) {
 
-    // Add the grunt-mocha-test tasks.
-    grunt.loadNpmTasks('grunt-mocha-test');
-
-    // Add the grunt watch plugin
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
-    // Add the grunt karma plugin
-    grunt.loadNpmTasks('grunt-karma');
+    ['grunt-mocha-test',
+    'grunt-contrib-watch',
+    'grunt-contrib-copy',
+    'grunt-contrib-uglify',
+    'grunt-browserify',
+    'grunt-react',
+    'grunt-karma'].forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
         // Configure a mochaTest task
@@ -31,6 +30,48 @@ module.exports = function(grunt) {
                 src: ['tests/unit_tests/server/**/*Test.js']
             }
         },
+        copy: {
+            files: {
+                cwd: 'public/src/',
+                src: '**/*.js',
+                dest: 'public/js',
+                expand: true
+            }
+        },
+        uglify: {
+            release: {
+                files: {
+                    'public/js/app.min.js': ['public/js/app.js'],
+                    'public/js/viewer.min.js': ['public/js/viewer.js']
+                }
+            }
+        },
+        react: {
+            jsx: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/src/',
+                    src: ['**/*.jsx'],
+                    dest: 'public/js',
+                    ext: '.js'
+                }]
+            }
+        },
+        browserify: {
+            options: {
+                browserifyOptions: {
+                    debug: true
+                }
+            },
+            viewerBundle: {
+                src: ['public/js/app/dossiers/AllDossiers.js'],
+                dest: 'public/js/viewer.js'
+            },
+            appBundle: {
+                src: ['public/js/app/viewer/DossierApp.js'],
+                dest: 'public/js/app.js'
+            }
+        },
         watch: {
             js: {
                 options: {
@@ -38,6 +79,20 @@ module.exports = function(grunt) {
                 },
                 files: ['app.js', 'routes/**/*.js'],
                 tasks: ['default']
+            },
+            reactjs: {
+                options: {
+                    spawn: false
+                },
+                files: ['public/src/**/*.js'],
+                tasks: ['copy', 'browserify']
+            },
+            jsx: {
+                options: {
+                    spawn: false
+                },
+                files: ['public/src/**/*.jsx'],
+                tasks: ['react', 'browserify']
             }
         },
         karma: {
@@ -59,5 +114,9 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', 'mochaTest');
+
+    grunt.registerTask('debug', ['react', 'copy', 'browserify']);
+
+    grunt.registerTask('build', ['debug', 'uglify']);
 
 };
