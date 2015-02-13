@@ -1,3 +1,6 @@
+var AppDispatcher = require('../../dispatcher/AppDispatcher');
+var FilterPanelActions = require('../actions/FilterPanelActions');
+
 (function () {
     var Viewer = React.createClass({
         getInitialState: function getInitialState() {
@@ -28,11 +31,7 @@
         },
 
         handleClick: function handleClick(evtName) {
-            if(this.model.handle(evtName)){
-                
-            }else{
-                console.log("DossierViewer::handleClick - " + evtName);
-            }
+            AppDispatcher.dispatch(FilterPanelActions.OPEN);
         }
     });
 

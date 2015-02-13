@@ -20,7 +20,9 @@
     "morgan": "^1.5.0",
     "pg": "^4.1.0",
     "serve-favicon": "^2.1.7",
-    "ua-parser-js": "^0.7.3"
+    "ua-parser-js": "^0.7.3",
+    "flux" : "^2.0.1",
+    "keyMirror" : "^0.1.1"
   },
   "devDependencies": {
     "blanket": "~1.1.6",
