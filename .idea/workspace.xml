@@ -2,28 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc3beaf7-d65e-491d-9392-a58e2df59a5d" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/dossiers/AllDossierModel.js" afterPath="$PROJECT_DIR$/src/app/dossiers/AllDossierModel.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/dossiers/AllDossiers.jsx" afterPath="$PROJECT_DIR$/src/app/dossiers/AllDossiers.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/dossiers/DossierItem.jsx" afterPath="$PROJECT_DIR$/src/app/dossiers/DossierItem.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/dossiers/DossierList.jsx" afterPath="$PROJECT_DIR$/src/app/dossiers/DossierList.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/DossIerViewer.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/DossierViewer.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/DossierApp.js" afterPath="$PROJECT_DIR$/src/app/viewer/DossierApp.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/DossierModel.js" afterPath="$PROJECT_DIR$/src/app/viewer/DossierModel.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/viz/xtab/Xtab.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/viz/xtab/Xtab.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/viz/xtab/XtabHeader.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/viz/xtab/XtabHeader.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/viz/xtab/XtabRow.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/viz/xtab/XtabRow.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/viz/xtab/XtabTBody.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/viz/xtab/XtabTBody.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/app/viewer/viz/xtab/XtabTBodyContainer.jsx" afterPath="$PROJECT_DIR$/src/app/viewer/viz/xtab/XtabTBodyContainer.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/mstrX.js" afterPath="$PROJECT_DIR$/src/mstrX.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/ui/NavigationBar.jsx" afterPath="$PROJECT_DIR$/src/ui/NavigationBar.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/util/formatManager.js" afterPath="$PROJECT_DIR$/src/util/formatManager.jsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/src/util/xhr.js" afterPath="$PROJECT_DIR$/src/util/xhr.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/all-dossiers.html" afterPath="$PROJECT_DIR$/public/all-dossiers.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/mstr-dossier-viewer.html" afterPath="$PROJECT_DIR$/public/mstr-dossier-viewer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="WebDossierViewer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="all-dossiers.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="all-dossiers.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/all-dossiers.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="456">
-              <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.12955466" vertical-offset="0" max-vertical-offset="741">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -137,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mstr-dossier-viewer.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mstr-dossier-viewer.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/mstr-dossier-viewer.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55060726" vertical-offset="0" max-vertical-offset="741">
-              <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+            <state vertical-scroll-proportion="-8.571428" vertical-offset="0" max-vertical-offset="492">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -266,13 +246,13 @@
         <option value="$PROJECT_DIR$/public/src/app/dossiers/DossierItem.jsx" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/public/mstr-dossier-viewer.html" />
-        <option value="$PROJECT_DIR$/public/all-dossiers.html" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/src/app/dossiers/AllDossiers.jsx" />
         <option value="$PROJECT_DIR$/src/app/dossiers/DossierItem.jsx" />
         <option value="$PROJECT_DIR$/src/util/formatManager.jsx" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/public/mstr-dossier-viewer.html" />
+        <option value="$PROJECT_DIR$/public/all-dossiers.html" />
       </list>
     </option>
   </component>
@@ -577,7 +557,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15193966" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41076922" sideWeight="0.4997367" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27322906" sideWeight="0.4997367" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27322906" sideWeight="0.4997367" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2393993" sideWeight="0.5002633" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -940,14 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/all-dossiers.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="456">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="33" max-vertical-offset="1188">
@@ -1006,8 +978,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/mstr-dossier-viewer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55060726" vertical-offset="0" max-vertical-offset="741">
-          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        <state vertical-scroll-proportion="-8.571428" vertical-offset="0" max-vertical-offset="492">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/all-dossiers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12955466" vertical-offset="0" max-vertical-offset="741">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
