@@ -4,7 +4,8 @@
   "private": true,
   "description": "MicroStrategy Dossier Viewer",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "bower install ./public/bower.json"
   },
   "dependencies": {
     "body-parser": "^1.10.0",
