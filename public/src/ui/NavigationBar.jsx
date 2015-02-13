@@ -24,7 +24,7 @@
                     <ul className="nav navbar-nav">
                         {leftNavItems}
                     </ul>
-                    <ul className="navbar-text">{this.props.title}</ul>
+                    <span className="navbar-text">{this.props.title}</span>
                     <ul className="nav navbar-nav navbar-right">
                         {rightNavItems}
                     </ul>

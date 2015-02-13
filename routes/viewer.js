@@ -34,7 +34,14 @@
                 }
             });
 
-        } else if (queryObject.react) {
+        } else if (queryObject.angular) {
+            evtLogger.log({action: "browse", page: dossierName}, req);
+            //send the viewer html, nothing else to do
+            res.sendFile("mstr-viewer.html", {root: path.join(__dirname, '../public')});
+            //res.send(dossierName);
+
+
+        } else {
             console.log("react-test");
 
             // Log the dev
@@ -46,12 +53,6 @@
             //send the viewer html, nothing else to do
             res.sendFile("mstr-dossier-viewer.html", {root: path.join(__dirname, '../public')});
 
-        } else {
-
-            evtLogger.log({action: "browse", page: dossierName}, req);
-            //send the viewer html, nothing else to do
-            res.sendFile("mstr-viewer.html", {root: path.join(__dirname, '../public')});
-            //res.send(dossierName);
         }
     });
 

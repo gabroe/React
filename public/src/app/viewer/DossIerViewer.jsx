@@ -28,7 +28,11 @@
         },
 
         handleClick: function handleClick(evtName) {
-            console.log("DossierViewer::handleClick - " + evtName);
+            if(this.model.handle(evtName)){
+                
+            }else{
+                console.log("DossierViewer::handleClick - " + evtName);
+            }
         }
     });
 

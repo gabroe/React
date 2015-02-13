@@ -1,9 +1,11 @@
+@import "constants/xtab-dossier";
+
 /* mstr view css stylesheet */
 
 /* dossier page - begin*/
 .mstr-dossier-page {
     position: fixed;
-    top: 50px;
+    top: $height-header-dossier;
     left: 0;
     bottom: 0;
     right: 0;

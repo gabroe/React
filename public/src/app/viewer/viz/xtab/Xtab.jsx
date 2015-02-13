@@ -92,13 +92,15 @@
 
     function alignHeaders(xtabDomNode, setAsFixed) {
 
-        var xtabTableBody = $("table.mstr-xtab.body", xtabDomNode),
+        var xtab = $("table.mstr-xtab"),
+            xtabTableBody = $("table.mstr-xtab.body", xtabDomNode),
             lockedHeadersTable = $("table.mstr-xtab.header", xtabDomNode),
             tableHeaders = $("tbody:first-of-type tr:first-child td", xtabTableBody),
             tableCols = $("col", xtabTableBody),
             lockedCols = $("col", lockedHeadersTable),
             width,
-            totalwidth = 0;
+            totalwidth;
+
 
         tableHeaders.each(function (index, element) {
             width = element.clientWidth;
@@ -106,11 +108,11 @@
             $(tableCols.get(index)).width(width);
             $(lockedCols.get(index)).width(width);
 
-            totalwidth += width;
         });
 
-        lockedHeadersTable.width(totalwidth);
-        lockedHeadersTable.css("max-width", totalwidth);
+        //
+        //lockedHeadersTable.width(totalwidth);
+        //lockedHeadersTable.css("max-width", totalwidth);
 
         if (setAsFixed) {
 
