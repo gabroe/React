@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     // Add the grunt-mocha-test tasks.
     grunt.loadNpmTasks('grunt-mocha-test');
@@ -10,7 +10,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.initConfig({
-        // Configure a mochaTest task
+        /**
+         * Grunt task to run unit tests using the mocha framework.
+         *
+         **/
         mochaTest: {
             test: {
                 options: {
@@ -31,12 +34,35 @@ module.exports = function(grunt) {
                 src: ['tests/unit_tests/server/**/*Test.js']
             }
         },
+
+        /**
+         *
+         * This task compiles all of React's .jsx files to *.js files and places it it in the
+         *
+         **/
+        react: {
+            jsx: {
+                files: [{
+                    expand: true,
+                    cwd: './src',
+                    src: ['**/*.jsx'],
+                    dest: 'public/js',
+                    ext: '.js'
+                }]
+            }
+        },
+
         watch: {
             js: {
                 options: {
                     spawn: false
                 },
                 files: ['app.js', 'routes/**/*.js'],
+                tasks: ['tests']
+            },
+
+            jsx: {
+                files: ['**/*.jsx'],
                 tasks: ['default']
             }
         },
@@ -51,13 +77,18 @@ module.exports = function(grunt) {
     // On watch events, if the changed file is a test file then configure mochaTest to only
     // run the tests from that file. Otherwise run all the tests
     var defaultTestSrc = grunt.config('mochaTest.test.src');
-    grunt.event.on('watch', function(action, filepath) {
+    grunt.event.on('watch', function (action, filepath) {
         grunt.config('mochaTest.test.src', defaultTestSrc);
         if (filepath.match('tests/')) {
             grunt.config('mochaTest.test.src', filepath);
         }
     });
 
-    grunt.registerTask('default', 'mochaTest');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-react');
+
+    grunt.registerTask('default', 'react');
+
+    grunt.registerTask('tests', 'mochaTest');
 
 };

@@ -1,4 +1,9 @@
 (function () {
+    /**
+     * The different data types to represent the column definition.
+     *
+     * @constant
+     */
     var MSTR_DATA_TYPES = {
         date: 1,
         geo: {

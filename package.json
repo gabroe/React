@@ -4,7 +4,8 @@
   "private": true,
   "description": "MicroStrategy Dossier Viewer",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "bower install; grunt"
   },
   "dependencies": {
     "body-parser": "^1.10.0",
@@ -27,6 +28,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-karma": "~0.10.1",
     "grunt-mocha-test": "~0.12.7",
+    "grunt-react": "^0.10.0",
     "jasmine-core": "~2.2.0",
     "karma": "~0.12.31",
     "karma-chrome-launcher": "~0.1.7",

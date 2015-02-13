@@ -23,7 +23,7 @@
     });
 
     /**
-     * The component for rendering all the dossiers on the
+     * The component for rendering all the dossiers on the all page.
      *
      * @class
      */
