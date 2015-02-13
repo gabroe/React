@@ -59,8 +59,8 @@ module.exports = function (grunt) {
             },
             release: {
                 files: {
-                    'public/js/app.min.js': ['public/js/app.js'],
-                    'public/js/viewer.min.js': ['public/js/viewer.js']
+                    'public/js/bundles/app.min.js': ['public/js/bundles/app.js'],
+                    'public/js/bundles/viewer.min.js': ['public/js/bundles/viewer.js']
                 }
             }
         },
@@ -72,11 +72,11 @@ module.exports = function (grunt) {
             },
             viewerBundle: {
                 src: ['public/js/app/dossiers/AllDossiers.js'],
-                dest: 'public/js/viewer.js'
+                dest: 'public/js/bundles/viewer.js'
             },
             appBundle: {
                 src: ['public/js/app/viewer/DossierApp.js'],
-                dest: 'public/js/app.js'
+                dest: 'public/js/bundles/app.js'
             }
         },
         watch: {
