@@ -9,6 +9,8 @@ module.exports = function(grunt) {
     'grunt-karma'].forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+
         // Configure a mochaTest task
         mochaTest: {
             test: {
@@ -39,6 +41,9 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
             release: {
                 files: {
                     'public/js/app.min.js': ['public/js/app.js'],
