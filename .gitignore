@@ -1,6 +1,13 @@
 # unit test result files
 results.txt
 coverage.html
+
+# node and bower installation folder
 node_modules
 public/bower_components
+
+# generated script
 public/js
+
+# log files
+npm-debug.log
