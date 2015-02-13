@@ -4,7 +4,7 @@
         mstrX = require('../../mstrX'),
         $XHR = require('../../util/xhr'),
         DossierModel = require('./DossierModel'),
-        DossierViewer = require('./DossIerViewer');
+        DossierViewer = require('./DossierViewer');
 
     Backbone.$ = $;
 

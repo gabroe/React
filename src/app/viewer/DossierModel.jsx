@@ -1,8 +1,7 @@
 (function () {
 
     var $ = require('jquery'),
-        Backbone = require('backbone'),
-        dossierApp = require('./DossierApp');
+        Backbone = require('backbone');
 
     Backbone.$ = $;
 
