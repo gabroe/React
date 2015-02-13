@@ -1,15 +1,15 @@
 module.exports = function (grunt) {
 
-    // Add the grunt-mocha-test tasks.
-    grunt.loadNpmTasks('grunt-mocha-test');
-
-    // Add the grunt watch plugin
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
-    // Add the grunt karma plugin
-    grunt.loadNpmTasks('grunt-karma');
+    ['grunt-mocha-test',
+    'grunt-contrib-watch',
+    'grunt-contrib-uglify',
+    'grunt-browserify',
+    'grunt-react',
+    'grunt-karma'].forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+
         /**
          * Grunt task to run unit tests using the mocha framework.
          *
@@ -34,7 +34,6 @@ module.exports = function (grunt) {
                 src: ['tests/unit_tests/server/**/*Test.js']
             }
         },
-
         /**
          *
          * This task compiles all of React's .jsx files to *.js files and places it it in the
@@ -51,7 +50,35 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
+        /**
+         * This task minify the debug bundle to release bundle
+         **/
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            release: {
+                files: {
+                    'public/js/app.min.js': ['public/js/app.js'],
+                    'public/js/viewer.min.js': ['public/js/viewer.js']
+                }
+            }
+        },
+        browserify: {
+            options: {
+                browserifyOptions: {
+                    debug: true
+                }
+            },
+            viewerBundle: {
+                src: ['public/js/app/dossiers/AllDossiers.js'],
+                dest: 'public/js/viewer.js'
+            },
+            appBundle: {
+                src: ['public/js/app/viewer/DossierApp.js'],
+                dest: 'public/js/app.js'
+            }
+        },
         watch: {
             js: {
                 options: {
@@ -60,7 +87,6 @@ module.exports = function (grunt) {
                 files: ['app.js', 'routes/**/*.js'],
                 tasks: ['tests']
             },
-
             jsx: {
                 files: ['**/*.jsx'],
                 tasks: ['default']
@@ -84,11 +110,12 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-react');
+    grunt.registerTask('debug', ['react', 'browserify']);
 
-    grunt.registerTask('default', 'react');
+    grunt.registerTask('default', 'debug');
 
     grunt.registerTask('tests', 'mochaTest');
+
+    grunt.registerTask('build', ['debug', 'uglify']);
 
 };

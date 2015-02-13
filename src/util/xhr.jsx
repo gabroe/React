@@ -1,11 +1,14 @@
 (function () {
+
+    var $ = require('jquery');
+
     /**
      * The XHR utility object.
      *
      * @type {Object}
      * @namespace
      */
-    mstrX.util.xhr = {
+    var xhr = {
         /**
          * Piggy-backs on the JQuery's ajax call to make the request.
          *
@@ -20,4 +23,7 @@
             });
         }
     }
+
+    module.exports = xhr;
+
 })();

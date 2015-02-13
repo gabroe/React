@@ -1,33 +1,16 @@
 (function () {
-    /**
-     * Dossier List to display a list of dossier items.
-     *
-     * @class
-     */
-    mstrX.app.dossiers.DossierList = React.createClass({
-        render: function render() {
-            var dossierItemNodes = this.props.data.map(function (dossierItem) {
-                return (
-                    <mstrX.app.dossiers.DossierItem item={dossierItem} name={dossierItem.name}>
-                        {dossierItem.name}
-                    </mstrX.app.dossiers.DossierItem>
-                );
-            });
 
-            return (
-                <div className="mstr-all-dossier-list clearfix">
-                    {dossierItemNodes}
-                </div>
-            );
-        }
-    });
+    var React = require('react'),
+        NavigationBar = require('../../ui/NavigationBar'),
+        DossierList = require('./DossierList'),
+        AllDossierModel = require('./AllDossierModel');
 
     /**
      * The component for rendering all the dossiers on the all page.
      *
      * @class
      */
-    mstrX.app.dossiers.AllDossiersView = React.createClass({
+    var AllDossiersView = React.createClass({
         getInitialState: function getInitialState() {
             return {
                 data: []
@@ -66,16 +49,18 @@
 
             return (
                 <div className="mstr-all-dossier-view">
-                    <mstrX.ui.NavigationBar handleNagivationClick={this.handleClick.bind(this)} title="All Dossiers" rightItems={rightNavBarItems}/>
-                    <mstrX.app.dossiers.DossierList data={this.state.data} />
+                    <NavigationBar handleNagivationClick={this.handleClick.bind(this)} title="All Dossiers" rightItems={rightNavBarItems}/>
+                    <DossierList data={this.state.data} />
                 </div>
             );
         }
     });
 
+    module.exports = AllDossiersView;
+
     // Render the All Dossier view in the
     React.render(
-        <mstrX.app.dossiers.AllDossiersView model={new mstrX.app.dossiers.AllDossierModel}/>,
+        <AllDossiersView model={new AllDossierModel}/>,
         document.getElementById('mstr-all-dossiers')
     );
 })();

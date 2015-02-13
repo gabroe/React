@@ -1,10 +1,13 @@
 (function () {
+
+    var React = require('react');
+
     /**
      * A mixin to navigate to a given page within a dossier.
      *
      * @mixin
      */
-    mstrX.app.dossiers.DossierItemMixin = {
+    var DossierItemMixin = {
         goToPage: function goToPage(dossierName, index) {
             window.open("/dossier/" + dossierName + '#/' + index, "_self");
         }
@@ -16,8 +19,9 @@
      * @class
      * @mixes mstrX.app.dossiers.DossierItemMixin
      */
-    mstrX.app.dossiers.DossierItem = React.createClass({
-        mixins: [mstrX.app.dossiers.DossierItemMixin],
+    var DossierItem = React.createClass({
+
+        mixins: [DossierItemMixin],
 
         getDefaultProps: function getDefaultProps() {
             return {
@@ -50,4 +54,6 @@
             );
         }
     });
+
+    module.exports = DossierItem;
 })();

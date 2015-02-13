@@ -1,4 +1,10 @@
 (function () {
+
+    var $ = require('jquery'),
+        React = require('react'),
+        XtabHeader = require('./XtabHeader'),
+        XtabTBodyContainer = require('./XtabTBodyContainer');
+
     function onScrollIFHandler() {
         var loadedChunks = this.loadedChunks,
             prevLoadedChunks = loadedChunks.concat(),
@@ -123,7 +129,7 @@
      *
      * @class
      */
-    mstrX.app.viewer.viz.xtab.Xtab = React.createClass({
+    var Xtab = React.createClass({
         /**
          * An array of indices specifying the chunks in the Xtab that are loaded with rows. The rest of the tbodies,
          * if rendered, will be rendered empty.
@@ -142,9 +148,9 @@
             return (
                 <div className="small">
                     <div className="mstr-xtab-scrollable" onScroll={onScrollIFHandler.bind(this)} ref="containerScrollNode">
-                        <mstrX.app.viewer.viz.xtab.XtabTBodyContainer model={state.model} pageData={pageData} rowItems={pageData.rows} loadedChunks={this.loadedChunks}/>
+                        <XtabTBodyContainer model={state.model} pageData={pageData} rowItems={pageData.rows} loadedChunks={this.loadedChunks}/>
                     </div>
-                    <mstrX.app.viewer.viz.xtab.XtabHeader model={state.model} headerItems={pageData.header}  ref="headerTable"/>
+                    <XtabHeader model={state.model} headerItems={pageData.header}  ref="headerTable"/>
                 </div>
             );
         },
@@ -176,5 +182,7 @@
             window.setTimeout(model.fetchPages.bind(model), 0);
         }
     });
+
+    module.exports = Xtab;
 })
 ();

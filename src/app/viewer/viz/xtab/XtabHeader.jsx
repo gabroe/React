@@ -1,12 +1,13 @@
 (function () {
-    var $FMT_MGR = mstrX.util.formatManager;
+    var React = require('react'),
+        $FMT_MGR = require('../../../../util/formatManager');
 
     /**
      * Xtab Header Class.
      *
      * @class
      */
-    mstrX.app.viewer.viz.xtab.XtabHeader = React.createClass({
+    var XtabHeader = React.createClass({
         render: function render() {
             var headerItems = this.props.headerItems,
                 headerNodes = headerItems.map(function (headerName, idx) {
@@ -49,5 +50,7 @@
             return this.refs.headerTableNode.getDOMNode();
         }
     });
+
+    module.exports = XtabHeader;
 
 })();

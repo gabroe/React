@@ -23,7 +23,7 @@
      *
      * @namespace
      */
-    mstrX.util.formatManager = {
+    var formatManager = {
         getStyle: function getStyle(data, path) {
             var styleDefinition = data && data.style,
                 pathArray = path.split(".");
@@ -86,4 +86,6 @@
             })();
         }
     };
+
+    module.exports = formatManager;
 })();

@@ -1,10 +1,15 @@
 (function () {
+
+    var $ = require('jquery'),
+        React = require('react'),
+        XtabTBody = require('./XtabTBody');
+
     /**
      * Xtab Table Body container view.
      *
      * @class
      */
-    mstrX.app.viewer.viz.xtab.XtabTBodyContainer = React.createClass({
+    var XtabTBodyContainer = React.createClass({
         /**
          * The average row height of the rows in a given table.
          *
@@ -30,7 +35,7 @@
 
             for (i = 0; i <= maxTBodies; i++) {
                 tBodies.push(
-                    <mstrX.app.viewer.viz.xtab.XtabTBody isEmpty={loadedChunks.indexOf(i) < 0} key={i} rowHeight={rowHeight} rowItems={rowItems.slice(i * PAGE_SIZE, ((i + 1) * PAGE_SIZE))}/>
+                    <XtabTBody isEmpty={loadedChunks.indexOf(i) < 0} key={i} rowHeight={rowHeight} rowItems={rowItems.slice(i * PAGE_SIZE, ((i + 1) * PAGE_SIZE))}/>
                 );
             }
 
@@ -62,4 +67,6 @@
             }
         }
     });
+
+    module.exports = XtabTBodyContainer;
 })();

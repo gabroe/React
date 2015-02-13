@@ -1,4 +1,9 @@
 (function () {
+
+    var React = require('react'),
+        NavigationBar = require('../../ui/NavigationBar'),
+        Xtab = require('./viz/xtab/Xtab');
+
     var Viewer = React.createClass({
         getInitialState: function getInitialState() {
             return this.props;
@@ -18,10 +23,10 @@
 
             return (
                 <div id="mstr-dossier-viewer">
-                    <mstrX.ui.NavigationBar handleNagivationClick={this.handleClick.bind(this)}
+                    <NavigationBar handleNagivationClick={this.handleClick.bind(this)}
                         title={model.getPageName()} leftItems={leftToolbarItems} rightItems={rightToolbarItems}/>
                     <div className="mstr-dossier-page">
-                        <mstrX.app.viewer.viz.xtab.Xtab model={model} pageData={pageData}/>
+                        <Xtab model={model} pageData={pageData}/>
                     </div>
                 </div>
             );
@@ -37,7 +42,7 @@
      *
      * @class
      */
-    mstrX.app.viewer.DossierViewer = {
+    var DossierViewer = {
         /**
          *
          * @param {mstrX.app.viewer.DossierModel} model
@@ -63,4 +68,6 @@
             }
         }
     }
+
+    module.exports = DossierViewer;
 })();

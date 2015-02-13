@@ -1,4 +1,5 @@
 (function () {
+
     /**
      * The global mstrX namespace.
      *
@@ -44,4 +45,7 @@
          */
         ui: {}
     };
+
+    module.exports = window.mstrX;
+
 })();

@@ -1,16 +1,20 @@
 (function () {
+
+    var React = require('react'),
+        DossierItem = require('./DossierItem');
+
     /**
      * Dossier List to display a list of dossier items.
      *
      * @class
      */
-    mstrX.app.dossiers.DossierList = React.createClass({
+    var DossierList = React.createClass({
         render: function render() {
             var dossierItemNodes = this.props.data.map(function (dossierItem) {
                 return (
-                    <mstrX.app.dossiers.DossierItem item={dossierItem} name={dossierItem.name}>
+                    <DossierItem item={dossierItem} name={dossierItem.name}>
                         {dossierItem.name}
-                    </mstrX.app.dossiers.DossierItem>
+                    </DossierItem>
                 );
             });
 
@@ -21,4 +25,7 @@
             );
         }
     });
+
+    module.exports = DossierList;
+
 })();

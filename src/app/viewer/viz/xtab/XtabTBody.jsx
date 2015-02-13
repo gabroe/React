@@ -1,11 +1,14 @@
 (function () {
+    var React = require('react'),
+        XtabTRow = require('./XtabRow');
+
     /**
      * Xtab tbody component. Depending on whether the tbody is marked as empty or not, it displays
      * the rows for each of it's row items.
      *
      * @class
      */
-    mstrX.app.viewer.viz.xtab.XtabTBody = React.createClass({
+    var XtabTBody = React.createClass({
         render: function render() {
             var rowItems = this.props.rowItems,
                 rowNodes = [];
@@ -15,7 +18,7 @@
                 // Map each of the row-items to a XtabTRow component.
                 rowNodes = rowItems.map(function (rowValue) {
                     return (
-                        <mstrX.app.viewer.viz.xtab.XtabTRow rowData={rowValue} />
+                        <XtabTRow rowData={rowValue} />
                     );
                 });
             } else {
@@ -42,4 +45,6 @@
                 (!nextProps.isEmpty && nextProps.rowItems[0][0] !== this.props.rowItems[0][0]);
         }
     });
+
+    module.exports = XtabTBody;
 })();

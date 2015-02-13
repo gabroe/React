@@ -1,5 +1,12 @@
 (function () {
-    var $XHR = mstrX.util.xhr;
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
+        mstrX = require('../../mstrX'),
+        $XHR = require('../../util/xhr'),
+        DossierModel = require('./DossierModel'),
+        DossierViewer = require('./DossIerViewer');
+
+    Backbone.$ = $;
 
     function getDossierDataAPIFromURL(absUrl) {
 
@@ -47,7 +54,7 @@
 
     function fetchPageData(connection, table) {
         return $XHR.request(getFetchPageURL(connection, table)).success(function (data) {
-            mstrX.app.viewer.DossierApp.model.set({
+            dossierApp.model.set({
                 pageData: data
             });
         });
@@ -70,7 +77,7 @@
     // Chunk loader code.
     (function () {
         var chunkLoaderWorker = new Worker("/javascripts/mstr-data-chunk-loader.js"),
-            defer = new jQuery.Deferred();
+            defer = $.Deferred();
 
         chunkLoaderWorker.addEventListener('message', function (e) {
 
@@ -81,7 +88,7 @@
             worker: chunkLoaderWorker,
 
             fetch: function (request) {
-                defer = new jQuery.Deferred();
+                defer = $.Deferred();
 
                 chunkLoaderWorker.postMessage(request);
                 return defer;
@@ -94,7 +101,7 @@
      *
      * @class
      */
-    mstrX.app.viewer.DossierApp = {
+    var dossierApp = {
         start: function start(props) {
             var AppRouter = Backbone.Router.extend({
                     routes: {
@@ -109,7 +116,7 @@
             // Event listener on the model.
             model.on('change:pageData', function (model) {
                 // Start rendering the view.
-                mstrX.app.viewer.DossierViewer.start(model);
+                DossierViewer.start(model);
             }.bind(this));
 
             app_router.on('route:defaultRoute', function (pageNumber) {
@@ -168,10 +175,12 @@
     };
 
     // Cache the app on the global context
-    window.mstrApp = mstrX.app.viewer.DossierApp;
+    window.mstrApp = dossierApp;
+
+    module.exports = dossierApp;
 
     // Finally start the Dossier App and provide it an instance of the model.
     mstrApp.start({
-        model: new mstrX.app.viewer.DossierModel()
+        model: new DossierModel()
     });
 })();

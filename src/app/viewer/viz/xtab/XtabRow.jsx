@@ -1,10 +1,11 @@
 (function () {
+    var React = require('react');
     /**
      * Xtab table row component.
      *
      * @class
      */
-    mstrX.app.viewer.viz.xtab.XtabTRow = React.createClass({
+    var XtabTRow = React.createClass({
         render: function render() {
             var tdNodes = this.props.rowData.map(function (rowValue) {
                 return (
@@ -19,5 +20,7 @@
             );
         }
     });
+
+    module.exports = XtabTRow;
 
 })();

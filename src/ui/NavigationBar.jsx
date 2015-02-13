@@ -1,4 +1,7 @@
 (function () {
+
+    var React = require('react');
+
     function getItemMarkupFn(itemObj) {
         var itemClassName = "mstr-nav-icon mstr-nav-icon-" + itemObj.cmd;
 
@@ -14,7 +17,7 @@
      *
      * @class
      */
-    mstrX.ui.NavigationBar = React.createClass({
+    var NavigationBar = React.createClass({
         render: function render() {
             var leftNavItems = (this.props.leftItems || []).map(getItemMarkupFn.bind(this)),
                 rightNavItems = (this.props.rightItems || []).map(getItemMarkupFn.bind(this));
@@ -32,4 +35,7 @@
             );
         }
     });
+
+    module.exports = NavigationBar;
+
 })();

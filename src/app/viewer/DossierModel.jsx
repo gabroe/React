@@ -1,12 +1,18 @@
 (function () {
 
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
+        dossierApp = require('./DossierApp');
+
+    Backbone.$ = $;
+
     /**
      * The model associated with the Dossier Viewer.
      *
      *
      * @class
      */
-    mstrX.app.viewer.DossierModel = Backbone.Model.extend({
+    var DossierModel = Backbone.Model.extend({
         /**
          * Constant specifying the number of rows per page.
          *
@@ -22,7 +28,7 @@
          */
         fetchPages: function fetchPages() {
             // Kick-off fetching the data.
-            mstrX.app.viewer.DossierApp.fetchPage().then((function (data) {
+            mstrApp.fetchPage().then((function (data) {
                 // Cache the full data once all of the data has been fetched.
                 this.fullData = data;
 
@@ -32,7 +38,7 @@
 
                     // Fetch all the pages using the chunk loader.
                     mstrX.chunkLoader.fetch({
-                        dataURL: mstrX.app.viewer.DossierApp.getDataURL(page),
+                        dataURL: mstrApp.getDataURL(page),
                         startPage: 1,
                         token: page.connection.token
                     }).then(function (data) {
@@ -92,4 +98,6 @@
             this.trigger('updateView', fullData || this.fullData);
         }
     });
+
+    module.exports = DossierModel;
 })();

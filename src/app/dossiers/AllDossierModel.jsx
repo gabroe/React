@@ -1,11 +1,17 @@
 (function () {
 
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
+        xhr = require('../../util/xhr');
+
+    Backbone.$ = $;
+
     /**
      * The model associated with the All Dossiers page.
      *
      * @class
      */
-    mstrX.app.dossiers.AllDossierModel = Backbone.Model.extend({
+    var AllDossierModel = Backbone.Model.extend({
         /**
          * Denotes the page being viewed in the DossierViewer.
          *
@@ -24,7 +30,7 @@
             Backbone.Model.apply(this, arguments);
 
             // Request all the dossier data.
-            mstrX.util.xhr.request('/api/dossiers').success(function (data) {
+            xhr.request('/api/dossiers').success(function (data) {
                 // Trigger the update view event and pass the data.
                 this.trigger('updateView', data.concat());
             }.bind(this));
@@ -56,4 +62,7 @@
             this.trigger('updateView', data.concat());
         }
     });
+
+    module.exports = AllDossierModel;
+
 })();
