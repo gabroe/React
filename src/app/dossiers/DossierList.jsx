@@ -10,9 +10,12 @@
      */
     var DossierList = React.createClass({
         render: function render() {
-            var dossierItemNodes = this.props.data.map(function (dossierItem) {
+            var dossierItemNodes = this.props.data.map(function (dossierItem, index) {
                 return (
-                    <DossierItem item={dossierItem} name={dossierItem.name}>
+                    <DossierItem
+                        key={index}
+                        item={dossierItem}
+                        name={dossierItem.name}>
                         {dossierItem.name}
                     </DossierItem>
                 );

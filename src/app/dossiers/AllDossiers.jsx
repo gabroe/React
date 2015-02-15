@@ -49,7 +49,7 @@
 
             return (
                 <div className="mstr-all-dossier-view">
-                    <NavigationBar handleNagivationClick={this.handleClick.bind(this)} title="All Dossiers" rightItems={rightNavBarItems}/>
+                    <NavigationBar handleNagivationClick={this.handleClick} title="All Dossiers" rightItems={rightNavBarItems}/>
                     <DossierList data={this.state.data} />
                 </div>
             );
