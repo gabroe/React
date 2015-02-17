@@ -13,12 +13,16 @@
             var model = this.state.model,
                 pageData = model.get('pageData'),
                 leftToolbarItems = [{
-                    cmd: 'toc'
-                }, {
-                    cmd: 'share'
+                    cmd: 'dossier'
                 }],
                 rightToolbarItems = [{
+                    cmd: 'search'
+                }, {
                     cmd: 'filter'
+                }, {
+                    cmd: 'sort'
+                },  {
+                    cmd: 'share'
                 }];
 
             return (

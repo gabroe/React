@@ -4,7 +4,7 @@
 
     function getItemMarkupFn(itemObj) {
         var itemCmd = itemObj.cmd,
-            itemClassName = "mstr-nav-icon mstr-nav-icon-" + itemCmd;
+            itemClassName = "mstr-nav-icon icon-" + itemCmd;
 
         return (
             <li key={itemCmd} className="mstr-navbar-item">
