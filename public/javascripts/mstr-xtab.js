@@ -584,7 +584,7 @@
                             alignHeaders(element, false);
                         }
 
-                        //adjustDisplayFormats(model, adjustColumn);
+                        adjustDisplayFormats(model, adjustColumn);
                     };
 
                     var adjustDisplayFormats = function (model, adjustColumn) {

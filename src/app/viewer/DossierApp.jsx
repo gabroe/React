@@ -6,6 +6,7 @@
         DossierModel = require('./DossierModel'),
         DossierViewer = require('./DossierViewer');
 
+
     Backbone.$ = $;
 
     function getDossierDataAPIFromURL(absUrl) {

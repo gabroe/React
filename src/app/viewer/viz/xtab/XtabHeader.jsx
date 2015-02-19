@@ -23,7 +23,7 @@
                 tableHeaderStyle = $FMT_MGR.getStyle(this.props.model.get('data'), 'columnheader');
 
             return (
-                <div className="mstr-xtab-header-container" onClick={this.handleClick.bind(this)}>
+                <div className="mstr-xtab-header-container" onClick={this.handleClick}>
                     <table className="table mstr-xtab header" style={tableHeaderStyle} ref="headerTableNode">
                         <colgroup>
                             {colNodes}

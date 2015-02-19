@@ -6,6 +6,8 @@
 @import "mstr-bar-selector";
 @import "mstr-calendar";
 @import "mstr-navbar";
+@import "common/mstr-popup";
+@import "components/mstr-filterpanel";
 
 html,
 body {
@@ -247,11 +249,6 @@ body {
     }
 
     & > .mstr-index-options {
-
-        & > .navbar-right {
-            margin-right: 0;
-            margin-bottom: 8px;
-        }
 
         a {
             color: #bbb;

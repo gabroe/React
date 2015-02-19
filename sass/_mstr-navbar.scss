@@ -1,5 +1,6 @@
 /* all dossiers - begin*/
-.mstr-navbar.mstrX{
+.mstr-navbar {
+
     $color-common-blue: #107BE7;
     margin: 0;
     color: $color-common-blue;
@@ -8,6 +9,7 @@
     padding: 10px;
 
     ul {
+        display: inline;
         margin: 0;
 
         &.navbar-text {
@@ -17,8 +19,24 @@
         > li.mstr-navbar-item {
             cursor: pointer;
             padding: 0 10px;
+            float: left;
+            position: relative;
+            display: block;
         }
     }
-}
 
+    .navbar-nav {
+        margin: 2px 0 0 0;
+        float: left;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .navbar-right {
+        margin-right: 0;
+        margin-bottom: 8px;
+        float: right;
+    }
+
+}
 /* all dossiers- end*/

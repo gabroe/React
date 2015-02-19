@@ -1,0 +1,13 @@
+.mstr-popup{
+    position : absolute;
+    top : 0;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    zIndex : 1;
+    .mstr-popup-contents{
+        position : absolute;
+        border : 1px solid #ccc;
+        padding : 10px;
+    }
+}

@@ -1,3 +1,9 @@
+var AppDispatcher = require('../../ui/dispatcher/AppDispatcher');
+var FilterPanelActions = require('./actions/FilterPanelActions');
+
+//Required react components on this app
+require('./stores/FilterPanelStore');
+
 (function () {
 
     var React = require('react'),
@@ -32,8 +38,13 @@
             );
         },
 
-        handleClick: function handleClick(evtName) {
-            console.log("DossierViewer::handleClick - " + evtName);
+        handleClick: function handleClick(evtName, evt) {
+            if(evtName === "filter"){
+                AppDispatcher.dispatch(FilterPanelActions.FILTER_PANEL_OPEN, {
+                    anchor : evt.target,
+                    offset : {left : -80, top : 30}
+                });
+            }
         }
     });
 

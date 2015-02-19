@@ -23,7 +23,10 @@
     "pg": "^4.1.0",
     "react": "^0.12.2",
     "serve-favicon": "^2.1.7",
-    "ua-parser-js": "^0.7.3"
+    "ua-parser-js": "^0.7.3",
+    "flux" : "^2.0.1",
+    "keyMirror" : "^0.1.1",
+    "underscore" : "^1.7.0"
   },
   "devDependencies": {
     "blanket": "~1.1.6",

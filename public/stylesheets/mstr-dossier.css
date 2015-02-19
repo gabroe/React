@@ -6,35 +6,43 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 35px;
+  top: 47px;
   overflow: auto;
   -webkit-overflow-scrolling: touch; }
 
 .mstr-xtab-header-container {
   position: fixed;
-  height: 33px;
-  width: 100%;
-  background-color: #46ace1; }
+  width: 100%; }
 
 .mstr-xtab {
   margin-bottom: 50px;
-  white-space: nowrap; }
+  white-space: nowrap;
+  width: 100%; }
   .mstr-xtab.table > tbody + tbody {
     border-top: 0; }
   .mstr-xtab.header {
     position: fixed;
-    top: 50px;
+    top: 64px;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D5154;
     table-layout: fixed; }
-  .mstr-xtab.header {
-    background-color: #46ace1;
-    color: #fff; }
-  .mstr-xtab.body thead {
-    background-color: #fff;
-    color: #fff; }
-  .mstr-xtab > thead > tr > th {
+  .mstr-xtab.body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #333333; }
+    .mstr-xtab.body thead {
+      background-color: #fff;
+      color: #fff; }
+  .mstr-xtab th,
+  .mstr-xtab td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border: 1px solid #c2c8ce;
+    padding: 12px 6px; }
+  .mstr-xtab th {
     vertical-align: middle;
-    cursor: pointer; }
-    .mstr-xtab > thead > tr > th.sorted, .mstr-xtab > thead > tr > th:hover {
+    cursor: pointer;
+    font-weight: normal; }
+    .mstr-xtab th.sorted, .mstr-xtab th:hover {
       text-decoration: underline; }
   .mstr-xtab th:first-child,
   .mstr-xtab td:first-child {
@@ -42,10 +50,6 @@
   .mstr-xtab th:last-child,
   .mstr-xtab td:last-child {
     padding-right: 20px; }
-  .mstr-xtab th,
-  .mstr-xtab td {
-    text-overflow: ellipsis;
-    overflow: hidden; }
 
 /* xtab - end*/
 /* mstr filter stylesheet */
@@ -249,7 +253,7 @@
 /* dossier page - begin*/
 .mstr-dossier-page {
   position: fixed;
-  top: 50px;
+  top: 64px;
   left: 0;
   bottom: 0;
   right: 0; }
@@ -340,21 +344,46 @@
       color: #999; }
 
 /* all dossiers - begin*/
-.mstr-navbar.mstrX {
+.mstr-navbar {
   margin: 0;
   color: #107BE7;
   text-align: center;
   font-size: 1.5em;
   padding: 10px; }
-  .mstr-navbar.mstrX ul {
+  .mstr-navbar ul {
+    display: inline;
     margin: 0; }
-    .mstr-navbar.mstrX ul.navbar-text {
+    .mstr-navbar ul.navbar-text {
       padding-left: 20px; }
-    .mstr-navbar.mstrX ul > li.mstr-navbar-item {
+    .mstr-navbar ul > li.mstr-navbar-item {
       cursor: pointer;
-      padding: 0 10px; }
+      padding: 0 10px;
+      float: left;
+      position: relative;
+      display: block; }
+  .mstr-navbar .navbar-nav {
+    margin: 2px 0 0 0;
+    float: left;
+    padding-left: 0;
+    list-style: none; }
+  .mstr-navbar .navbar-right {
+    margin-right: 0;
+    margin-bottom: 8px;
+    float: right; }
 
 /* all dossiers- end*/
+.mstr-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  zIndex: 1; }
+  .mstr-popup .mstr-popup-contents {
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 10px; }
+
 html,
 body {
   height: 100%; }
@@ -515,9 +544,6 @@ body {
     font-size: smaller;
     text-transform: uppercase;
     margin: 0 0 10px; }
-  .mstr-index > .mstr-index-options > .navbar-right {
-    margin-right: 0;
-    margin-bottom: 8px; }
   .mstr-index > .mstr-index-options a {
     color: #bbb; }
     .mstr-index > .mstr-index-options a:hover {

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{WebDossierViewer node_modules}" />
-    <file url="PROJECT" libraries="{backbone-DefinitelyTyped, jQuery-2.0.0, react-DefinitelyTyped}" />
-  </component>
-</project>
