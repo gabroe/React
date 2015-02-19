@@ -39,13 +39,17 @@
 
             var dossierPageNodes = (dossierItem.pages || []).map(function (dossierPage, index) {
                 return (
-                    <span title={"Navigate to page: " + dossierPage.name} className="item-page" data-idx={index}>
+                    <span
+                        title={"Navigate to page: " + dossierPage.name}
+                        className="item-page"
+                        key={index}
+                        data-idx={index}>
                     </span>
                 );
             }, this);
 
             return (
-                <div className="mstr-dossier-item" onClick={this.handleClick.bind(this)}>
+                <div className="mstr-dossier-item" onClick={this.handleClick}>
                     <div className="item-icn"></div>
                     <div className="item-name">{dossierItem.name}</div>
                     <div className="item-upd">{props.lastUpdated}</div>

@@ -11,3 +11,13 @@ public/js
 
 # log files
 npm-debug.log
+
+# WebStorm Specific Files (We can consider making this more comprehensive in the future: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore)
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+
+# SASS Related Ignores:
+.sass-cache
+public/stylesheets/*.css*

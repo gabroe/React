@@ -1,4 +1,5 @@
 /* app css stylesheet */
+@import "mstr-font-icons";
 @import "mstr-xtab";
 @import "mstr-filter";
 @import "mstr-map-selector";
@@ -20,6 +21,7 @@ body {
 /* top navigation bar - begin*/
 .mstr-navbar {
     background-color: #fff;
+    color: #46ace1;
 
     .navbar-nav {
         margin-top: 2px;
@@ -30,8 +32,7 @@ body {
     }
 
     .navbar-text {
-        color: #46ace1;
-        font-size: x-large;
+//        font-size: x-large;
         margin: 6px 15px;
         font-weight: 100;
     }

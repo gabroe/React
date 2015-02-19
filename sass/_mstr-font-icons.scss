@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Dossier';
+    src:url('fonts/Dossier.eot?g7w8w5');
+    src:url('fonts/Dossier.eot?#iefixg7w8w5') format('embedded-opentype'),
+    url('fonts/Dossier.woff?g7w8w5') format('woff'),
+    url('fonts/Dossier.ttf?g7w8w5') format('truetype'),
+    url('fonts/Dossier.svg?g7w8w5#Dossier') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'Dossier';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-dossier:before {
+    content: "\e600";
+}
+
+.icon-search:before {
+    content: "\e604";
+}
+
+.icon-filter:before {
+    content: "\e607";
+}
+
+.icon-sort:before {
+    content: "\e60a";
+}
+
+.icon-share:before {
+    content: "\e60d";
+}

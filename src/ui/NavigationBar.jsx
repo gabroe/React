@@ -3,11 +3,14 @@
     var React = require('react');
 
     function getItemMarkupFn(itemObj) {
-        var itemClassName = "mstr-nav-icon mstr-nav-icon-" + itemObj.cmd;
+        var itemCmd = itemObj.cmd,
+            itemClassName = "mstr-nav-icon icon-" + itemCmd;
 
         return (
-            <li className="mstr-navbar-item">
-                <span className={itemClassName} onClick={this.props.handleNagivationClick.bind(undefined, itemObj.cmd)}></span>
+            <li key={itemCmd} className="mstr-navbar-item">
+                <span className={itemClassName}
+                    onClick={this.props.handleNagivationClick.bind(this, itemCmd)}
+                ></span>
             </li>
         );
     }
