@@ -1,11 +1,7 @@
 module.exports = function (grunt) {
 
-    ['grunt-mocha-test',
-    'grunt-contrib-watch',
-    'grunt-contrib-uglify',
-    'grunt-browserify',
-    'grunt-react',
-    'grunt-karma'].forEach(grunt.loadNpmTasks);
+    //Load Grunt plugins
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -34,6 +30,7 @@ module.exports = function (grunt) {
                 src: ['tests/unit_tests/server/**/*Test.js']
             }
         },
+
         /**
          *
          * This task compiles all of React's .jsx files to *.js files and places it it in the
@@ -50,8 +47,10 @@ module.exports = function (grunt) {
                 }]
             }
         },
+
         /**
          * This task minify the debug bundle to release bundle
+         *
          **/
         uglify: {
             options: {
@@ -64,6 +63,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         browserify: {
             options: {
                 browserifyOptions: {
@@ -79,6 +79,7 @@ module.exports = function (grunt) {
                 dest: 'public/js/bundles/app.js'
             }
         },
+
         watch: {
             js: {
                 options: {
@@ -92,10 +93,30 @@ module.exports = function (grunt) {
                 tasks: ['default']
             }
         },
+
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
                 autoWatch: true
+            }
+        },
+
+        /**
+         * This task compiles the SCSS files into CSS files
+         */
+        sass: {
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+                files: [{
+                    //'public/stylesheets/mstr-all-dossiers.css': 'sass/mstr-all-dossiers.scss'
+                    expand: true,
+                    cwd: 'sass',
+                    src: ['**/*.scss'],
+                    dest: 'public/stylesheets',
+                    ext: '.css'
+                }]
             }
         }
     });
@@ -110,12 +131,12 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('debug', ['react', 'browserify']);
+    grunt.registerTask('debug', ['react', 'browserify', 'sass']);
 
     grunt.registerTask('default', 'debug');
 
     grunt.registerTask('tests', 'mochaTest');
 
-    grunt.registerTask('build', ['debug', 'uglify']);
+    grunt.registerTask('build', ['debug', 'uglify', 'sass']);
 
 };
