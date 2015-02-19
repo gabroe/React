@@ -17,7 +17,7 @@ angular.module('mstr.mapSelector', [])
                     .append("g").
                     attr("transform", "scale(0.43)");
 
-                d3.json("/data/us.json", function(error, us) {
+                d3.json("/json/us.json", function(error, us) {
                     svg.append("path")
                         .datum(topojson.feature(us, us.objects.land))
                         .attr("class", "land")
