@@ -17,3 +17,7 @@ npm-debug.log
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/dictionaries
+
+# SASS Related Ignores:
+.sass-cache
+public/stylesheets/*.css*
