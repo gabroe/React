@@ -26,32 +26,36 @@
          * TODO: NS - See how we can use fetch and save.
          */
         fetchPages: function fetchPages() {
-            // Kick-off fetching the data.
-            mstrApp.fetchPage().then((function (data) {
-                // Cache the full data once all of the data has been fetched.
-                this.fullData = data;
+            var pageData = this.get('pageData');
+            //check first if we have more pages to load
+            if (pageData.window.tpc - 1 > pageData.window.cp) {
+                // Kick-off fetching the data.
+                mstrApp.fetchPage().then((function (data) {
+                    // Cache the full data once all of the data has been fetched.
+                    this.fullData = data;
 
-                if (data.window.tpc - 1 > data.window.cp) {
-                    var pageNumber = this.get('page'),
-                        page = this.get('data').pages[pageNumber];
+                    if (data.window.tpc - 1 > data.window.cp) {
+                        var pageNumber = this.get('page'),
+                            page = this.get('data').pages[pageNumber];
 
-                    // Fetch all the pages using the chunk loader.
-                    mstrX.chunkLoader.fetch({
-                        dataURL: mstrApp.getDataURL(page),
-                        startPage: 1,
-                        token: page.connection.token
-                    }).then(function (data) {
-                        // Does the data have more rows ?
-                        if (data && data.rows) {
-                            // Update the full data with the rows returns from the request.
-                            this.fullData.rows = this.fullData.rows.concat(data.rows);
+                        // Fetch all the pages using the chunk loader.
+                        mstrX.chunkLoader.fetch({
+                            dataURL: mstrApp.getDataURL(page),
+                            startPage: 1,
+                            token: page.connection.token
+                        }).then(function (data) {
+                            // Does the data have more rows ?
+                            if (data && data.rows) {
+                                // Update the full data with the rows returns from the request.
+                                this.fullData.rows = this.fullData.rows.concat(data.rows);
 
-                            // Trigger the update view event and pass a copy of the data.
-                            this.trigger('postFetchPages', this.fullData);
-                        }
-                    }.bind(this));
-                }
-            }.bind(this)));
+                                // Trigger the update view event and pass a copy of the data.
+                                this.trigger('postFetchPages', this.fullData);
+                            }
+                        }.bind(this));
+                    }
+                }.bind(this)));
+            }
         },
 
         /**

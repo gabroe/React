@@ -4,7 +4,7 @@
         mstrX = require('../../mstrX'),
         $XHR = require('../../util/xhr'),
         DossierModel = require('./DossierModel'),
-        DossierViewer = require('./DossierViewer');
+        DossierViewer = require('./components/DossierViewer');
 
 
     Backbone.$ = $;
@@ -181,7 +181,7 @@
     module.exports = dossierApp;
 
     // Finally start the Dossier App and provide it an instance of the model.
-    mstrApp.start({
+    dossierApp.start({
         model: new DossierModel()
     });
 })();

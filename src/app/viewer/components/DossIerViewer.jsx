@@ -1,14 +1,14 @@
-var AppDispatcher = require('../../ui/dispatcher/AppDispatcher');
-var FilterPanelActions = require('./actions/FilterPanelActions');
+var AppDispatcher = require('../../../ui/dispatcher/AppDispatcher');
+var FilterPanelActions = require('./../actions/FilterPanelActions');
 
 //Required react components on this app
-require('./stores/FilterPanelStore');
+require('./../stores/FilterPanelStore');
 
 (function () {
 
     var React = require('react'),
-        NavigationBar = require('../../ui/NavigationBar'),
-        Xtab = require('./viz/xtab/Xtab');
+        NavigationBar = require('../../../ui/NavigationBar'),
+        Xtab = require('./xtab/Xtab');
 
     var Viewer = React.createClass({
         getInitialState: function getInitialState() {

@@ -48,25 +48,17 @@ describe('App Routes testing', function() {
 
     });
 
-    describe('GET /api/dossiers/:dossierid', function() {
-        it('should get dossier info', function(done) {
-            request(app).get('/api/dossiers/54821f8acab075de0b467de1').expect(200).end(function(err, res){
-                should.not.exist(err);
-
-                res.body.should.be.an.instanceOf(Object)
-                    .and.have.property('id').eql('54821f8acab075de0b467de1');
-
-                done();
-            })
-        })
-    });
-
-    //afterEach(function(){
+    //describe('GET /api/dossiers/:dossierid', function() {
+    //    it('should get dossier info', function(done) {
+    //        request(app).get('/api/dossiers/54821f8acab075de0b467de1').expect(200).end(function(err, res){
+    //            should.not.exist(err);
     //
-    //});
+    //            res.body.should.be.an.instanceOf(Object)
+    //                .and.have.property('id').eql('54821f8acab075de0b467de1');
     //
-    //after(function(){
-    //
+    //            done();
+    //        })
+    //    })
     //});
 
 });
