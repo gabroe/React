@@ -33,17 +33,14 @@
         position: fixed;
         top: $height-header-dossier;
         font-family: $font-family-header-xtab;
-        color : $font-color-header-xtab;
+        color : $color-font-header-xtab;
+        background-color: $color-background-header-xtab;
         table-layout: fixed;
     }
 
     &.body{
         font-family: $font-family-cell-xtab;
-        color : $font-color-cell-xtab;
-        thead{
-            background-color: #fff;
-            color: #fff;
-        }
+        color : $color-font-cell-xtab;
     }
 
     > colgroup + thead > tr:first-child > th{
